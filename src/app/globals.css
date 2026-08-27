@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #050505;
+    --foreground: #fcfcfc;
+    --brand-red: #ff0033;
+    --brand-red-glow: rgba(255, 0, 51, 0.4);
+    --dark-surface: #0a0a0f;
+    --dark-card: #111118;
+    --border-red: rgba(255, 0, 51, 0.25);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    overflow-x: hidden;
+    selection-background-color: #ff0033;
+    selection-color: #ffffff;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+/* Custom Typography Utilities */
+.text-stroke-white {
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.9);
+  color: transparent;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.text-stroke-red {
+  -webkit-text-stroke: 2px #ff0033;
+  color: transparent;
+  text-shadow: 0 0 25px rgba(255, 0, 51, 0.5);
+}
+
+.text-stroke-thin {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
+  color: transparent;
+}
+
+/* Glowing Border & Box Shadows */
+.glow-red {
+  box-shadow: 0 0 25px rgba(255, 0, 51, 0.35);
+}
+
+.glow-red-lg {
+  box-shadow: 0 0 45px rgba(255, 0, 51, 0.5);
+}
+
+.glow-red-text {
+  text-shadow: 0 0 15px rgba(255, 0, 51, 0.8), 0 0 30px rgba(255, 0, 51, 0.4);
+}
+
+/* Cyber Radial Grid Background */
+.bg-radar-grid {
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255, 0, 51, 0.12) 0%, transparent 65%),
+    radial-gradient(circle at 10% 20%, rgba(255, 0, 51, 0.08) 0%, transparent 40%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
+}
+
+/* Dark Mesh Pattern */
+.bg-mesh-dark {
+  background-color: #050505;
+  background-image: radial-gradient(#1f1f2e 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262636;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff0033;
+}
+
+/* Glassmorphism Surface */
+.glass-panel {
+  background: rgba(13, 13, 18, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 0, 51, 0.18);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(18, 18, 25, 0.85);
+  border-color: rgba(255, 0, 51, 0.5);
+  box-shadow: 0 10px 30px -10px rgba(255, 0, 51, 0.3);
+}
+
+/* Continuous Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Pulse Red Glow */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
