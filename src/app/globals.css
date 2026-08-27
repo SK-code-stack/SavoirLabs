@@ -2,28 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: #050505;
-    --foreground: #fcfcfc;
-    --brand-red: #ff0033;
-    --brand-red-glow: rgba(255, 0, 51, 0.4);
-    --dark-surface: #0a0a0f;
-    --dark-card: #111118;
-    --border-red: rgba(255, 0, 51, 0.25);
-  }
+/* ==========================================================================
+   SOFTNEX MASTER COLOR SYSTEM & DESIGN TOKENS
+   Change any hex or RGBA value below to update the ENTIRE website theme 
+   from this single file!
+   ========================================================================== */
 
+:root {
+  /* Brand Accent Colors */
+  --brand-primary: #ff0033;          /* Main NexTash Crimson Red Accent */
+  --brand-primary-hover: #e6002e;    /* Hover State Accent */
+  --brand-glow: rgba(255, 0, 51, 0.4);/* Radial Glow Shadows */
+
+  /* Background Colors */
+  --bg-primary: #050505;             /* Main Page Pitch-Black Background */
+  --bg-surface: #0a0a0f;             /* Secondary Surface Background */
+  --bg-card: #0c0c12;                /* Component Card Base */
+  --bg-card-hover: #11111a;          /* Card Hover State */
+
+  /* Text & Typography Colors */
+  --text-primary: #fcfcfc;           /* Primary Headings & Bold Text */
+  --text-muted: #a1a1aa;             /* Subtitles & Body Paragraph Text */
+  --text-dim: #71717a;               /* Metadata & Captions */
+
+  /* Borders & Dividers */
+  --border-brand: rgba(255, 0, 51, 0.35); /* Card & Button Accent Border */
+  --border-muted: #1f1f2e;          /* Subtle Section Dividers */
+}
+
+@layer base {
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     overflow-x: hidden;
-    selection-background-color: #ff0033;
+    selection-background-color: var(--brand-primary);
     selection-color: #ffffff;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 }
 
-/* Custom Typography Utilities */
+/* Custom Wireframe & Hollow Typography Utilities */
 .text-stroke-white {
   -webkit-text-stroke: 2px rgba(255, 255, 255, 0.9);
   color: transparent;
@@ -31,9 +49,9 @@
 }
 
 .text-stroke-red {
-  -webkit-text-stroke: 2px #ff0033;
+  -webkit-text-stroke: 2px var(--brand-primary);
   color: transparent;
-  text-shadow: 0 0 25px rgba(255, 0, 51, 0.5);
+  text-shadow: 0 0 25px var(--brand-glow);
 }
 
 .text-stroke-thin {
@@ -41,9 +59,9 @@
   color: transparent;
 }
 
-/* Glowing Border & Box Shadows */
+/* Glowing Border & Shadow Utilities */
 .glow-red {
-  box-shadow: 0 0 25px rgba(255, 0, 51, 0.35);
+  box-shadow: 0 0 25px var(--brand-glow);
 }
 
 .glow-red-lg {
@@ -51,10 +69,10 @@
 }
 
 .glow-red-text {
-  text-shadow: 0 0 15px rgba(255, 0, 51, 0.8), 0 0 30px rgba(255, 0, 51, 0.4);
+  text-shadow: 0 0 15px var(--brand-primary), 0 0 30px var(--brand-glow);
 }
 
-/* Cyber Radial Grid Background */
+/* Cyber Radial Radar Grid Background */
 .bg-radar-grid {
   background-image: 
     radial-gradient(circle at 50% 50%, rgba(255, 0, 51, 0.12) 0%, transparent 65%),
@@ -64,20 +82,13 @@
   background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
 }
 
-/* Dark Mesh Pattern */
-.bg-mesh-dark {
-  background-color: #050505;
-  background-image: radial-gradient(#1f1f2e 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: var(--bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -86,14 +97,14 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff0033;
+  background: var(--brand-primary);
 }
 
 /* Glassmorphism Surface */
 .glass-panel {
-  background: rgba(13, 13, 18, 0.7);
+  background: rgba(12, 12, 18, 0.7);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 0, 51, 0.18);
+  border: 1px solid var(--border-brand);
 }
 
 .glass-panel-hover {
@@ -101,9 +112,9 @@
 }
 
 .glass-panel-hover:hover {
-  background: rgba(18, 18, 25, 0.85);
-  border-color: rgba(255, 0, 51, 0.5);
-  box-shadow: 0 10px 30px -10px rgba(255, 0, 51, 0.3);
+  background: var(--bg-card-hover);
+  border-color: var(--brand-primary);
+  box-shadow: 0 10px 30px -10px var(--brand-glow);
 }
 
 /* Continuous Marquee Animation */

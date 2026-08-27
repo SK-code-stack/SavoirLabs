@@ -9,11 +9,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: '#050505',
-        foreground: '#fcfcfc',
-        brandRed: '#ff0033',
-        darkSurface: '#0a0a0f',
-        darkCard: '#111118',
+        background: 'var(--bg-primary)',
+        surface: 'var(--bg-surface)',
+        card: 'var(--bg-card)',
+        cardHover: 'var(--bg-card-hover)',
+        brand: {
+          DEFAULT: 'var(--brand-primary)',
+          hover: 'var(--brand-primary-hover)',
+          glow: 'var(--brand-glow)',
+        },
+        textPrimary: 'var(--text-primary)',
+        textMuted: 'var(--text-muted)',
+        borderBrand: 'var(--border-brand)',
+        borderMuted: 'var(--border-muted)',
       },
     },
   },
