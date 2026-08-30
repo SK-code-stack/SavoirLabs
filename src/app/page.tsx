@@ -7,6 +7,7 @@ import Projects from "@/components/Projects";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import ProjectEstimator from "@/components/ProjectEstimator";
 import Testimonials from "@/components/Testimonials";
+import Founders from "@/components/Founders";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
@@ -21,6 +22,7 @@ export default function Home() {
       <ProcessTimeline />
       <ProjectEstimator />
       <Testimonials />
+      <Founders />
       <ContactSection />
       <Footer />
     </main>

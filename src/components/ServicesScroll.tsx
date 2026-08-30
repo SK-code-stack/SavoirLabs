@@ -3,9 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Cloud,
   Code2,
-  ShieldCheck,
   BrainCircuit,
   Database,
   Sparkles,
@@ -31,45 +29,19 @@ const services = [
   },
   {
     id: "02",
-    category: "Cloud Native",
-    icon: Cloud,
-    title: "Cloud-Native Infrastructure",
-    subtitle: "AWS, Kubernetes & High-Uptime Architecture",
-    description:
-      "Zero-downtime microservice deployments, serverless cloud architectures, and automated CI/CD pipelines built for enterprise resilience.",
-    features: ["Kubernetes Orchestration", "Multi-Cloud Strategy", "Serverless Architecture", "DevOps Pipelines"],
-    metrics: "99.999% SLA Uptime",
-    gradient: "from-[#ff0033]/30 via-[#0d0d14] to-[#08080d]",
-    codeSample: "kubectl apply -f softnex-cluster.yaml",
-  },
-  {
-    id: "03",
     category: "Full-Stack",
     icon: Code2,
     title: "Custom Full-Stack Engineering",
     subtitle: "Next.js, Python & High-Scale Systems",
     description:
       "Precision-crafted web & mobile applications designed with ultra-responsive UX, modern component architecture, and lightning-fast APIs.",
-    features: ["Next.js App Router", "Python / FastApi Backends", "GraphQL / REST APIs", "WebSockets Realtime"],
+    features: ["Next.js App Router", "Python / FastAPI Backends", "GraphQL / REST APIs", "WebSockets Realtime"],
     metrics: "< 0.2s Avg Response",
     gradient: "from-[#ff0033]/25 via-[#111118] to-[#08080d]",
     codeSample: "export default async function Page()",
   },
   {
-    id: "04",
-    category: "Cybersecurity",
-    icon: ShieldCheck,
-    title: "Cybersecurity & System Hardening",
-    subtitle: "Zero Trust & ISO 27001 Security",
-    description:
-      "Comprehensive vulnerability audits, cryptographic data protection, and continuous system monitoring against modern threat vectors.",
-    features: ["Zero-Trust Architecture", "Penetration Testing", "SOC2 Compliance", "Data Encryption"],
-    metrics: "Zero Penetration Flaws",
-    gradient: "from-[#ff0033]/35 via-[#0a0a0f] to-[#08080d]",
-    codeSample: "vault.read('secret/data/production')",
-  },
-  {
-    id: "05",
+    id: "03",
     category: "Data Engine",
     icon: Database,
     title: "Data Engineering & Analytics",
@@ -83,7 +55,7 @@ const services = [
   },
 ];
 
-const filterTabs = ["All Capabilities", "AI & Automation", "Cloud Native", "Full-Stack", "Cybersecurity", "Data Engine"];
+const filterTabs = ["All Capabilities", "AI & Automation", "Full-Stack", "Data Engine"];
 
 export default function ServicesScroll() {
   const [activeTab, setActiveTab] = useState("All Capabilities");

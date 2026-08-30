@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, ChevronRight, Play, Volume2, VolumeX, ShieldCheck, Terminal } from "lucide-react";
+import { ArrowRight, ChevronRight, Play, ShieldCheck, Terminal } from "lucide-react";
 import ThreeCanvas from "./ThreeCanvas";
 
 export default function Hero() {
-  const [soundActive, setSoundActive] = useState(false);
 
   return (
     <section className="relative min-h-screen w-full bg-[#050505] bg-radar-grid flex items-center justify-center overflow-hidden pt-28 pb-16">
@@ -104,20 +103,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Floating Audio Toggle Widget (Matching NexTash Red Headset Icon from Screenshot) */}
-      <motion.button
-        onClick={() => setSoundActive(!soundActive)}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-[#ff0033] text-white flex items-center justify-center shadow-[0_0_30px_rgba(255,0,51,0.6)] hover:bg-[#e6002e] transition-all interactive"
-        title="Toggle Ambient Audio"
-      >
-        {soundActive ? (
-          <Volume2 className="w-6 h-6 animate-pulse" />
-        ) : (
-          <VolumeX className="w-6 h-6 opacity-90" />
-        )}
-      </motion.button>
     </section>
   );
 }

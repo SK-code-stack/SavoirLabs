@@ -40,11 +40,11 @@ export default function ContactSection() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-6">
+            {/* <div className="flex flex-col gap-6">
               <div className="flex items-start gap-4 p-4 rounded-xl bg-[#0d0d16] border border-zinc-800">
                 <div className="w-10 h-10 rounded-lg bg-[#ff0033]/20 border border-[#ff0033]/40 flex items-center justify-center text-[#ff0033] shrink-0">
                   <Mail className="w-5 h-5" />
-                </div>
+                </div> 
                 <div>
                   <span className="text-xs font-mono text-zinc-500 uppercase block">Email Solutions Team</span>
                   <a href="mailto:solutions@softnex.io" className="text-base font-bold text-white hover:text-[#ff0033] transition-colors">
@@ -76,7 +76,7 @@ export default function ContactSection() {
                   </span>
                 </div>
               </div>
-            </div>
+            </div>*/}
           </div>
 
           {/* Right Column: Contact Form */}

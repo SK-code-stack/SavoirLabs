@@ -12,10 +12,10 @@ export default function ProjectEstimator() {
   const [contactEmail, setContactEmail] = useState("");
 
   const domains = [
-    { name: "ERP & Automation", baseWeeks: 6 },
-    { name: "AI & Machine Learning", baseWeeks: 8 },
-    { name: "Custom Web & Mobile", baseWeeks: 4 },
-    { name: "Cloud & Security Infrastructure", baseWeeks: 5 },
+    { name: "ERP & Automation", baseWeeks: 5 },
+    { name: "AI & Machine Learning", baseWeeks: 7 },
+    { name: "Custom Web & Mobile", baseWeeks: 3 },
+    { name: "Cloud & Security Infrastructure", baseWeeks: 4 },
   ];
 
   const scales = [
@@ -162,7 +162,7 @@ export default function ProjectEstimator() {
 
               <div className="mb-6 p-6 rounded-xl bg-[#12121e] border border-zinc-800 text-center">
                 <span className="text-5xl font-extrabold text-[#ff0033] font-mono glow-red-text block">
-                  {estimatedWeeks} - {estimatedWeeks + 3} WEEKS
+                  {estimatedWeeks} - {estimatedWeeks + 2} WEEKS
                 </span>
                 <span className="text-xs text-zinc-400 font-mono mt-2 block">
                   Estimated Agile Sprint Duration
