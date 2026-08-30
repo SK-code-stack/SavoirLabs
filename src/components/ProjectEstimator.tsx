@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 import { Calculator, Check, ArrowRight, Sparkles, Send } from "lucide-react";
 
 export default function ProjectEstimator() {
-  const [selectedDomain, setSelectedDomain] = useState("ERP & Automation");
-  const [selectedScale, setSelectedScale] = useState("Enterprise Global");
-  const [selectedAddons, setSelectedAddons] = useState<string[]>(["24/7 SLA Support", "SOC2 Security Hardening"]);
+  const [selectedDomain, setSelectedDomain] = useState("Custom Web & Mobile");
+  const [selectedScale, setSelectedScale] = useState("Startup MVP");
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [contactEmail, setContactEmail] = useState("");
 
