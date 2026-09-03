@@ -5,94 +5,114 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Terminal } from "lucide-react";
 
-// Module-level flag: persists across SPA client-side route changes,
-// but resets to false whenever the browser reloads (F5 / Refresh / New Tab).
 let isClientNavigation = false;
 
 export default function Preloader() {
   const pathname = usePathname();
-  const [loading, setLoading] = useState<boolean | null>(null);
+  const [showPreloader, setShowPreloader] = useState(false);
   const [progress, setProgress] = useState(0);
   const [statusText, setStatusText] = useState("INITIALIZING CORE ARCHITECTURE...");
 
   useEffect(() => {
-    // 1. If this is an internal SPA client-side page switch (e.g. clicking Home <-> Blog), skip preloader
+    // 1. Skip on internal SPA route changes (clicking Home <-> Blog)
     if (isClientNavigation) {
-      setLoading(false);
+      return;
+    }
+    isClientNavigation = true;
+
+    // 2. Check if page is ALREADY complete right now
+    if (document.readyState === "complete") {
       return;
     }
 
-    // 2. First cold load or manual page reload (F5): Mark for future SPA route switches, and run preloader
-    isClientNavigation = true;
-    setLoading(true);
+    let isFinished = false;
+    let progressInterval: NodeJS.Timeout | null = null;
+    let fallbackTimeout: NodeJS.Timeout | null = null;
 
-    let isComplete = false;
-
+    // Finish & hide preloader helper
     const finishLoading = () => {
-      if (isComplete) return;
-      isComplete = true;
+      if (isFinished) return;
+      isFinished = true;
       setProgress(100);
       setStatusText("SYSTEM SLA OPERATIONAL [99.99%]");
 
       setTimeout(() => {
-        setLoading(false);
+        setShowPreloader(false);
       }, 400);
     };
 
-    if (document.readyState === "complete") {
-      finishLoading();
-      return;
-    }
+    // 3. Threshold Timer: Wait 1.5 seconds (1500ms).
+    // If page load completes within 1.5s, preloader NEVER shows.
+    // Only show preloader if page takes longer than 1.5 seconds.
+    const delayTimer = setTimeout(() => {
+      if (document.readyState === "complete" || isFinished) {
+        return;
+      }
 
-    const handleWindowLoad = () => finishLoading();
+      // Page is still loading after 1.5s -> show preloader!
+      setShowPreloader(true);
+
+      // Start progress animation once preloader becomes visible
+      progressInterval = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 95) {
+            if (document.readyState === "complete") {
+              if (progressInterval) clearInterval(progressInterval);
+              finishLoading();
+              return 100;
+            }
+            return 95;
+          }
+
+          const next = prev + Math.floor(Math.random() * 15) + 5;
+          if (next >= 30 && prev < 30) {
+            setStatusText("LOADING NEURAL AI ENGINE...");
+          } else if (next >= 65 && prev < 65) {
+            setStatusText("COMPILING KUBERNETES BLUEPRINTS...");
+          }
+
+          return next > 95 ? 95 : next;
+        });
+      }, 90);
+
+      fallbackTimeout = setTimeout(() => {
+        if (progressInterval) clearInterval(progressInterval);
+        finishLoading();
+      }, 2500);
+    }, 1500);
+
+    const handleWindowLoad = () => {
+      if (isFinished) return;
+      if (showPreloader) {
+        if (progressInterval) clearInterval(progressInterval);
+        finishLoading();
+      } else {
+        clearTimeout(delayTimer);
+      }
+    };
+
     window.addEventListener("load", handleWindowLoad);
 
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 95) {
-          if (document.readyState === "complete") {
-            clearInterval(interval);
-            finishLoading();
-            return 100;
-          }
-          return 95;
-        }
-
-        const next = prev + Math.floor(Math.random() * 15) + 5;
-        if (next >= 30 && prev < 30) {
-          setStatusText("LOADING NEURAL AI ENGINE...");
-        } else if (next >= 65 && prev < 65) {
-          setStatusText("COMPILING KUBERNETES BLUEPRINTS...");
-        }
-
-        return next > 95 ? 95 : next;
-      });
-    }, 90);
-
-    const fallbackTimeout = setTimeout(() => {
-      clearInterval(interval);
-      finishLoading();
-    }, 2000);
-
     return () => {
-      clearInterval(interval);
-      clearTimeout(fallbackTimeout);
+      clearTimeout(delayTimer);
+      if (progressInterval) clearInterval(progressInterval);
+      if (fallbackTimeout) clearTimeout(fallbackTimeout);
       window.removeEventListener("load", handleWindowLoad);
     };
   }, [pathname]);
 
-  // Render nothing during internal SPA client navigation
-  if (loading === false || loading === null) {
+  if (!showPreloader) {
     return null;
   }
 
   return (
     <AnimatePresence>
-      {loading && (
+      {showPreloader && (
         <motion.div
-          initial={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0, y: -30 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
           className="fixed inset-0 z-[99999] bg-[#050505] flex flex-col items-center justify-center overflow-hidden selection:bg-[#ff0033] selection:text-white"
         >
           {/* Cyber Radar Grid Background */}
