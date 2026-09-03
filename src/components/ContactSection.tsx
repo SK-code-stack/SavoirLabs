@@ -79,7 +79,7 @@ export default function ContactSection() {
                 </div>
                 <h3 className="text-2xl font-bold text-white">Inquiry Received</h3>
                 <p className="text-zinc-400 text-sm max-w-md font-light">
-                  Thank you for reaching out to Softnex. An executive solutions engineer will review your inquiry and contact you within 2 business hours.
+                  Thank you for reaching out to SavoirLabs. An executive solutions engineer will review your inquiry and contact you within 2 business hours.
                 </p>
               </div>
             ) : (

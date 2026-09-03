@@ -30,7 +30,7 @@ export default function BlogPreview() {
               From Our <span className="text-stroke-red">Research Lab</span>
             </h2>
             <p className="text-zinc-400 text-sm sm:text-base mt-3 max-w-xl font-light">
-              Deep-dive articles on AI, automation, and cloud systems from the Softnex engineering team.
+              Deep-dive articles on AI, automation, and cloud systems from the SavoirLabs engineering team.
             </p>
           </div>
 

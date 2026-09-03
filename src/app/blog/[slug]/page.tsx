@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const blog = getBlogBySlug(params.slug);
   if (!blog) return { title: "Not Found" };
   return {
-    title: `${blog.title} | Softnex Blog`,
+    title: `${blog.title} | SavoirLabs Blog`,
     description: blog.excerpt,
   };
 }
@@ -160,7 +160,7 @@ export default function BlogPostPage({ params }: Props) {
       <section className="py-16 border-t border-zinc-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-xs font-mono text-[#ff0033] uppercase tracking-widest mb-8">
-            More From Softnex
+            More From SavoirLabs
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {related.map((b) => (

@@ -23,9 +23,9 @@ const architectureLayers = [
     description:
       "Server-rendered Next.js components paired with Framer Motion scroll mechanics, WebGL canvas accelerations, and seamless cross-device responsiveness.",
     tech: ["Next.js App Router", "React 19", "Tailwind CSS v4", "Canvas / Three.js"],
-    codeSnippet: `// Softnex High-Speed SSR Engine
+    codeSnippet: `// SavoirLabs High-Speed SSR Engine
 export async function generateMetadata() {
-  return { title: "Softnex Enterprise", themeColor: "#ff0033" };
+  return { title: "SavoirLabs Enterprise", themeColor: "#ff0033" };
 }`,
   },
   {
@@ -63,8 +63,8 @@ async def get_system_health():
     description:
       "Terraform-managed multi-cloud infrastructure running on AWS & Kubernetes clusters with automated TLS encryption, zero-trust network access, and instant failover.",
     tech: ["Kubernetes (EKS)", "Terraform IaC", "AWS CloudFront", "Vault Security"],
-    codeSnippet: `resource "aws_eks_cluster" "softnex_main" {
-  name     = "softnex-production-v4"
+    codeSnippet: `resource "aws_eks_cluster" "savoirlabs_main" {
+  name     = "savoirlabs-production-v4"
   role_arn = aws_iam_role.cluster.arn
 }`,
   },

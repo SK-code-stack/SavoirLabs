@@ -6,9 +6,9 @@ import { ArrowRight, Clock, Tag, BookOpen } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog | Softnex — Insights on AI, Automation & Cloud Engineering",
+  title: "Blog | SavoirLabs — Insights on AI, Automation & Cloud Engineering",
   description:
-    "Explore deep-dive articles on enterprise automation, AI systems engineering, cloud-native infrastructure, and the future of digital transformation from the Softnex engineering team.",
+    "Explore deep-dive articles on enterprise automation, AI systems engineering, cloud-native infrastructure, and the future of digital transformation from the SavoirLabs engineering team.",
 };
 
 const categoryColors: Record<string, string> = {
@@ -38,7 +38,7 @@ export default function BlogPage() {
               Engineering Insights
             </div>
             <h1 className="text-4xl sm:text-6xl font-extrabold uppercase tracking-tight leading-tight mb-6">
-              Softnex{" "}
+              SavoirLabs{" "}
               <span
                 className="text-transparent bg-clip-text"
                 style={{ WebkitTextStroke: "1.5px #ff0033", color: "transparent" }}

@@ -36,18 +36,18 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo - NexTash Style Monogram */}
+          {/* Brand Logo - SavoirLabs Style Monogram */}
           <Link href="/" className="group flex items-center gap-3 interactive">
             <div className="relative flex items-center justify-center w-10 h-10 bg-[#0d0d14] border border-[#ff0033]/60 rounded-md overflow-hidden group-hover:border-[#ff0033] group-hover:shadow-[0_0_20px_rgba(255,0,51,0.5)] transition-all duration-300">
               <span className="font-extrabold text-lg text-white tracking-tighter">
-                S<span className="text-[#ff0033]">N</span>X
+                S<span className="text-[#ff0033]">V</span>L
               </span>
               <div className="absolute top-0 right-0 w-2 h-2 bg-[#ff0033]" />
             </div>
 
             <div className="flex flex-col">
               <span className="font-bold text-xl tracking-wider text-white flex items-center gap-0.5">
-                SOFT<span className="text-[#ff0033]">NEX</span>
+                SAVOIR<span className="text-[#ff0033]">LABS</span>
               </span>
               <span className="text-[10px] tracking-widest text-zinc-500 uppercase -mt-1 font-mono">
                 DIGITAL SYSTEMS

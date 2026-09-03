@@ -7,15 +7,15 @@ import { Quote, Star, Building2, CheckCircle } from "lucide-react";
 const testimonials = [
   {
     quote:
-      "Softnex completely revolutionized our ERP infrastructure. Their custom automation reduced our transaction processing time from 4 hours to under 30 seconds.",
-    author: "Kashif Mahmood",
-    role: "Chief Technology Officer",
-    company: "Apex Global Systems",
+      "SavoirLabs completely revolutionized our ERP infrastructure. Their custom automation reduced our transaction processing time from 4 hours to under 30 seconds.",
+    author: "Marcus Vance",
+    role: "VP of Engineering, Apex Global",
+    avatar: "MV",
     rating: 5,
   },
   {
     quote:
-      "The engineering depth of the Softnex team is world-class. They delivered our high-throughput AI fraud engine 3 weeks ahead of deadline with zero production bugs.",
+      "The engineering depth of the SavoirLabs team is world-class. They delivered our high-throughput AI fraud engine 3 weeks ahead of deadline with zero production bugs.",
     author: "Elena Rostova",
     role: "VP of Enterprise Engineering",
     company: "FinTech Prime",

@@ -22,7 +22,7 @@ const founders = [
     title: "Co-Founder & CEO",
     roles: ["Full Stack Engineer", "AI Engineer"],
     image: "/founder2.png",
-    bio: "Strategic leader and product innovator driving Softnex's growth. Salman combines deep technical expertise in full-stack development and artificial intelligence to craft transformative digital products for global markets.",
+    bio: "Strategic leader and product innovator driving SavoirLabs's growth. Salman combines deep technical expertise in full-stack development and artificial intelligence to craft transformative digital products for global markets.",
     skills: [
       { label: "System Architecture", icon: Layers },
       { label: "Machine Learning", icon: BrainCircuit },
@@ -43,7 +43,7 @@ const founders = [
     title: "Co-Founder & CTO",
     roles: ["Full Stack Engineer", "AI Engineer"],
     image: "/founder1.png",
-    bio: "Visionary engineer and architect behind Softnex's core technology. Areeb specializes in building scalable AI-driven platforms and cutting-edge web systems that push the frontier of enterprise software.",
+    bio: "Visionary engineer and architect behind SavoirLabs's core technology. Areeb specializes in building scalable AI-driven platforms and cutting-edge web systems that push the frontier of enterprise software.",
     skills: [
       { label: "React / Next.js", icon: Layers },
       { label: "AI & Deep Learning", icon: BrainCircuit },
@@ -111,7 +111,7 @@ export default function Founders() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-zinc-400 text-base sm:text-lg mt-4 font-light leading-relaxed"
           >
-            Two engineers. One mission. Softnex was founded by a duo of full-stack and AI engineers passionate about building world-class digital products.
+            Two engineers. One mission. SavoirLabs was founded by a duo of full-stack and AI engineers passionate about building world-class digital products.
           </motion.p>
         </div>
 

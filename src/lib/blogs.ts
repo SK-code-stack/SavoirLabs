@@ -26,7 +26,7 @@ export const blogs: Blog[] = [
     category: "Automation",
     date: "September 2, 2026",
     readTime: "8 min read",
-    author: "Softnex Editorial",
+    author: "SavoirLabs Editorial",
     authorRole: "Engineering Research Team",
     coverGradient: "from-[#ff0033]/30 via-[#1a0010] to-[#050505]",
     content: [
@@ -44,7 +44,7 @@ export const blogs: Blog[] = [
       },
       {
         type: "paragraph",
-        text: "At Softnex, we've deployed IPA-driven ERPNext systems for clients across 14 industries. The results speak for themselves: average reduction in manual data entry by 87%, invoice processing time cut from 3 days to 4 hours, and procurement cycle compression from 3 weeks to 48 hours.",
+        text: "At SavoirLabs, we've deployed IPA-driven ERPNext systems for clients across 14 industries. The results speak for themselves: average reduction in manual data entry by 87%, invoice processing time cut from 3 days to 4 hours, and procurement cycle compression from 3 weeks to 48 hours.",
       },
       {
         type: "heading",
@@ -70,7 +70,7 @@ export const blogs: Blog[] = [
       },
       {
         type: "paragraph",
-        text: "Softnex engineers work at the deepest level of ERPNext customization — building server scripts, custom DocTypes, API integrations, and Frappe framework extensions that turn a standard ERP into a fully intelligent business operating system. We've built systems where a single human decision triggers a 47-step automated workflow spanning procurement, inventory, accounting, and customer notification — all in under 60 seconds.",
+        text: "SavoirLabs engineers work at the deepest level of ERPNext customization — building server scripts, custom DocTypes, API integrations, and Frappe framework extensions that turn a standard ERP into a fully intelligent business operating system. We've built systems where a single human decision triggers a 47-step automated workflow spanning procurement, inventory, accounting, and customer notification — all in under 60 seconds.",
       },
       {
         type: "subheading",
@@ -108,7 +108,7 @@ export const blogs: Blog[] = [
       },
       {
         type: "paragraph",
-        text: "The question is no longer whether to automate. It's how fast you can. Softnex exists to answer that question with precision-engineered systems built for longevity, scalability, and zero-compromise performance.",
+        text: "The question is no longer whether to automate. It's how fast you can. SavoirLabs exists to answer that question with precision-engineered systems built for longevity, scalability, and zero-compromise performance.",
       },
     ],
   },
@@ -120,7 +120,7 @@ export const blogs: Blog[] = [
     category: "Artificial Intelligence",
     date: "August 28, 2026",
     readTime: "10 min read",
-    author: "Softnex Editorial",
+    author: "SavoirLabs Editorial",
     authorRole: "AI Systems Research Team",
     coverGradient: "from-[#0033ff]/20 via-[#00010a] to-[#050505]",
     content: [
@@ -214,7 +214,7 @@ export const blogs: Blog[] = [
       },
       {
         type: "paragraph",
-        text: "At Softnex, we build production-grade AI systems — from custom ML pipelines to LLM-powered enterprise applications to full agentic automation frameworks. Our engineering teams have shipped AI products across healthcare, fintech, logistics, and retail. The future isn't just AI-assisted — it's AI-operated.",
+        text: "At SavoirLabs, we build production-grade AI systems — from custom ML pipelines to LLM-powered enterprise applications to full agentic automation frameworks. Our engineering teams have shipped AI products across healthcare, fintech, logistics, and retail. The future isn't just AI-assisted — it's AI-operated.",
       },
     ],
   },
@@ -226,7 +226,7 @@ export const blogs: Blog[] = [
     category: "Cloud & Infrastructure",
     date: "August 20, 2026",
     readTime: "9 min read",
-    author: "Softnex Editorial",
+    author: "SavoirLabs Editorial",
     authorRole: "Cloud Architecture Team",
     coverGradient: "from-[#00ff88]/15 via-[#000a05] to-[#050505]",
     content: [
@@ -263,7 +263,7 @@ export const blogs: Blog[] = [
       },
       {
         type: "subheading",
-        text: "Softnex Kubernetes Engineering Capabilities",
+        text: "SavoirLabs Kubernetes Engineering Capabilities",
       },
       {
         type: "list",
@@ -328,7 +328,7 @@ export const blogs: Blog[] = [
       },
       {
         type: "paragraph",
-        text: "At Softnex, we design systems for the long term. Our cloud architecture teams don't just deploy to the cloud — they build cloud-native platforms that scale from 100 to 100 million users without architectural rewrites, that survive region-level outages, and that give engineering teams the confidence to ship at high velocity without fear of production incidents.",
+        text: "At SavoirLabs, we design systems for the long term. Our cloud architecture teams don't just deploy to the cloud — they build cloud-native platforms that scale from 100 to 100 million users without architectural rewrites, that survive region-level outages, and that give engineering teams the confidence to ship at high velocity without fear of production incidents.",
       },
     ],
   },

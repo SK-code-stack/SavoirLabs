@@ -17,10 +17,10 @@ export default function Footer() {
           <div className="md:col-span-5 flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-[#0d0d14] border border-[#ff0033] rounded-md flex items-center justify-center font-extrabold text-white text-base">
-                S<span className="text-[#ff0033]">N</span>X
+                S<span className="text-[#ff0033]">V</span>L
               </div>
               <span className="font-bold text-2xl tracking-wider text-white">
-                SOFT<span className="text-[#ff0033]">NEX</span>
+                SAVOIR<span className="text-[#ff0033]">LABS</span>
               </span>
             </div>
 
@@ -78,7 +78,7 @@ export default function Footer() {
         {/* Bottom copyright & back to top */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
           <div>
-            © {new Date().getFullYear()} Softnex Technologies Inc. All rights reserved.
+            © {new Date().getFullYear()} SavoirLabs Technologies Inc. All rights reserved.
           </div>
 
           <button

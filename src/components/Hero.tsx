@@ -24,7 +24,7 @@ export default function Hero() {
         >
           <span className="w-2 h-2 rounded-full bg-[#ff0033] animate-ping" />
           <span className="text-xs sm:text-sm font-semibold tracking-wide text-zinc-300">
-            Welcome to <span className="text-[#ff0033] font-bold">Softnex</span>
+            Welcome to <span className="text-[#ff0033] font-bold">SavoirLabs</span>
           </span>
         </motion.div>
 
