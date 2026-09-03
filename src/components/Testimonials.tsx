@@ -33,9 +33,9 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-28 bg-[#07070b] text-white relative overflow-hidden">
+    <section className="py-28 bg-[#07070b] text-white relative overflow-hidden" style={{ "--section-bg": "#07070b" } as React.CSSProperties}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Heading */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-xs font-mono text-[#ff0033] uppercase tracking-widest block mb-2 font-bold">
@@ -51,6 +51,10 @@ export default function Testimonials() {
           {testimonials.map((t, idx) => (
             <motion.div
               key={idx}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: idx * 0.12, ease: "easeOut" }}
               whileHover={{ y: -6 }}
               className="rounded-2xl bg-[#0d0d16] border border-[#ff0033]/30 p-8 flex flex-col justify-between hover:border-[#ff0033] hover:shadow-[0_0_35px_rgba(255,0,51,0.3)] transition-all duration-300 interactive"
             >

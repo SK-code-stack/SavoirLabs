@@ -64,7 +64,7 @@ export default function Founders() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
-    <section id="founders" className="py-28 bg-[#07070b] text-white relative overflow-hidden">
+    <section id="founders" className="py-28 bg-[#07070b] text-white relative overflow-hidden" style={{ "--section-bg": "#07070b" } as React.CSSProperties}>
       {/* Background Glows */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#ff0033]/8 rounded-full blur-[180px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#ff0033]/6 rounded-full blur-[160px] pointer-events-none" />
@@ -136,15 +136,39 @@ export default function Founders() {
 
                 {/* Top Image Section */}
                 <div className="relative w-full h-80 bg-gradient-to-b from-[#111118] to-[#0a0a10] overflow-hidden">
-                  {/* Decorative background rings */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-72 h-72 rounded-full border border-[#ff0033]/10 absolute" />
-                    <div className="w-56 h-56 rounded-full border border-[#ff0033]/8 absolute" />
-                    <div className="w-40 h-40 rounded-full border border-[#ff0033]/6 absolute" />
+                  {/* Modern Animated Cyber Halo & Ambient Aura Background */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    {/* Outer Rotating Dashed Ring */}
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
+                      className="w-72 h-72 rounded-full border border-dashed border-[#ff0033]/20 absolute"
+                    />
+
+                    {/* Counter-Rotating Orbital Ring with Crimson Nodes */}
+                    <motion.div
+                      animate={{ rotate: -360 }}
+                      transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+                      className="w-56 h-56 rounded-full border border-[#ff0033]/25 absolute flex items-center justify-between px-1.5"
+                    >
+                      <span className="w-2 h-2 rounded-full bg-[#ff0033] shadow-[0_0_12px_#ff0033]" />
+                      <span className="w-2 h-2 rounded-full bg-[#ff0033] shadow-[0_0_12px_#ff0033]" />
+                    </motion.div>
+
+                    {/* Breathing Ambient Radial Pulse Ring */}
+                    <motion.div
+                      animate={{ scale: [1, 1.12, 1], opacity: [0.35, 0.75, 0.35] }}
+                      transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
+                      className="w-40 h-40 rounded-full border border-[#ff0033]/40 absolute shadow-[0_0_30px_rgba(255,0,51,0.25)]"
+                    />
                   </div>
 
-                  {/* Bottom red glow under image */}
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-24 bg-[#ff0033]/20 rounded-full blur-3xl" />
+                  {/* Dynamic Red Glow Beam Under Image */}
+                  <motion.div
+                    animate={{ scale: isHovered ? 1.25 : 1, opacity: isHovered ? 0.9 : 0.6 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-52 h-28 bg-[#ff0033]/30 rounded-full blur-3xl pointer-events-none"
+                  />
 
                   {/* Profile image */}
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-72">

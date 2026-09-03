@@ -53,7 +53,7 @@ export default function ProjectEstimator() {
   return (
     <section id="estimator" className="py-28 bg-[#050505] text-white relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Heading */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#13131d] border border-[#ff0033]/30 text-xs font-mono text-[#ff0033] uppercase tracking-widest mb-4">
@@ -71,7 +71,7 @@ export default function ProjectEstimator() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Controls Container */}
           <div className="lg:col-span-7 bg-[#0d0d16] border border-[#ff0033]/30 rounded-2xl p-6 sm:p-8 flex flex-col gap-8 shadow-[0_0_40px_rgba(0,0,0,0.8)]">
-            
+
             {/* 1. Primary Domain Selection */}
             <div>
               <label className="text-xs font-mono text-[#ff0033] uppercase tracking-wider block mb-3 font-bold">
@@ -83,11 +83,10 @@ export default function ProjectEstimator() {
                     key={d.name}
                     type="button"
                     onClick={() => setSelectedDomain(d.name)}
-                    className={`p-4 rounded-xl text-left border text-sm font-semibold transition-all interactive ${
-                      selectedDomain === d.name
+                    className={`p-4 rounded-xl text-left border text-sm font-semibold transition-all interactive ${selectedDomain === d.name
                         ? "bg-[#ff0033] text-white border-[#ff0033] shadow-[0_0_20px_rgba(255,0,51,0.5)]"
                         : "bg-[#12121e] text-zinc-300 border-zinc-800 hover:border-zinc-700"
-                    }`}
+                      }`}
                   >
                     {d.name}
                   </button>
@@ -106,11 +105,10 @@ export default function ProjectEstimator() {
                     key={s.name}
                     type="button"
                     onClick={() => setSelectedScale(s.name)}
-                    className={`py-3 px-2 rounded-xl text-center border text-xs font-bold transition-all interactive ${
-                      selectedScale === s.name
+                    className={`py-3 px-2 rounded-xl text-center border text-xs font-bold transition-all interactive ${selectedScale === s.name
                         ? "bg-[#ff0033] text-white border-[#ff0033] shadow-[0_0_20px_rgba(255,0,51,0.5)]"
                         : "bg-[#12121e] text-zinc-300 border-zinc-800 hover:border-zinc-700"
-                    }`}
+                      }`}
                   >
                     {s.name}
                   </button>
@@ -131,17 +129,15 @@ export default function ProjectEstimator() {
                       key={addon}
                       type="button"
                       onClick={() => toggleAddon(addon)}
-                      className={`p-3 rounded-xl border text-xs font-semibold flex items-center justify-between transition-all interactive ${
-                        isChecked
+                      className={`p-3 rounded-xl border text-xs font-semibold flex items-center justify-between transition-all interactive ${isChecked
                           ? "bg-[#181828] border-[#ff0033] text-white"
                           : "bg-[#12121e] border-zinc-800 text-zinc-400 hover:border-zinc-700"
-                      }`}
+                        }`}
                     >
                       <span>{addon}</span>
                       <div
-                        className={`w-5 h-5 rounded flex items-center justify-center border ${
-                          isChecked ? "bg-[#ff0033] border-[#ff0033] text-white" : "border-zinc-700 bg-transparent"
-                        }`}
+                        className={`w-5 h-5 rounded flex items-center justify-center border ${isChecked ? "bg-[#ff0033] border-[#ff0033] text-white" : "border-zinc-700 bg-transparent"
+                          }`}
                       >
                         {isChecked && <Check className="w-3.5 h-3.5" />}
                       </div>

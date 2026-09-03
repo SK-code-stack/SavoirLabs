@@ -20,23 +20,20 @@ export default function BlogPreview() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#13131d] border border-[#ff0033]/30 text-xs font-mono text-[#ff0033] uppercase tracking-widest mb-4">
-              <BookOpen className="w-4 h-4" />
-              Engineering Insights
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight leading-tight">
-              From Our <span className="text-stroke-red">Research Lab</span>
-            </h2>
-            <p className="text-zinc-400 text-sm sm:text-base mt-3 max-w-xl font-light">
-              Deep-dive articles on AI, automation, and cloud systems from the SavoirLabs engineering team.
-            </p>
+        <div className="text-center max-w-3xl mx-auto mb-14 flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#13131d] border border-[#ff0033]/30 text-xs font-mono text-[#ff0033] uppercase tracking-widest mb-3 font-bold">
+            <BookOpen className="w-4 h-4" />
+            Engineering Insights
           </div>
-
+          <h2 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight leading-tight">
+            From Our <span className="text-stroke-red">Research Lab</span>
+          </h2>
+          <p className="text-zinc-400 text-sm sm:text-base mt-3 max-w-xl font-light">
+            Deep-dive articles on AI, automation, and cloud systems from the SavoirLabs engineering team.
+          </p>
           <Link
             href="/blog"
-            className="flex items-center gap-2 text-sm font-semibold text-[#ff0033] hover:gap-4 transition-all duration-300 whitespace-nowrap group"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#ff0033] hover:gap-4 transition-all duration-300 whitespace-nowrap group mt-4"
           >
             View All Articles
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -62,9 +59,8 @@ export default function BlogPreview() {
                     {/* Meta */}
                     <div className="flex items-center gap-3 flex-wrap">
                       <span
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold border ${
-                          categoryColors[blog.category] || "text-zinc-400 bg-zinc-800 border-zinc-700"
-                        }`}
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold border ${categoryColors[blog.category] || "text-zinc-400 bg-zinc-800 border-zinc-700"
+                          }`}
                       >
                         <Tag className="w-3 h-3" />
                         {blog.category}

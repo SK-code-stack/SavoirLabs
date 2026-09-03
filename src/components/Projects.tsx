@@ -68,20 +68,18 @@ export default function Projects() {
   return (
     <section id="projects" className="py-28 bg-[#050505] text-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
-          <div>
-            <span className="text-xs font-mono text-[#ff0033] uppercase tracking-widest block mb-2">
-              Featured Case Studies
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight">
-              Enterprise <span className="text-stroke-red">Deployments</span>
-            </h2>
+        <div className="text-center max-w-3xl mx-auto mb-16 flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#13131d] border border-[#ff0033]/30 text-xs font-mono text-[#ff0033] uppercase tracking-widest mb-3 font-bold">
+            Featured Case Studies
           </div>
+          <h2 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight">
+            Enterprise <span className="text-stroke-red">Deployments</span>
+          </h2>
 
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap gap-2 mt-6 md:mt-0">
+          <div className="flex flex-wrap justify-center gap-2 mt-6">
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -104,10 +102,10 @@ export default function Projects() {
             <motion.div
               layout
               key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.4 }}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
               onClick={() => setActiveModalProject(project)}
               className="group relative rounded-2xl bg-[#0b0b12] border border-[#ff0033]/30 p-8 flex flex-col justify-between overflow-hidden cursor-pointer hover:border-[#ff0033] hover:shadow-[0_0_40px_rgba(255,0,51,0.3)] transition-all duration-500 interactive"
             >
@@ -118,7 +116,15 @@ export default function Projects() {
 
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-mono text-[#ff0033] bg-[#ff0033]/15 px-3 py-1 rounded-full border border-[#ff0033]/30">
+                  <span className={`text-xs font-mono px-3 py-1 rounded-full border ${
+                    project.category.includes("AI")
+                      ? "text-purple-400 bg-purple-500/10 border-purple-500/30"
+                      : project.category.includes("Cloud")
+                      ? "text-sky-400 bg-sky-500/10 border-sky-500/30"
+                      : project.category.includes("Fintech")
+                      ? "text-emerald-400 bg-emerald-500/10 border-emerald-500/30"
+                      : "text-[#ff0033] bg-[#ff0033]/15 border-[#ff0033]/30"
+                  }`}>
                     {project.category}
                   </span>
                   <span className="text-xs font-mono text-zinc-400">

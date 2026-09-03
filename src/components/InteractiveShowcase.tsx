@@ -20,12 +20,16 @@ const architectureLayers = [
     tag: "CLIENT PRESENTATION LAYER",
     icon: Layers,
     metrics: "100/100 Lighthouse • <0.2s LCP",
+    accentColor: "text-sky-400",
+    badgeStyle: "text-sky-400 bg-sky-500/10 border-sky-500/30",
+    borderActive: "border-sky-500 bg-sky-950/20 shadow-[0_0_30px_rgba(56,189,248,0.3)]",
+    iconActive: "bg-sky-500 text-white shadow-[0_0_15px_#38bdf8]",
     description:
       "Server-rendered Next.js components paired with Framer Motion scroll mechanics, WebGL canvas accelerations, and seamless cross-device responsiveness.",
     tech: ["Next.js App Router", "React 19", "Tailwind CSS v4", "Canvas / Three.js"],
     codeSnippet: `// SavoirLabs High-Speed SSR Engine
 export async function generateMetadata() {
-  return { title: "SavoirLabs Enterprise", themeColor: "#ff0033" };
+  return { title: "SavoirLabs Enterprise", themeColor: "#38bdf8" };
 }`,
   },
   {
@@ -34,6 +38,10 @@ export async function generateMetadata() {
     tag: "DISTRIBUTED BACKEND ENGINE",
     icon: Server,
     metrics: "50,000+ Requests/sec • 12ms Latency",
+    accentColor: "text-emerald-400",
+    badgeStyle: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
+    borderActive: "border-emerald-500 bg-emerald-950/20 shadow-[0_0_30px_rgba(16,185,129,0.3)]",
+    iconActive: "bg-emerald-500 text-white shadow-[0_0_15px_#10b981]",
     description:
       "High-throughput Python FastAPI & Rust microservices orchestrated via gRPC and GraphQL gateways, providing rock-solid reliability under peak traffic spikes.",
     tech: ["FastAPI / Python", "gRPC / Protobuf", "Redis Caching", "GraphQL Gateway"],
@@ -47,6 +55,10 @@ async def get_system_health():
     tag: "INTELLIGENCE & ERP WORKFLOWS",
     icon: Cpu,
     metrics: "Real-time Inference • ERPNext Sync",
+    accentColor: "text-purple-400",
+    badgeStyle: "text-purple-400 bg-purple-500/10 border-purple-500/30",
+    borderActive: "border-purple-500 bg-purple-950/20 shadow-[0_0_30px_rgba(168,85,247,0.3)]",
+    iconActive: "bg-purple-500 text-white shadow-[0_0_15px_#a855f7]",
     description:
       "Tailored machine learning pipelines integrated directly into enterprise ERP systems for automated resource planning, fraud detection, and predictive forecasting.",
     tech: ["ERPNext Engine", "PyTorch / Transformers", "Vector DB (Qdrant)", "Celery Workers"],
@@ -59,12 +71,16 @@ async def get_system_health():
     title: "4. Multi-Cloud & Zero-Trust Security",
     tag: "INFRASTRUCTURE & HARDENING",
     icon: Lock,
-    metrics: "ISO 27001 • Automated Pen-Tested",
+    metrics: "99.999% SLA • SOC2 Type II Certified",
+    accentColor: "text-[#ff0033]",
+    badgeStyle: "text-[#ff0033] bg-[#ff0033]/10 border-[#ff0033]/30",
+    borderActive: "border-[#ff0033] bg-[#ff0033]/10 shadow-[0_0_30px_rgba(255,0,51,0.3)]",
+    iconActive: "bg-[#ff0033] text-white shadow-[0_0_15px_#ff0033]",
     description:
-      "Terraform-managed multi-cloud infrastructure running on AWS & Kubernetes clusters with automated TLS encryption, zero-trust network access, and instant failover.",
-    tech: ["Kubernetes (EKS)", "Terraform IaC", "AWS CloudFront", "Vault Security"],
-    codeSnippet: `resource "aws_eks_cluster" "savoirlabs_main" {
-  name     = "savoirlabs-production-v4"
+      "Automated Kubernetes clusters across AWS and GCP backed by zero-trust identity policies, hardware-level encryption, and continuous automated backup snapshots.",
+    tech: ["Kubernetes (EKS/GKE)", "Terraform IaC", "Vault Encryption", "Cloudflare Zero-Trust"],
+    codeSnippet: `resource "aws_eks_cluster" "savoir_primary" {
+  name     = "savoir-production-mesh"
   role_arn = aws_iam_role.cluster.arn
 }`,
   },
@@ -80,7 +96,7 @@ export default function InteractiveShowcase() {
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#ff0033]/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#13131d] border border-[#ff0033]/30 text-xs font-mono text-[#ff0033] uppercase tracking-widest mb-4">
@@ -97,7 +113,7 @@ export default function InteractiveShowcase() {
 
         {/* Interactive Layer Selector Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
+
           {/* Left Column: Layer Tabs */}
           <div className="lg:col-span-5 flex flex-col gap-4">
             {architectureLayers.map((layer, idx) => {
@@ -107,25 +123,23 @@ export default function InteractiveShowcase() {
                 <button
                   key={layer.id}
                   onClick={() => setActiveLayerIndex(idx)}
-                  className={`w-full text-left p-5 rounded-xl border transition-all duration-300 flex items-start gap-4 interactive ${
-                    isActive
-                      ? "bg-[#11111a] border-[#ff0033] shadow-[0_0_30px_rgba(255,0,51,0.35)]"
+                  className={`w-full text-left p-5 rounded-xl border transition-all duration-300 flex items-start gap-4 interactive ${isActive
+                      ? layer.borderActive
                       : "bg-[#09090e] border-zinc-800/80 hover:border-zinc-700 hover:bg-[#0e0e16]"
-                  }`}
+                    }`}
                 >
                   <div
-                    className={`w-12 h-12 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
-                      isActive ? "bg-[#ff0033] text-white shadow-[0_0_15px_#ff0033]" : "bg-[#14141e] text-zinc-400"
-                    }`}
+                    className={`w-12 h-12 rounded-lg flex items-center justify-center shrink-0 transition-colors ${isActive ? layer.iconActive : "bg-[#14141e] text-zinc-400"
+                      }`}
                   >
                     <Icon className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-mono text-[#ff0033] tracking-widest block uppercase">
+                    <span className={`text-[10px] font-mono tracking-widest block uppercase font-bold ${layer.accentColor}`}>
                       {layer.tag}
                     </span>
                     <h3 className="text-lg font-bold text-white mt-0.5">{layer.title}</h3>
-                    <span className="text-xs text-zinc-500 font-mono block mt-1">
+                    <span className="text-xs text-zinc-400 font-mono block mt-1">
                       {layer.metrics}
                     </span>
                   </div>
@@ -143,17 +157,17 @@ export default function InteractiveShowcase() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.35 }}
-                className="bg-[#0b0b12] border border-[#ff0033]/40 rounded-2xl p-6 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] relative overflow-hidden"
+                className="bg-[#0b0b12] border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.8)] relative overflow-hidden"
               >
                 {/* Header Tag */}
                 <div className="flex items-center justify-between border-b border-zinc-800 pb-4 mb-6">
                   <div className="flex items-center gap-3">
-                    <span className="w-3 h-3 rounded-full bg-[#ff0033] animate-pulse" />
+                    <span className={`w-3 h-3 rounded-full animate-pulse ${currentLayer.accentColor.replace('text-', 'bg-')}`} />
                     <span className="font-mono text-sm text-zinc-300 font-bold uppercase tracking-wider">
                       {currentLayer.tag}
                     </span>
                   </div>
-                  <span className="text-xs font-mono text-[#ff0033] bg-[#ff0033]/10 px-3 py-1 rounded-full border border-[#ff0033]/30">
+                  <span className={`text-xs font-mono px-3 py-1 rounded-full border ${currentLayer.badgeStyle}`}>
                     {currentLayer.metrics}
                   </span>
                 </div>

@@ -14,7 +14,7 @@ export default function Hero() {
 
       {/* Hero Content Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
-        
+
         {/* Welcome Tagline Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -28,17 +28,17 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        {/* Main Headline - Exact NexTash Wireframe Style */}
+        {/* Main Headline - Solid High-Visibility White & Red */}
         <motion.h1
-          initial={{ opacity: 0, scale: 0.94 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.15 }}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight uppercase max-w-5xl leading-tight sm:leading-none mb-8"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight uppercase max-w-5xl leading-tight sm:leading-none mb-8 text-center"
         >
-          <span className="block text-stroke-white hover:text-white transition-all duration-500 cursor-default select-none">
+          <span className="block text-white transition-all duration-500 cursor-default select-none drop-shadow-md">
             PARTNER FOR
           </span>
-          <span className="block text-stroke-red hover:text-[#ff0033] transition-all duration-500 cursor-default select-none glow-red-text mt-1">
+          <span className="block text-[#ff0033] glow-red-text transition-all duration-500 cursor-default select-none mt-2">
             YOUR DIGITAL FUTURE
           </span>
         </motion.h1>
@@ -85,17 +85,17 @@ export default function Hero() {
           className="mt-16 pt-8 border-t border-zinc-900/80 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-12 text-left max-w-4xl w-full"
         >
           {[
-            { label: "Enterprise Projects", value: "350+" },
-            { label: "System Uptime SLA", value: "99.99%" },
-            { label: "Global Tech Markets", value: "18+" },
-            { label: "Dedicated Engineers", value: "120+" },
+            { label: "Enterprise Projects", value: "350+", dotColor: "bg-[#ff0033] shadow-[0_0_10px_#ff0033]" },
+            { label: "System Uptime SLA", value: "99.99%", dotColor: "bg-[#10b981] shadow-[0_0_10px_#10b981]" },
+            { label: "Global Tech Markets", value: "18+", dotColor: "bg-[#38bdf8] shadow-[0_0_10px_#38bdf8]" },
+            { label: "Dedicated Engineers", value: "120+", dotColor: "bg-[#a855f7] shadow-[0_0_10px_#a855f7]" },
           ].map((stat, i) => (
             <div key={i} className="flex flex-col">
-              <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono flex items-center gap-1">
+              <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono flex items-center gap-1.5">
                 {stat.value}
-                <span className="w-1.5 h-1.5 rounded-full bg-[#ff0033]" />
+                <span className={`w-2 h-2 rounded-full ${stat.dotColor}`} />
               </span>
-              <span className="text-xs text-zinc-500 uppercase tracking-wider mt-1 font-medium">
+              <span className="text-xs text-zinc-400 uppercase tracking-wider mt-1 font-medium">
                 {stat.label}
               </span>
             </div>

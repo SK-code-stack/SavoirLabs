@@ -38,13 +38,7 @@ export default function BlogPage() {
               Engineering Insights
             </div>
             <h1 className="text-4xl sm:text-6xl font-extrabold uppercase tracking-tight leading-tight mb-6">
-              SavoirLabs{" "}
-              <span
-                className="text-transparent bg-clip-text"
-                style={{ WebkitTextStroke: "1.5px #ff0033", color: "transparent" }}
-              >
-                Blog
-              </span>
+              SavoirLabs <span className="text-stroke-red">Blog</span>
             </h1>
             <p className="text-zinc-400 text-base sm:text-lg font-light leading-relaxed">
               Deep-dive research and engineering perspectives on AI, automation, cloud systems, and the future of enterprise software.
