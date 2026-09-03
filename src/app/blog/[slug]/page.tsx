@@ -94,18 +94,18 @@ export default function BlogPostPage({ params }: Props) {
         <div className={`absolute inset-0 bg-gradient-to-b ${blog.coverGradient} opacity-70`} />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
           {/* Back link */}
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-[#ff0033] transition-colors mb-10 group"
+            className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-[#ff0033] transition-colors mb-10 group self-start sm:self-center"
           >
             <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
             Back to Blog
           </Link>
 
           {/* Meta */}
-          <div className="flex flex-wrap items-center gap-3 mb-6">
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
             <span
               className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${
                 categoryColors[blog.category] || "text-zinc-400 bg-zinc-800 border-zinc-700"
@@ -114,23 +114,23 @@ export default function BlogPostPage({ params }: Props) {
               <Tag className="w-3 h-3" />
               {blog.category}
             </span>
-            <span className="text-xs font-mono text-zinc-500 flex items-center gap-1">
+            <span className="text-xs font-mono text-zinc-400 flex items-center gap-1">
               <Clock className="w-3 h-3" />
               {blog.readTime}
             </span>
-            <span className="text-xs font-mono text-zinc-500 flex items-center gap-1">
+            <span className="text-xs font-mono text-zinc-400 flex items-center gap-1">
               <Calendar className="w-3 h-3" />
               {blog.date}
             </span>
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight tracking-tight mb-6">
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight tracking-tight mb-6 text-center">
             {blog.title}
           </h1>
 
           {/* Excerpt */}
-          <p className="text-zinc-400 text-base sm:text-lg font-light leading-relaxed max-w-3xl mb-8">
+          <p className="text-zinc-300 text-base sm:text-lg font-light leading-relaxed max-w-3xl mb-8 text-center">
             {blog.excerpt}
           </p>
 

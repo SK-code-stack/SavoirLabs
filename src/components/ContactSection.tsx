@@ -53,20 +53,32 @@ export default function ContactSection() {
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#ff0033]/10 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16 flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#13131d] border border-[#ff0033]/30 text-xs font-mono text-[#ff0033] uppercase tracking-widest mb-3 font-bold">
+            Initiate Engagement
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight leading-tight">
+            Let's Build Your <span className="text-stroke-red">Digital System</span>
+          </h2>
+          <p className="text-zinc-400 text-base sm:text-lg mt-3 font-light leading-relaxed">
+            Connect directly with our Lead Solutions Architect to discuss enterprise ERP integration, custom software engineering, or cloud scaling.
+          </p>
+        </div>
 
-          {/* Left Column: Direct Info */}
-          <div className="lg:col-span-5 flex flex-col gap-8">
-            <div>
-              <span className="text-xs font-mono text-[#ff0033] uppercase tracking-widest block mb-2 font-bold">
-                Initiate Engagement
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Left Column: Contact Methods & Direct Info */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            <div className="p-6 rounded-2xl bg-[#0b0b12] border border-zinc-800 flex flex-col gap-4">
+              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider font-bold">
+                Direct Engineering Line
               </span>
-              <h2 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight leading-tight">
-                Let's Build Your <span className="text-stroke-red">Digital System</span>
-              </h2>
-              <p className="text-zinc-400 text-base mt-4 font-light leading-relaxed">
-                Connect directly with our Lead Solutions Architect to discuss enterprise ERP integration, custom software engineering, or cloud scaling.
-              </p>
+              <span className="text-lg font-bold text-white">
+                eng@savoirlabs.com
+              </span>
+              <span className="text-xs text-zinc-500 leading-relaxed font-light">
+                Average response time: &lt; 2 hours for technical proposals and enterprise RFPs.
+              </span>
             </div>
           </div>
 

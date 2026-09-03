@@ -100,14 +100,13 @@ export default function Projects() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {filteredProjects.map((project) => (
             <motion.div
-              layout
               key={project.id}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
               onClick={() => setActiveModalProject(project)}
-              className="group relative rounded-2xl bg-[#0b0b12] border border-[#ff0033]/30 p-8 flex flex-col justify-between overflow-hidden cursor-pointer hover:border-[#ff0033] hover:shadow-[0_0_40px_rgba(255,0,51,0.3)] transition-all duration-500 interactive"
+              className="group relative rounded-2xl bg-[#0b0b12] border border-[#ff0033]/30 p-8 flex flex-col justify-between overflow-hidden cursor-pointer hover:border-[#ff0033] hover:shadow-[0_0_40px_rgba(255,0,51,0.3)] interactive smooth-card gpu-accelerated hover:-translate-y-1.5"
             >
               {/* Gradient Banner */}
               <div

@@ -123,13 +123,12 @@ export default function Founders() {
             return (
               <motion.div
                 key={founder.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: idx * 0.15 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
                 onMouseEnter={() => setHoveredId(founder.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                className="group relative rounded-3xl overflow-hidden border border-zinc-800 bg-[#0b0b12] hover:border-[#ff0033]/60 transition-all duration-500 hover:shadow-[0_0_60px_rgba(255,0,51,0.3)] flex flex-col"
+                className="group relative rounded-3xl overflow-hidden border border-zinc-800 bg-[#0b0b12] hover:border-[#ff0033]/60 hover:shadow-[0_0_60px_rgba(255,0,51,0.3)] flex flex-col interactive smooth-card gpu-accelerated hover:-translate-y-1.5"
               >
                 {/* Card background gradient on hover */}
                 <div className="absolute inset-0 bg-gradient-to-b from-[#ff0033]/5 via-transparent to-[#ff0033]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />

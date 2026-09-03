@@ -60,8 +60,8 @@
 }
 
 .text-stroke-red {
-  color: var(--section-bg, #050505);
-  -webkit-text-stroke: 1.8px var(--brand-primary);
+  color: var(--brand-primary, #ff0033);
+  -webkit-text-stroke: 1.8px var(--brand-primary, #ff0033);
   paint-order: stroke fill;
   letter-spacing: 0.03em;
   text-shadow: 0 0 25px var(--brand-glow);
@@ -119,6 +119,19 @@
   background: rgba(14, 14, 22, 0.85);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* GPU Hardware Acceleration & Ultra-Smooth Performance Utilities */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+.smooth-card {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Cyber Radial Radar Grid Background */

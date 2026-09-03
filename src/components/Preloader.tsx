@@ -1,48 +1,99 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Terminal, Shield, Cpu, Sparkles } from "lucide-react";
+import { Terminal } from "lucide-react";
+
+// Module-level flag: persists across SPA client-side route changes,
+// but resets to false whenever the browser reloads (F5 / Refresh / New Tab).
+let isClientNavigation = false;
 
 export default function Preloader() {
-  const [loading, setLoading] = useState(true);
+  const pathname = usePathname();
+  const [loading, setLoading] = useState<boolean | null>(null);
   const [progress, setProgress] = useState(0);
   const [statusText, setStatusText] = useState("INITIALIZING CORE ARCHITECTURE...");
 
   useEffect(() => {
-    // Progress counter animation
+    // 1. If this is an internal SPA client-side page switch (e.g. clicking Home <-> Blog), skip preloader
+    if (isClientNavigation) {
+      setLoading(false);
+      return;
+    }
+
+    // 2. First cold load or manual page reload (F5): Mark for future SPA route switches, and run preloader
+    isClientNavigation = true;
+    setLoading(true);
+
+    let isComplete = false;
+
+    const finishLoading = () => {
+      if (isComplete) return;
+      isComplete = true;
+      setProgress(100);
+      setStatusText("SYSTEM SLA OPERATIONAL [99.99%]");
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 400);
+    };
+
+    if (document.readyState === "complete") {
+      finishLoading();
+      return;
+    }
+
+    const handleWindowLoad = () => finishLoading();
+    window.addEventListener("load", handleWindowLoad);
+
     const interval = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setLoading(false), 500); // Fade out after reaching 100%
-          return 100;
+        if (prev >= 95) {
+          if (document.readyState === "complete") {
+            clearInterval(interval);
+            finishLoading();
+            return 100;
+          }
+          return 95;
         }
 
-        const next = prev + Math.floor(Math.random() * 12) + 4;
-        if (next >= 25 && prev < 25) {
+        const next = prev + Math.floor(Math.random() * 15) + 5;
+        if (next >= 30 && prev < 30) {
           setStatusText("LOADING NEURAL AI ENGINE...");
-        } else if (next >= 60 && prev < 60) {
+        } else if (next >= 65 && prev < 65) {
           setStatusText("COMPILING KUBERNETES BLUEPRINTS...");
-        } else if (next >= 90 && prev < 90) {
-          setStatusText("SYSTEM SLA OPERATIONAL [99.99%]");
         }
 
-        return next > 100 ? 100 : next;
+        return next > 95 ? 95 : next;
       });
     }, 90);
 
-    return () => clearInterval(interval);
-  }, []);
+    const fallbackTimeout = setTimeout(() => {
+      clearInterval(interval);
+      finishLoading();
+    }, 2000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(fallbackTimeout);
+      window.removeEventListener("load", handleWindowLoad);
+    };
+  }, [pathname]);
+
+  // Render nothing during internal SPA client navigation
+  if (loading === false || loading === null) {
+    return null;
+  }
 
   return (
     <AnimatePresence>
       {loading && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, y: -40 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="fixed inset-0 z-50 bg-[#050505] flex flex-col items-center justify-center overflow-hidden selection:bg-[#ff0033] selection:text-white"
+          exit={{ opacity: 0, y: -30 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="fixed inset-0 z-[99999] bg-[#050505] flex flex-col items-center justify-center overflow-hidden selection:bg-[#ff0033] selection:text-white"
         >
           {/* Cyber Radar Grid Background */}
           <div className="absolute inset-0 bg-radar-grid opacity-50 pointer-events-none" />
@@ -58,9 +109,9 @@ export default function Preloader() {
           {/* Central Monogram & Branding */}
           <div className="relative z-10 flex flex-col items-center gap-6">
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4 }}
               className="relative flex items-center justify-center w-20 h-20 bg-[#0d0d14] border-2 border-[#ff0033] rounded-2xl shadow-[0_0_50px_rgba(255,0,51,0.5)] overflow-hidden"
             >
               <span className="font-extrabold text-3xl text-white tracking-tighter">

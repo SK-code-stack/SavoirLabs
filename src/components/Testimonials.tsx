@@ -51,12 +51,10 @@ export default function Testimonials() {
           {testimonials.map((t, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: idx * 0.12, ease: "easeOut" }}
-              whileHover={{ y: -6 }}
-              className="rounded-2xl bg-[#0d0d16] border border-[#ff0033]/30 p-8 flex flex-col justify-between hover:border-[#ff0033] hover:shadow-[0_0_35px_rgba(255,0,51,0.3)] transition-all duration-300 interactive"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="rounded-2xl bg-[#0d0d16] border border-[#ff0033]/30 p-8 flex flex-col justify-between hover:border-[#ff0033] hover:shadow-[0_0_35px_rgba(255,0,51,0.3)] interactive smooth-card gpu-accelerated hover:-translate-y-1.5"
             >
               <div>
                 <div className="flex items-center gap-1 mb-6 text-[#ff0033]">

@@ -114,14 +114,12 @@ export default function ServicesScroll() {
 
               return (
                 <motion.div
-                  layout
                   key={service.id}
-                  initial={{ opacity: 0, y: 25 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className={`group relative rounded-2xl bg-[#0c0c12] border p-7 flex flex-col justify-between overflow-hidden transition-all duration-300 interactive ${service.borderColor}`}
+                  transition={{ duration: 0.3 }}
+                  className={`group relative rounded-2xl bg-[#0c0c12] border p-7 flex flex-col justify-between overflow-hidden interactive smooth-card gpu-accelerated hover:-translate-y-1.5 ${service.borderColor}`}
                 >
                   {/* Card Background Color Glow Gradient */}
                   <div
