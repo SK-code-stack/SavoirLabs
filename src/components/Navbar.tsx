@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight, PhoneCall, Sparkles } from "lucide-react";
 
@@ -17,11 +18,12 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Services", href: "#services" },
-    { name: "Tech Stack", href: "#tech-stack" },
-    { name: "Case Studies", href: "#projects" },
-    { name: "Our Process", href: "#process" },
-    { name: "Estimator", href: "#estimator" },
+    { name: "Services", href: "/#services" },
+    { name: "Tech Stack", href: "/#tech-stack" },
+    { name: "Case Studies", href: "/#projects" },
+    { name: "Our Process", href: "/#process" },
+    { name: "Estimator", href: "/#estimator" },
+    { name: "Blog", href: "/blog" },
   ];
 
   return (
@@ -35,7 +37,7 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Brand Logo - NexTash Style Monogram */}
-          <a href="#" className="group flex items-center gap-3 interactive">
+          <Link href="/" className="group flex items-center gap-3 interactive">
             <div className="relative flex items-center justify-center w-10 h-10 bg-[#0d0d14] border border-[#ff0033]/60 rounded-md overflow-hidden group-hover:border-[#ff0033] group-hover:shadow-[0_0_20px_rgba(255,0,51,0.5)] transition-all duration-300">
               <span className="font-extrabold text-lg text-white tracking-tighter">
                 S<span className="text-[#ff0033]">N</span>X
@@ -51,7 +53,7 @@ export default function Navbar() {
                 DIGITAL SYSTEMS
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-8 bg-[#0a0a10]/60 border border-zinc-800/80 px-6 py-2 rounded-full backdrop-blur-md">
@@ -70,7 +72,7 @@ export default function Navbar() {
           {/* Action CTA Button */}
           <div className="hidden md:flex items-center gap-4">
             <a
-              href="#contact"
+              href="/#contact"
               className="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-transparent border border-[#ff0033]/60 overflow-hidden group hover:border-[#ff0033] transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,0,51,0.4)] interactive"
             >
               <span className="absolute inset-0 w-full h-full bg-[#ff0033] -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
@@ -131,7 +133,7 @@ export default function Navbar() {
 
               <div className="pt-6 border-t border-zinc-800 flex flex-col gap-4">
                 <a
-                  href="#contact"
+                  href="/#contact"
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-full py-4 text-center rounded-xl bg-[#ff0033] text-white font-bold text-lg shadow-[0_0_30px_rgba(255,0,51,0.5)] flex items-center justify-center gap-2"
                 >

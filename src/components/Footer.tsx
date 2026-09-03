@@ -40,11 +40,11 @@ export default function Footer() {
               Engineering Services
             </h4>
             <ul className="flex flex-col gap-2.5 text-sm text-zinc-400 font-light">
-              <li><a href="#services" className="hover:text-[#ff0033] transition-colors">ERP & Business Automation</a></li>
-              <li><a href="#services" className="hover:text-[#ff0033] transition-colors">Enterprise AI & Neural Systems</a></li>
-              <li><a href="#services" className="hover:text-[#ff0033] transition-colors">Cloud Native & Kubernetes</a></li>
-              <li><a href="#services" className="hover:text-[#ff0033] transition-colors">Cybersecurity & Hardening</a></li>
-              <li><a href="#services" className="hover:text-[#ff0033] transition-colors">Data Engineering & Analytics</a></li>
+              <li><a href="/#services" className="hover:text-[#ff0033] transition-colors">ERP & Business Automation</a></li>
+              <li><a href="/#services" className="hover:text-[#ff0033] transition-colors">Enterprise AI & Neural Systems</a></li>
+              <li><a href="/#services" className="hover:text-[#ff0033] transition-colors">Cloud Native & Kubernetes</a></li>
+              <li><a href="/#services" className="hover:text-[#ff0033] transition-colors">Cybersecurity & Hardening</a></li>
+              <li><a href="/#services" className="hover:text-[#ff0033] transition-colors">Data Engineering & Analytics</a></li>
             </ul>
           </div>
 
@@ -54,10 +54,11 @@ export default function Footer() {
               Company & Resources
             </h4>
             <ul className="flex flex-col gap-2.5 text-sm text-zinc-400 font-light mb-6">
-              <li><a href="#projects" className="hover:text-[#ff0033] transition-colors">Enterprise Case Studies</a></li>
-              <li><a href="#tech-stack" className="hover:text-[#ff0033] transition-colors">Architectural Blueprint</a></li>
-              <li><a href="#process" className="hover:text-[#ff0033] transition-colors">Execution Lifecycle</a></li>
-              <li><a href="#estimator" className="hover:text-[#ff0033] transition-colors">Project Scope Estimator</a></li>
+              <li><a href="/#projects" className="hover:text-[#ff0033] transition-colors">Enterprise Case Studies</a></li>
+              <li><a href="/#tech-stack" className="hover:text-[#ff0033] transition-colors">Architectural Blueprint</a></li>
+              <li><a href="/#process" className="hover:text-[#ff0033] transition-colors">Execution Lifecycle</a></li>
+              <li><a href="/#estimator" className="hover:text-[#ff0033] transition-colors">Project Scope Estimator</a></li>
+              <li><a href="/blog" className="hover:text-[#ff0033] transition-colors">Blog & Insights</a></li>
             </ul>
 
             <div className="flex items-center gap-3">

@@ -161,8 +161,11 @@ export default function ProjectEstimator() {
               <h3 className="text-2xl font-bold text-white mb-6">Estimated Timeline</h3>
 
               <div className="mb-6 p-6 rounded-xl bg-[#12121e] border border-zinc-800 text-center">
-                <span className="text-5xl font-extrabold text-[#ff0033] font-mono glow-red-text block">
-                  {estimatedWeeks} - {estimatedWeeks + 2} WEEKS
+                <span
+                  className="text-3xl font-bold text-[#ff0033] glow-red-text block tracking-wide"
+                  style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "0.05em" }}
+                >
+                  {estimatedWeeks} – {estimatedWeeks + 2} Weeks
                 </span>
                 <span className="text-xs text-zinc-400 font-mono mt-2 block">
                   Estimated Agile Sprint Duration

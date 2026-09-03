@@ -8,6 +8,7 @@ import ProcessTimeline from "@/components/ProcessTimeline";
 import ProjectEstimator from "@/components/ProjectEstimator";
 import Testimonials from "@/components/Testimonials";
 import Founders from "@/components/Founders";
+import BlogPreview from "@/components/BlogPreview";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
@@ -23,8 +24,10 @@ export default function Home() {
       <ProjectEstimator />
       <Testimonials />
       <Founders />
+      <BlogPreview />
       <ContactSection />
       <Footer />
     </main>
   );
 }
+
