@@ -8,6 +8,7 @@ export interface Blog {
   author: string;
   authorRole: string;
   coverGradient: string;
+  coverImage: string;
   content: BlogSection[];
 }
 
@@ -29,6 +30,7 @@ export const blogs: Blog[] = [
     author: "SavoirLabs Editorial",
     authorRole: "Engineering Research Team",
     coverGradient: "from-[#ff0033]/30 via-[#1a0010] to-[#050505]",
+    coverImage: "/images/blog/automation-cover.jpg",
     content: [
       {
         type: "paragraph",
@@ -123,6 +125,7 @@ export const blogs: Blog[] = [
     author: "SavoirLabs Editorial",
     authorRole: "AI Systems Research Team",
     coverGradient: "from-[#0033ff]/20 via-[#00010a] to-[#050505]",
+    coverImage: "/images/blog/ai-cover.jpg",
     content: [
       {
         type: "paragraph",
@@ -229,6 +232,7 @@ export const blogs: Blog[] = [
     author: "SavoirLabs Editorial",
     authorRole: "Cloud Architecture Team",
     coverGradient: "from-[#00ff88]/15 via-[#000a05] to-[#050505]",
+    coverImage: "/images/blog/cloud-cover.jpg",
     content: [
       {
         type: "paragraph",

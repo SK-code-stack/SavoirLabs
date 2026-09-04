@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import Preloader from "@/components/Preloader";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-outfit",
-});
 
 export const metadata: Metadata = {
   title: "SavoirLabs | Partner For Your Digital Future",
@@ -23,8 +16,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`h-full antialiased dark ${outfit.variable}`}>
-      <body className={`min-h-full flex flex-col bg-[#050505] text-white selection:bg-[#ff0033] selection:text-white ${outfit.className}`}>
+    <html lang="en" className="h-full antialiased dark">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+        {/* Preloader guard: hide body before React mounts to prevent flash of page content */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (!sessionStorage.getItem('svl_preloader_done')) {
+                  document.documentElement.style.visibility = 'hidden';
+                }
+              } catch(e) {}
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-[#050505] text-white selection:bg-[#ff0033] selection:text-white font-sans">
         <Preloader />
         <CustomCursor />
         {children}

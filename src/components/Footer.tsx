@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { ArrowUp, Github, Linkedin, Twitter, ShieldCheck } from "lucide-react";
 
 export default function Footer() {
@@ -11,17 +12,18 @@ export default function Footer() {
   return (
     <footer className="bg-[#030305] border-t border-[#ff0033]/20 pt-16 pb-12 text-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-12 border-b border-zinc-900">
           {/* Brand Info */}
           <div className="md:col-span-5 flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-[#0d0d14] border border-[#ff0033] rounded-md flex items-center justify-center font-extrabold text-white text-base">
-                S<span className="text-[#ff0033]">V</span>L
-              </div>
-              <span className="font-bold text-2xl tracking-wider text-white">
-                SAVOIR<span className="text-[#ff0033]">LABS</span>
-              </span>
+            <div className="flex items-center">
+              <Image
+                src="/logo.png"
+                alt="SavoirLabs Logo"
+                width={180}
+                height={56}
+                className=" object-contain"
+              />
             </div>
 
             <p className="text-zinc-400 text-sm font-light leading-relaxed max-w-sm">
@@ -59,6 +61,7 @@ export default function Footer() {
               <li><a href="/#process" className="hover:text-[#ff0033] transition-colors">Execution Lifecycle</a></li>
               <li><a href="/#estimator" className="hover:text-[#ff0033] transition-colors">Project Scope Estimator</a></li>
               <li><a href="/blog" className="hover:text-[#ff0033] transition-colors">Blog & Insights</a></li>
+              <li><a href="/faq" className="hover:text-[#ff0033] transition-colors">Frequently Asked Questions (FAQ)</a></li>
             </ul>
 
             <div className="flex items-center gap-3">

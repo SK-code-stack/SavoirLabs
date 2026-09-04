@@ -74,7 +74,7 @@ export default function ContactSection() {
                 Direct Engineering Line
               </span>
               <span className="text-lg font-bold text-white">
-                eng@savoirlabs.com
+                Info.savoirlabs@gmail.com
               </span>
               <span className="text-xs text-zinc-500 leading-relaxed font-light">
                 Average response time: &lt; 2 hours for technical proposals and enterprise RFPs.

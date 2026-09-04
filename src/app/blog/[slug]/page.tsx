@@ -135,7 +135,7 @@ export default function BlogPostPage({ params }: Props) {
           </p>
 
           {/* Author */}
-          <div className="flex items-center gap-3 pt-6 border-t border-zinc-800/60">
+          <div className="flex items-center gap-3 pt-6 border-t border-zinc-800/60 mb-10">
             <div className="w-10 h-10 rounded-full bg-[#0d0d16] border border-[#ff0033]/40 flex items-center justify-center">
               <User className="w-5 h-5 text-[#ff0033]" />
             </div>
@@ -143,6 +143,16 @@ export default function BlogPostPage({ params }: Props) {
               <div className="text-sm font-bold text-white">{blog.author}</div>
               <div className="text-xs text-zinc-500 font-mono">{blog.authorRole}</div>
             </div>
+          </div>
+
+          {/* Large Hero Image Container */}
+          <div className="w-full aspect-[21/9] sm:aspect-[16/7] rounded-3xl overflow-hidden border border-[#ff0033]/30 shadow-[0_0_60px_rgba(255,0,51,0.2)] relative bg-[#0b0b12]">
+            <img
+              src={blog.coverImage}
+              alt={blog.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-60" />
           </div>
         </div>
       </section>

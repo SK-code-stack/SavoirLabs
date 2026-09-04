@@ -85,11 +85,15 @@ export default function BlogPage() {
                 </div>
 
                 <div className="hidden lg:flex items-center justify-center">
-                  <div className="w-full max-w-sm aspect-video rounded-2xl border border-[#ff0033]/20 bg-[#0d0d16] flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff0033]/5 to-transparent" />
-                    <div className="text-center relative z-10 p-8">
-                      <div className="text-7xl font-black text-[#ff0033]/20 leading-none mb-2 font-mono">01</div>
-                      <div className="text-xs font-mono text-[#ff0033] uppercase tracking-widest">Featured Article</div>
+                  <div className="w-full max-w-md aspect-video rounded-2xl border border-[#ff0033]/40 bg-[#0d0d16] relative overflow-hidden shadow-[0_0_30px_rgba(255,0,51,0.2)] group-hover:scale-102 transition-transform duration-500">
+                    <img
+                      src={featured.coverImage}
+                      alt={featured.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b12] via-transparent to-transparent opacity-80" />
+                    <div className="absolute bottom-3 left-4 text-xs font-mono text-[#ff0033] bg-[#050505]/80 backdrop-blur-md px-3 py-1 rounded-md border border-[#ff0033]/30">
+                      FEATURED RESEARCH
                     </div>
                   </div>
                 </div>
@@ -115,23 +119,35 @@ export default function BlogPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {rest.map((blog, idx) => (
               <Link key={blog.slug} href={`/blog/${blog.slug}`} className="group block">
-                <div className="relative h-full rounded-2xl border border-zinc-800 bg-[#0b0b12] hover:border-[#ff0033]/50 transition-all duration-500 overflow-hidden hover:shadow-[0_0_40px_rgba(255,0,51,0.1)]">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${blog.coverGradient} opacity-40 group-hover:opacity-60 transition-opacity duration-500`} />
-
-                  <div className="relative z-10 p-6 sm:p-8 flex flex-col gap-4 h-full">
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold border ${categoryColors[blog.category] || "text-zinc-400 bg-zinc-800 border-zinc-700"}`}>
+                <div className="relative h-full rounded-2xl border border-zinc-800 bg-[#0b0b12] hover:border-[#ff0033]/50 transition-all duration-500 overflow-hidden hover:shadow-[0_0_40px_rgba(255,0,51,0.15)] flex flex-col">
+                  {/* Top Cover Image Container */}
+                  <div className="relative w-full aspect-[16/9] overflow-hidden bg-black/40 border-b border-zinc-800/80">
+                    <img
+                      src={blog.coverImage}
+                      alt={blog.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b12] via-black/20 to-transparent" />
+                    
+                    <div className="absolute top-3 left-3 z-10">
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border backdrop-blur-md ${categoryColors[blog.category] || "text-zinc-400 bg-zinc-800/80 border-zinc-700"}`}>
                         <Tag className="w-3 h-3" />
                         {blog.category}
                       </span>
-                      <span className="text-xs font-mono text-zinc-500 flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {blog.readTime}
-                      </span>
                     </div>
 
-                    <div className="text-2xl font-black text-zinc-800 font-mono leading-none select-none absolute top-4 right-5 opacity-40">
+                    <div className="absolute top-2 right-3 text-3xl font-black text-white/30 font-mono select-none drop-shadow-md">
                       0{idx + 2}
+                    </div>
+                  </div>
+
+                  <div className="p-6 flex flex-col gap-4 flex-1">
+                    <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5 text-[#ff0033]" />
+                        {blog.readTime}
+                      </span>
+                      <span className="text-zinc-500">{blog.date}</span>
                     </div>
 
                     <h3 className="text-lg sm:text-xl font-bold text-white leading-snug group-hover:text-[#ff0033] transition-colors duration-300 flex-1">
@@ -142,10 +158,10 @@ export default function BlogPage() {
                       {blog.excerpt}
                     </p>
 
-                    <div className="flex items-center justify-between pt-2 border-t border-zinc-900">
-                      <span className="text-xs text-zinc-500 font-mono">{blog.date}</span>
-                      <div className="flex items-center gap-1 text-xs font-semibold text-[#ff0033] group-hover:gap-2 transition-all">
-                        Read More <ArrowRight className="w-3.5 h-3.5" />
+                    <div className="flex items-center justify-between pt-4 border-t border-zinc-900 mt-auto">
+                      <span className="text-xs text-zinc-500 font-mono">Read Article</span>
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-[#ff0033] group-hover:translate-x-1 transition-all">
+                        Explore <ArrowRight className="w-3.5 h-3.5" />
                       </div>
                     </div>
                   </div>

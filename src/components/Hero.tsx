@@ -8,12 +8,12 @@ import ThreeCanvas from "./ThreeCanvas";
 export default function Hero() {
 
   return (
-    <section className="relative min-h-screen w-full bg-[#050505] bg-radar-grid flex items-center justify-center overflow-hidden pt-28 pb-16">
+    <section className="relative min-h-screen w-full bg-[#050505] bg-radar-grid flex items-center justify-center overflow-hidden pt-36 pb-16">
       {/* 3D Interactive Canvas & Graphics Background */}
       <ThreeCanvas />
 
       {/* Hero Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center mt-4">
 
         {/* Welcome Tagline Badge */}
         <motion.div
@@ -23,7 +23,7 @@ export default function Hero() {
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0d0d14] border border-[#ff0033]/40 mb-8 backdrop-blur-md shadow-[0_0_20px_rgba(255,0,51,0.2)]"
         >
           <span className="w-2 h-2 rounded-full bg-[#ff0033] animate-ping" />
-          <span className="text-xs sm:text-sm font-semibold tracking-wide text-zinc-300">
+          <span className="text-xs sm:text-sm font-semibold tracking-wide text-zinc-300 ">
             Welcome to <span className="text-[#ff0033] font-bold">SavoirLabs</span>
           </span>
         </motion.div>
@@ -38,7 +38,7 @@ export default function Hero() {
           <span className="block text-white transition-all duration-500 cursor-default select-none drop-shadow-md">
             PARTNER FOR
           </span>
-          <span className="block text-[#ff0033] glow-red-text transition-all duration-500 cursor-default select-none mt-2">
+          <span className="block text-[#ff0033] transition-all duration-500 cursor-default select-none mt-2">
             YOUR DIGITAL FUTURE
           </span>
         </motion.h1>

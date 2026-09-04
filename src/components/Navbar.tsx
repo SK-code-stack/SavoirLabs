@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight, PhoneCall, Sparkles } from "lucide-react";
 
@@ -24,35 +25,28 @@ export default function Navbar() {
     { name: "Our Process", href: "/#process" },
     { name: "Estimator", href: "/#estimator" },
     { name: "Blog", href: "/blog" },
+    { name: "FAQ", href: "/faq" },
   ];
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-          scrolled
-            ? "py-3 bg-[#050505]/90 backdrop-blur-xl border-b border-[#ff0033]/20 shadow-2xl shadow-black/80"
-            : "py-6 bg-transparent"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${scrolled
+          ? "py-0 bg-[#050505]/90 backdrop-blur-xl border-b border-[#ff0033]/20 shadow-2xl shadow-black/80"
+          : "py-0 bg-transparent"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo - SavoirLabs Style Monogram */}
-          <Link href="/" className="group flex items-center gap-3 interactive">
-            <div className="relative flex items-center justify-center w-10 h-10 bg-[#0d0d14] border border-[#ff0033]/60 rounded-md overflow-hidden group-hover:border-[#ff0033] group-hover:shadow-[0_0_20px_rgba(255,0,51,0.5)] transition-all duration-300">
-              <span className="font-extrabold text-lg text-white tracking-tighter">
-                S<span className="text-[#ff0033]">V</span>L
-              </span>
-              <div className="absolute top-0 right-0 w-2 h-2 bg-[#ff0033]" />
-            </div>
-
-            <div className="flex flex-col">
-              <span className="font-bold text-xl tracking-wider text-white flex items-center gap-0.5">
-                SAVOIR<span className="text-[#ff0033]">LABS</span>
-              </span>
-              <span className="text-[10px] tracking-widest text-zinc-500 uppercase -mt-1 font-mono">
-                DIGITAL SYSTEMS
-              </span>
-            </div>
+          {/* Brand Logo - logo.png only */}
+          <Link href="/" className="group interactive flex-shrink-0">
+            <Image
+              src="/logo.png"
+              alt="SavoirLabs Logo"
+              width={128}
+              height={128}
+              className="h-32 w-auto object-contain group-hover:drop-shadow-[0_0_16px_rgba(255,0,51,0.75)] transition-all duration-300"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation Links */}

@@ -1,109 +1,77 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import React, { useState, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Terminal } from "lucide-react";
 
-let isClientNavigation = false;
-
 export default function Preloader() {
-  const pathname = usePathname();
   const [showPreloader, setShowPreloader] = useState(false);
   const [progress, setProgress] = useState(0);
   const [statusText, setStatusText] = useState("INITIALIZING CORE ARCHITECTURE...");
 
-  useEffect(() => {
-    // 1. Skip on internal SPA route changes (clicking Home <-> Blog)
-    if (isClientNavigation) {
+  // useLayoutEffect runs synchronously before the browser paints anything.
+  // Combined with the inline script in layout.tsx that hides the document,
+  // this ensures the preloader is visible BEFORE any page content appears.
+  useLayoutEffect(() => {
+    // Skip if this session already saw the preloader (SPA navigations, etc.)
+    const alreadyLoaded = sessionStorage.getItem("svl_preloader_done");
+    if (alreadyLoaded) {
+      // Ensure visibility is restored in case it was hidden
+      document.documentElement.style.visibility = "";
       return;
     }
-    isClientNavigation = true;
 
-    // 2. Check if page is ALREADY complete right now
+    // If somehow the page is already done loading, skip gracefully
     if (document.readyState === "complete") {
+      sessionStorage.setItem("svl_preloader_done", "1");
+      document.documentElement.style.visibility = "";
       return;
     }
+
+    // Show the preloader — the document is still hidden by the inline script
+    setShowPreloader(true);
+    // Reveal the document now — the preloader is fixed on top, hiding content
+    document.documentElement.style.visibility = "";
 
     let isFinished = false;
     let progressInterval: NodeJS.Timeout | null = null;
-    let fallbackTimeout: NodeJS.Timeout | null = null;
 
-    // Finish & hide preloader helper
     const finishLoading = () => {
       if (isFinished) return;
       isFinished = true;
+      if (progressInterval) clearInterval(progressInterval);
       setProgress(100);
       setStatusText("SYSTEM SLA OPERATIONAL [99.99%]");
-
-      setTimeout(() => {
-        setShowPreloader(false);
-      }, 400);
+      sessionStorage.setItem("svl_preloader_done", "1");
+      setTimeout(() => setShowPreloader(false), 500);
     };
 
-    // 3. Threshold Timer: Wait 1.5 seconds (1500ms).
-    // If page load completes within 1.5s, preloader NEVER shows.
-    // Only show preloader if page takes longer than 1.5 seconds.
-    const delayTimer = setTimeout(() => {
-      if (document.readyState === "complete" || isFinished) {
-        return;
-      }
+    // Animate the progress bar
+    progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 95) return 95;
+        const next = prev + Math.floor(Math.random() * 12) + 4;
+        if (next >= 30 && prev < 30) setStatusText("LOADING NEURAL AI ENGINE...");
+        else if (next >= 65 && prev < 65) setStatusText("COMPILING KUBERNETES BLUEPRINTS...");
+        return next > 95 ? 95 : next;
+      });
+    }, 80);
 
-      // Page is still loading after 1.5s -> show preloader!
-      setShowPreloader(true);
+    // Dismiss as soon as all assets are loaded
+    window.addEventListener("load", finishLoading);
 
-      // Start progress animation once preloader becomes visible
-      progressInterval = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 95) {
-            if (document.readyState === "complete") {
-              if (progressInterval) clearInterval(progressInterval);
-              finishLoading();
-              return 100;
-            }
-            return 95;
-          }
-
-          const next = prev + Math.floor(Math.random() * 15) + 5;
-          if (next >= 30 && prev < 30) {
-            setStatusText("LOADING NEURAL AI ENGINE...");
-          } else if (next >= 65 && prev < 65) {
-            setStatusText("COMPILING KUBERNETES BLUEPRINTS...");
-          }
-
-          return next > 95 ? 95 : next;
-        });
-      }, 90);
-
-      fallbackTimeout = setTimeout(() => {
-        if (progressInterval) clearInterval(progressInterval);
-        finishLoading();
-      }, 2500);
-    }, 1500);
-
-    const handleWindowLoad = () => {
-      if (isFinished) return;
-      if (showPreloader) {
-        if (progressInterval) clearInterval(progressInterval);
-        finishLoading();
-      } else {
-        clearTimeout(delayTimer);
-      }
-    };
-
-    window.addEventListener("load", handleWindowLoad);
+    // Hard fallback: dismiss after 2.5s no matter what
+    const fallback = setTimeout(finishLoading, 2500);
 
     return () => {
-      clearTimeout(delayTimer);
       if (progressInterval) clearInterval(progressInterval);
-      if (fallbackTimeout) clearTimeout(fallbackTimeout);
-      window.removeEventListener("load", handleWindowLoad);
+      window.removeEventListener("load", finishLoading);
+      clearTimeout(fallback);
     };
-  }, [pathname]);
+  }, []); // Runs once — on first client mount only
 
-  if (!showPreloader) {
-    return null;
-  }
+  if (!showPreloader) return null;
 
   return (
     <AnimatePresence>
@@ -111,8 +79,8 @@ export default function Preloader() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, y: -30 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.35, ease: "easeInOut" }}
           className="fixed inset-0 z-[99999] bg-[#050505] flex flex-col items-center justify-center overflow-hidden selection:bg-[#ff0033] selection:text-white"
         >
           {/* Cyber Radar Grid Background */}
@@ -126,31 +94,26 @@ export default function Preloader() {
             className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#ff0033] to-transparent shadow-[0_0_25px_#ff0033] opacity-60 pointer-events-none"
           />
 
-          {/* Central Monogram & Branding */}
-          <div className="relative z-10 flex flex-col items-center gap-6">
+          {/* Central Logo */}
+          <div className="relative z-10 flex flex-col items-center gap-8">
             <motion.div
-              initial={{ scale: 0.85, opacity: 0 }}
+              initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.4 }}
-              className="relative flex items-center justify-center w-20 h-20 bg-[#0d0d14] border-2 border-[#ff0033] rounded-2xl shadow-[0_0_50px_rgba(255,0,51,0.5)] overflow-hidden"
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="flex items-center justify-center"
             >
-              <span className="font-extrabold text-3xl text-white tracking-tighter">
-                S<span className="text-[#ff0033]">V</span>L
-              </span>
-              <div className="absolute top-0 right-0 w-3 h-3 bg-[#ff0033] shadow-[0_0_10px_#ff0033]" />
+              <Image
+                src="/logo.png"
+                alt="SavoirLabs Logo"
+                width={320}
+                height={128}
+                className="h-32 w-auto object-contain drop-shadow-[0_0_40px_rgba(255,0,51,0.6)]"
+                priority
+              />
             </motion.div>
 
-            <div className="flex flex-col items-center">
-              <span className="font-extrabold text-2xl tracking-widest text-white">
-                SAVOIR<span className="text-[#ff0033]">LABS</span>
-              </span>
-              <span className="text-xs font-mono tracking-widest text-zinc-500 uppercase mt-1">
-                ENTERPRISE DIGITAL SYSTEMS
-              </span>
-            </div>
-
             {/* Progress Bar Container */}
-            <div className="w-72 sm:w-80 mt-6 flex flex-col gap-3">
+            <div className="w-72 sm:w-96 flex flex-col gap-3">
               <div className="flex items-center justify-between text-xs font-mono">
                 <span className="text-zinc-400 flex items-center gap-1.5">
                   <Terminal className="w-3.5 h-3.5 text-[#ff0033]" />
@@ -160,7 +123,7 @@ export default function Preloader() {
               </div>
 
               {/* Bar track */}
-              <div className="h-1.5 w-full bg-[#12121c] rounded-full overflow-hidden border border-zinc-800 relative">
+              <div className="h-1.5 w-full bg-[#12121c] rounded-full overflow-hidden border border-zinc-800">
                 <motion.div
                   className="h-full bg-[#ff0033] shadow-[0_0_15px_#ff0033]"
                   style={{ width: `${progress}%` }}
@@ -168,7 +131,7 @@ export default function Preloader() {
                 />
               </div>
 
-              {/* Status Message Logger */}
+              {/* Status Message */}
               <div className="text-[11px] font-mono text-zinc-500 text-center truncate tracking-wide h-4">
                 {statusText}
               </div>
