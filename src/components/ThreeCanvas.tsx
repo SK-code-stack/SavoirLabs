@@ -49,7 +49,7 @@ export default function ThreeCanvas() {
     }));
 
     let rotationTime = 0;
-    // Arrow flight progress along path (starts at 0 on reload/mount)
+    // Arrow flight progress along   (starts at 0 on reload/mount)
     let flightProgress = 0;
 
     const render = () => {
@@ -78,7 +78,7 @@ export default function ThreeCanvas() {
         const radius = i * (Math.min(width, height) * (isMobile ? 0.18 : 0.14)) + Math.sin(rotationTime * 0.5 + i) * 6;
         ctx.beginPath();
         ctx.arc(centerX, centerY + (isMobile ? 20 : 50), radius, 0, Math.PI * 2);
-        ctx.strokeStyle = i % 2 === 0 ? "rgba(255, 0, 51, 0.1)" : "rgba(255, 0, 51, 0.04)";
+        ctx.strokeStyle = i % 2 === 0 ? "rgba(255, 0, 51, 0)" : "rgba(255, 0, 51, 0.04)";
         ctx.lineWidth = i === 2 ? 1.5 : 1;
         if (i === 2) {
           ctx.setLineDash([8, 12]);
@@ -178,35 +178,48 @@ export default function ThreeCanvas() {
       const p2 = { x: width * 0.86, y: isMobile ? height * 0.36 : height * 0.42 };
       const p3 = { x: isMobile ? width * 0.72 : width * 0.68, y: isMobile ? height * 0.32 : height * 0.38 };
 
-      // Draw the main animated dotted path line
-      ctx.beginPath();
-      ctx.moveTo(p0.x, p0.y);
-      ctx.bezierCurveTo(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
-      ctx.setLineDash([12, 10]);
-      ctx.lineDashOffset = -rotationTime * 35; // Flowing dashes effect
-      ctx.strokeStyle = brandColor;
-      ctx.lineWidth = isMobile ? 2 : 2.8;
-      ctx.shadowBlur = 12;
-      ctx.shadowColor = brandColor;
-      ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.lineDashOffset = 0;
-      ctx.shadowBlur = 0;
+      // arrow color
+      const arrowColor = "#ffffffff";
 
-      // Parametric Cubic Bezier Math for Animated Arrowhead position & exact tangent angle
-      const t = Math.min(1, Math.max(0, flightProgress));
-      const mt = 1 - t;
+      const u = Math.min(1, Math.max(0, flightProgress));
 
-      // Position (x, y) at progress t
-      const hx = mt * mt * mt * p0.x + 3 * mt * mt * t * p1.x + 3 * mt * t * t * p2.x + t * t * t * p3.x;
-      const hy = mt * mt * mt * p0.y + 3 * mt * mt * t * p1.y + 3 * mt * t * t * p2.y + t * t * t * p3.y;
+      // de Casteljau's algorithm: Sub-curve control points from t = 0 to t = u (revealing line behind arrow)
+      const a0 = { x: (1 - u) * p0.x + u * p1.x, y: (1 - u) * p0.y + u * p1.y };
+      const a1 = { x: (1 - u) * p1.x + u * p2.x, y: (1 - u) * p1.y + u * p2.y };
+      const a2 = { x: (1 - u) * p2.x + u * p3.x, y: (1 - u) * p2.y + u * p3.y };
 
-      // Tangent vector derivative (dx, dy) for exact orientation angle
-      const dx = 3 * mt * mt * (p1.x - p0.x) + 6 * mt * t * (p2.x - p1.x) + 3 * t * t * (p3.x - p2.x);
-      const dy = 3 * mt * mt * (p1.y - p0.y) + 6 * mt * t * (p2.y - p1.y) + 3 * t * t * (p3.y - p2.y);
+      const b0 = { x: (1 - u) * a0.x + u * a1.x, y: (1 - u) * a0.y + u * a1.y };
+      const b1 = { x: (1 - u) * a1.x + u * a2.x, y: (1 - u) * a1.y + u * a2.y };
+
+      const c0 = { x: (1 - u) * b0.x + u * b1.x, y: (1 - u) * b0.y + u * b1.y };
+
+      // Draw ONLY the portion of the line that has been created behind the arrowhead
+      if (u > 0.01) {
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y);
+        ctx.bezierCurveTo(a0.x, a0.y, b0.x, b0.y, c0.x, c0.y);
+        ctx.setLineDash([12, 10]);
+        ctx.lineDashOffset = -rotationTime * 35; // Flowing dashes effect
+        ctx.strokeStyle = arrowColor; // arrow color
+        ctx.lineWidth = isMobile ? 2 : 2.8;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = arrowColor; // arrow color
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.lineDashOffset = 0;
+        ctx.shadowBlur = 0;
+      }
+
+      // Position (hx, hy) at progress u
+      const hx = c0.x;
+      const hy = c0.y;
+
+      // Tangent vector (dx, dy) for arrowhead rotation angle
+      const dx = b1.x - b0.x;
+      const dy = b1.y - b0.y;
       const tangentAngle = Math.atan2(dy, dx);
 
-      // Draw Animated Arrowhead aligned with path tangent
+      // Draw Animated Arrowhead at current tip position (hx, hy)
       ctx.save();
       ctx.translate(hx, hy);
       ctx.rotate(tangentAngle);
@@ -220,9 +233,9 @@ export default function ThreeCanvas() {
       ctx.lineTo(-6, 0);
       ctx.lineTo(-12, 8);
       ctx.closePath();
-      ctx.fillStyle = brandColor;
+      ctx.fillStyle = arrowColor; // arrow color
       ctx.shadowBlur = 18;
-      ctx.shadowColor = brandColor;
+      ctx.shadowColor = arrowColor; // arrow color
       ctx.fill();
       ctx.restore();
 
