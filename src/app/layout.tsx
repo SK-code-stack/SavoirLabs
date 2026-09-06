@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   description:
     "Enterprise software company specializing in ERPNext automation, AI systems engineering, high-scale cloud infrastructure, and custom digital solutions.",
   keywords: ["SavoirLabs", "Software House", "ERP Automation", "AI Systems", "Cloud Infrastructure", "Enterprise Web Engineering"],
+  icons: {
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" }
+    ],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

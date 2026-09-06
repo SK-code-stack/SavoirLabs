@@ -44,7 +44,7 @@ export default function Navbar() {
               alt="SavoirLabs Logo"
               width={128}
               height={128}
-              className="h-32 w-auto object-contain group-hover:drop-shadow-[0_0_16px_rgba(255,0,51,0.75)] transition-all duration-300"
+              className="h-16 mt-2 w-auto object-contain group-hover:drop-shadow-[0_0_16px_rgba(255,0,51,0.75)] transition-all duration-300"
               priority
             />
           </Link>
