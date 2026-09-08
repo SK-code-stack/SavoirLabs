@@ -4,10 +4,45 @@ import CustomCursor from "@/components/CustomCursor";
 import Preloader from "@/components/Preloader";
 
 export const metadata: Metadata = {
-  title: "SavoirLabs | Partner For Your Digital Future",
+  title: "SavoirLabs | Enterprise Software, ERPNext & AI Engineering",
   description:
-    "Enterprise software company specializing in ERPNext automation, AI systems engineering, high-scale cloud infrastructure, and custom digital solutions.",
-  keywords: ["SavoirLabs", "Software House", "ERP Automation", "AI Systems", "Cloud Infrastructure", "Enterprise Web Engineering"],
+    "SavoirLabs is a premier enterprise software house specializing in ERPNext automation, AI systems engineering, cloud infrastructure & custom digital solutions.",
+  keywords: [
+    "SavoirLabs",
+    "Enterprise Software House",
+    "ERPNext Automation",
+    "AI Systems Engineering",
+    "Cloud Infrastructure",
+    "Custom Software Development",
+    "Web App Development",
+    "Digital Transformation"
+  ],
+  authors: [{ name: "SavoirLabs" }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    title: "SavoirLabs | Enterprise Software, ERPNext & AI Engineering",
+    description:
+      "SavoirLabs is a premier enterprise software house specializing in ERPNext automation, AI systems engineering, cloud infrastructure & custom digital solutions.",
+    type: "website",
+    locale: "en_US",
+    siteName: "SavoirLabs",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SavoirLabs | Enterprise Software, ERPNext & AI Engineering",
+    description:
+      "SavoirLabs is a premier enterprise software house specializing in ERPNext automation, AI systems engineering, cloud infrastructure & custom digital solutions.",
+  },
   icons: {
     icon: [
       { url: "/favicon.png", type: "image/png" },
