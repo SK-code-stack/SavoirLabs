@@ -9,6 +9,17 @@ export const metadata: Metadata = {
   title: "Blog | SavoirLabs — Insights on AI, Automation & Cloud Engineering",
   description:
     "Explore deep-dive articles on enterprise automation, AI systems engineering, cloud-native infrastructure, and the future of digital transformation from the SavoirLabs engineering team.",
+  metadataBase: new URL('https://savoirlabs.com'),
+  alternates: {
+    canonical: '/blog',
+  },
+  openGraph: {
+    title: "Blog | SavoirLabs — Insights on AI, Automation & Cloud Engineering",
+    description:
+      "Explore deep-dive articles on enterprise automation, AI systems engineering, cloud-native infrastructure, and the future of digital transformation from the SavoirLabs engineering team.",
+    url: 'https://savoirlabs.com/blog',
+    type: "website",
+  },
 };
 
 const categoryColors: Record<string, string> = {
@@ -20,8 +31,34 @@ const categoryColors: Record<string, string> = {
 export default function BlogPage() {
   const [featured, ...rest] = blogs;
 
+  // Generate Blog/Collection Schema for Google SEO
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "headline": "SavoirLabs Engineering Blog",
+    "description": "Deep-dive research and engineering perspectives on AI, automation, cloud systems, and the future of enterprise software.",
+    "url": "https://savoirlabs.com/blog",
+    "hasPart": blogs.map((blog) => ({
+      "@type": "BlogPosting",
+      "headline": blog.title,
+      "description": blog.excerpt,
+      "url": `https://savoirlabs.com/blog/${blog.slug}`,
+      "datePublished": blog.date,
+      "author": {
+        "@type": "Person",
+        "name": blog.author
+      }
+    }))
+  };
+
   return (
     <main className="min-h-screen bg-[#050505] text-white">
+      {/* Blog Collection JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
+
       <Navbar />
       {/* ── Navbar spacer ── */}
       <div className="h-24" />
