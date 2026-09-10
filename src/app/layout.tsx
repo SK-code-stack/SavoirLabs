@@ -62,21 +62,47 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased dark">
       <head>
+        {/* Google Analytics Script */}
         <Script
-  src="https://www.googletagmanager.com/gtag/js?id=G-XJ4DV9Z4Y2"
-  strategy="afterInteractive"
-/>
-<Script id="google-analytics" strategy="afterInteractive">
-  {`
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XJ4DV9Z4Y2');
-  `}
-</Script>
+          src="https://www.googletagmanager.com/gtag/js?id=G-XJ4DV9Z4Y2"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XJ4DV9Z4Y2');
+          `}
+        </Script>
+
+        {/* Advanced SEO: Organization Schema Markup */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "SavoirLabs",
+              "url": "https://savoirlabs.com",
+              "logo": "https://savoirlabs.com/favicon.png",
+              "sameAs": [
+                "https://www.linkedin.com/company/savoirlabs",
+                "https://www.instagram.com/savoirlabs"
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "availableLanguage": "English"
+              }
+            })
+          }}
+        />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+        
         {/* Preloader guard: hide body before React mounts to prevent flash of page content */}
         <script
           dangerouslySetInnerHTML={{
