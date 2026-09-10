@@ -17,9 +17,32 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const blog = getBlogBySlug(params.slug);
   if (!blog) return { title: "Not Found" };
+  
+  const siteUrl = 'https://savoirlabs.com';
+  
   return {
     title: `${blog.title} | SavoirLabs Blog`,
     description: blog.excerpt,
+    metadataBase: new URL(siteUrl),
+    alternates: {
+      canonical: `/blog/${blog.slug}`,
+    },
+    openGraph: {
+      title: blog.title,
+      description: blog.excerpt,
+      url: `${siteUrl}/blog/${blog.slug}`,
+      type: "article",
+      publishedTime: blog.date,
+      authors: [blog.author],
+      images: [
+        {
+          url: blog.coverImage,
+          width: 1200,
+          height: 630,
+          alt: blog.title,
+        },
+      ],
+    },
   };
 }
 
@@ -83,8 +106,41 @@ export default function BlogPostPage({ params }: Props) {
 
   const related = blogs.filter((b) => b.slug !== blog.slug);
 
+  // Generate BlogPosting Schema Markup for Google
+  const blogPostingSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": blog.title,
+    "description": blog.excerpt,
+    "image": blog.coverImage ? `https://savoirlabs.com${blog.coverImage}` : undefined,
+    "datePublished": blog.date,
+    "author": {
+      "@type": "Person",
+      "name": blog.author,
+      "jobTitle": blog.authorRole
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SavoirLabs",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://savoirlabs.com/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://savoirlabs.com/blog/${blog.slug}`
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#050505] text-white">
+      {/* BlogPosting JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingSchema) }}
+      />
+
       <Navbar />
       {/* ── Nav spacer ── */}
       <div className="h-24" />
