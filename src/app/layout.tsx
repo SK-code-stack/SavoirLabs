@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import type { Metadata } from "next";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
@@ -61,6 +62,18 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased dark">
       <head>
+        <Script
+  src="https://www.googletagmanager.com/gtag/js?id=G-XJ4DV9Z4Y2"
+  strategy="afterInteractive"
+/>
+<Script id="google-analytics" strategy="afterInteractive">
+  {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJ4DV9Z4Y2');
+  `}
+</Script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
