@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   title: "SavoirLabs | Enterprise Software, ERPNext & AI Engineering",
   description:
     "SavoirLabs is a premier enterprise software house specializing in ERPNext automation, AI systems engineering, cloud infrastructure & custom digital solutions.",
+  metadataBase: new URL('https://savoirlabs.com'),
+  alternates: {
+    canonical: '/',
+  },
   keywords: [
     "SavoirLabs",
     "Enterprise Software House",
@@ -34,6 +38,7 @@ export const metadata: Metadata = {
     title: "SavoirLabs | Enterprise Software, ERPNext & AI Engineering",
     description:
       "SavoirLabs is a premier enterprise software house specializing in ERPNext automation, AI systems engineering, cloud infrastructure & custom digital solutions.",
+    url: 'https://savoirlabs.com',
     type: "website",
     locale: "en_US",
     siteName: "SavoirLabs",
