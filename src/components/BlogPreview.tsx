@@ -1,115 +1,130 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Clock, Tag, BookOpen } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 import { blogs } from "@/lib/blogs";
+import { staggerContainer, fadeInUp, viewportOnce } from "@/lib/animations";
 
-const categoryColors: Record<string, string> = {
-  Automation: "text-[#ff0033] bg-[#ff0033]/10 border-[#ff0033]/30",
-  "Artificial Intelligence": "text-blue-400 bg-blue-400/10 border-blue-400/30",
-  "Cloud & Infrastructure": "text-emerald-400 bg-emerald-400/10 border-emerald-400/30",
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+  },
+  visible: (idx: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay: idx * 0.1,
+      ease: [0.25, 0.1, 0.25, 1],
+    },
+  }),
 };
 
 export default function BlogPreview() {
-  return (
-    <section id="blog" className="py-28 bg-[#050505] text-white relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] bg-[#ff0033]/6 rounded-full blur-[130px] pointer-events-none" />
+  // Show only the first 3 blogs
+  const previewBlogs = blogs.slice(0, 3);
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+  return (
+    <section id="blog" className="py-20 lg:py-28 bg-light-gray">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#13131d] border border-[#ff0033]/30 text-xs font-mono text-[#ff0033] uppercase tracking-widest mb-3 font-bold">
-            <BookOpen className="w-4 h-4" />
-            Engineering Insights
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight leading-tight">
-            From Our <span className="text-stroke-red">Research Lab</span>
-          </h2>
-          <p className="text-zinc-400 text-sm sm:text-base mt-3 max-w-xl font-light">
-            Deep-dive articles on AI, automation, and cloud systems from the SavoirLabs engineering team.
-          </p>
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#ff0033] hover:gap-4 transition-all duration-300 whitespace-nowrap group mt-4"
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
           >
-            View All Articles
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+            <motion.span
+              variants={fadeInUp}
+              className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium rounded-full bg-teal-primary/10 text-teal-primary"
+            >
+              Insights
+            </motion.span>
+            <motion.h2
+              variants={fadeInUp}
+              className="font-display text-3xl md:text-4xl font-semibold text-dark-navy"
+            >
+              Latest from our{" "}
+              <span className="text-gradient">blog</span>
+            </motion.h2>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={viewportOnce}
+            transition={{ delay: 0.2 }}
+          >
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-sm font-medium text-teal-primary hover:gap-3 transition-all group"
+            >
+              View all articles
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
         </div>
 
         {/* Blog Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {blogs.map((blog, idx) => (
-            <motion.div
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {previewBlogs.map((blog, idx) => (
+            <motion.article
               key={blog.slug}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              custom={idx}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
             >
-              <Link href={`/blog/${blog.slug}`} className="group block h-full">
-                <div className="relative h-full rounded-2xl border border-zinc-800 bg-[#0b0b12] hover:border-[#ff0033]/50 transition-all duration-500 overflow-hidden hover:shadow-[0_0_40px_rgba(255,0,51,0.15)] flex flex-col">
-                  {/* Top Cover Image Container */}
-                  <div className="relative w-full aspect-[16/9] overflow-hidden bg-black/40 border-b border-zinc-800/80">
-                    <img
-                      src={blog.coverImage}
-                      alt={blog.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b12] via-black/30 to-transparent" />
-                    
-                    {/* Category Badge overlay on image */}
-                    <div className="absolute top-3 left-3 z-10">
-                      <span
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border backdrop-blur-md ${categoryColors[blog.category] || "text-zinc-400 bg-zinc-800/80 border-zinc-700"
-                          }`}
-                      >
-                        <Tag className="w-3 h-3" />
-                        {blog.category}
-                      </span>
-                    </div>
+              <Link
+                href={`/blog/${blog.slug}`}
+                className="group block bg-white rounded-xl border border-[#E2E8F0] overflow-hidden hover:border-teal-primary hover:shadow-lg transition-all duration-200"
+              >
+                {/* Cover Image */}
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative aspect-[16/10] overflow-hidden bg-light-gray"
+                >
+                  <Image
+                    src={blog.coverImage}
+                    alt={blog.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </motion.div>
 
-                    {/* Watermark index badge */}
-                    <div className="absolute top-2 right-3 text-3xl font-black text-white/30 font-mono select-none drop-shadow-md">
-                      0{idx + 1}
-                    </div>
+                {/* Content */}
+                <div className="p-5 lg:p-6">
+                  {/* Category & Read Time */}
+                  <div className="flex items-center gap-3 mb-3">
+                    <motion.span
+                      whileHover={{ scale: 1.05 }}
+                      className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-teal-primary/10 text-teal-primary"
+                    >
+                      {blog.category}
+                    </motion.span>
+                    <span className="flex items-center gap-1 text-xs text-[#718096]">
+                      <Clock className="w-3 h-3" />
+                      {blog.readTime}
+                    </span>
                   </div>
 
-                  {/* Card Content Body */}
-                  <div className="p-6 flex flex-col gap-4 flex-1">
-                    {/* Meta Read Time */}
-                    <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5 text-[#ff0033]" />
-                        {blog.readTime}
-                      </span>
-                      <span className="text-zinc-500">{blog.date}</span>
-                    </div>
+                  {/* Title */}
+                  <h3 className="font-semibold text-dark-navy text-lg leading-snug mb-2 group-hover:text-teal-primary transition-colors line-clamp-2">
+                    {blog.title}
+                  </h3>
 
-                    {/* Title */}
-                    <h3 className="text-base sm:text-lg font-bold text-white leading-snug group-hover:text-[#ff0033] transition-colors duration-300 flex-1">
-                      {blog.title}
-                    </h3>
-
-                    {/* Excerpt */}
-                    <p className="text-zinc-400 text-sm font-light leading-relaxed line-clamp-2">
-                      {blog.excerpt}
-                    </p>
-
-                    {/* Footer CTA */}
-                    <div className="flex items-center justify-between pt-4 border-t border-zinc-900 mt-auto">
-                      <span className="text-xs text-zinc-500 font-mono">Read Article</span>
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-[#ff0033] group-hover:translate-x-1 transition-all">
-                        Explore <ArrowRight className="w-3.5 h-3.5" />
-                      </div>
-                    </div>
-                  </div>
+                  {/* Excerpt */}
+                  <p className="text-sm text-[#4A5568] line-clamp-2">
+                    {blog.excerpt}
+                  </p>
                 </div>
               </Link>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>

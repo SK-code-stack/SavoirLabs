@@ -1,26 +1,24 @@
 import Script from 'next/script';
 import type { Metadata } from "next";
 import "./globals.css";
-import CustomCursor from "@/components/CustomCursor";
-import Preloader from "@/components/Preloader";
 
 export const metadata: Metadata = {
-  title: "SavoirLabs | Enterprise Software, ERPNext & AI Engineering",
+  title: "SavoirLabs - Custom Software & Automation for Growing Businesses",
   description:
-    "SavoirLabs is a premier enterprise software house specializing in ERPNext automation, AI systems engineering, cloud infrastructure & custom digital solutions.",
+    "We build custom software, automate workflows, and implement AI solutions for growing companies. Expert ERPNext implementation, cloud infrastructure, and business automation.",
   metadataBase: new URL('https://savoirlabs.com'),
   alternates: {
     canonical: '/',
   },
   keywords: [
     "SavoirLabs",
-    "Enterprise Software House",
-    "ERPNext Automation",
-    "AI Systems Engineering",
-    "Cloud Infrastructure",
     "Custom Software Development",
-    "Web App Development",
-    "Digital Transformation"
+    "Business Automation",
+    "ERPNext Implementation",
+    "AI Solutions",
+    "Cloud Infrastructure",
+    "Workflow Automation",
+    "Software Engineering"
   ],
   authors: [{ name: "SavoirLabs" }],
   robots: {
@@ -35,9 +33,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "SavoirLabs | Enterprise Software, ERPNext & AI Engineering",
+    title: "SavoirLabs - Custom Software & Automation for Growing Businesses",
     description:
-      "SavoirLabs is a premier enterprise software house specializing in ERPNext automation, AI systems engineering, cloud infrastructure & custom digital solutions.",
+      "We build custom software, automate workflows, and implement AI solutions for growing companies. Expert ERPNext implementation, cloud infrastructure, and business automation.",
     url: 'https://savoirlabs.com',
     type: "website",
     locale: "en_US",
@@ -45,9 +43,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SavoirLabs | Enterprise Software, ERPNext & AI Engineering",
+    title: "SavoirLabs - Custom Software & Automation",
     description:
-      "SavoirLabs is a premier enterprise software house specializing in ERPNext automation, AI systems engineering, cloud infrastructure & custom digital solutions.",
+      "We build custom software, automate workflows, and implement AI solutions for growing companies.",
   },
   icons: {
     icon: [
@@ -65,9 +63,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full antialiased dark">
+    <html lang="en" className="h-full antialiased">
       <head>
-        {/* Google Analytics Script */}
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XJ4DV9Z4Y2"
           strategy="afterInteractive"
@@ -81,7 +79,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Advanced SEO: Organization Schema Markup */}
+        {/* Organization Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -91,12 +89,15 @@ export default function RootLayout({
               "name": "SavoirLabs",
               "url": "https://savoirlabs.com",
               "logo": "https://savoirlabs.com/favicon.png",
+              "description": "Custom software development and business automation for growing companies.",
               "sameAs": [
                 "https://www.linkedin.com/company/savoirlabs",
-                "https://www.instagram.com/savoirlabs"
+                "https://github.com/savoirlabs",
+                "https://twitter.com/savoirlabs"
               ],
               "contactPoint": {
                 "@type": "ContactPoint",
+                "email": "info@savoirlabs.com",
                 "contactType": "customer service",
                 "availableLanguage": "English"
               }
@@ -104,26 +105,15 @@ export default function RootLayout({
           }}
         />
 
+        {/* Fonts - Modern combination: Space Grotesk + DM Sans */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-        
-        {/* Preloader guard: hide body before React mounts to prevent flash of page content */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                if (!sessionStorage.getItem('svl_preloader_done')) {
-                  document.documentElement.style.visibility = 'hidden';
-                }
-              } catch(e) {}
-            `,
-          }}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+          rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[#050505] text-white selection:bg-[#ff0033] selection:text-white font-sans">
-        <Preloader />
-        <CustomCursor />
+      <body className="min-h-full flex flex-col bg-white text-dark-navy font-sans">
         {children}
       </body>
     </html>

@@ -1,62 +1,40 @@
-import React from "react";
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Footer from "@/components/Footer";
 
-// Dynamic imports for heavy/below-the-fold components to boost Core Web Vitals
-const ServicesScroll = dynamic(() => import("@/components/ServicesScroll"));
-const InteractiveShowcase = dynamic(() => import("@/components/InteractiveShowcase"));
-const Projects = dynamic(() => import("@/components/Projects"));
-const ProcessTimeline = dynamic(() => import("@/components/ProcessTimeline"));
-const ProjectEstimator = dynamic(() => import("@/components/ProjectEstimator"), { ssr: false });
+// Dynamic imports for below-the-fold components
+const Services = dynamic(() => import("@/components/Services"));
+const Process = dynamic(() => import("@/components/Process"));
+const CaseStudies = dynamic(() => import("@/components/CaseStudies"));
+const WhyUs = dynamic(() => import("@/components/WhyUs"));
 const Testimonials = dynamic(() => import("@/components/Testimonials"));
-const Founders = dynamic(() => import("@/components/Founders"));
+const Team = dynamic(() => import("@/components/Team"));
 const BlogPreview = dynamic(() => import("@/components/BlogPreview"));
-const ContactSection = dynamic(() => import("@/components/ContactSection"));
-const Footer = dynamic(() => import("@/components/Footer"));
+const Contact = dynamic(() => import("@/components/Contact"));
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#050505] text-white overflow-hidden flex flex-col">
+    <main className="min-h-screen bg-white flex flex-col">
       <Navbar />
-      
+
       <Hero />
 
-      <section aria-label="Our Services">
-        <ServicesScroll />
-      </section>
+      <Services />
 
-      <section aria-label="Interactive Showcase">
-        <InteractiveShowcase />
-      </section>
+      <CaseStudies />
 
-      <section aria-label="Featured Projects">
-        <Projects />
-      </section>
+      <Process />
 
-      <section aria-label="Development Process">
-        <ProcessTimeline />
-      </section>
+      <WhyUs />
 
-      <section aria-label="Project Cost Estimator">
-        <ProjectEstimator />
-      </section>
+      <Testimonials />
 
-      <section aria-label="Client Testimonials">
-        <Testimonials />
-      </section>
+      <Team />
 
-      <section aria-label="Company Founders">
-        <Founders />
-      </section>
+      <BlogPreview />
 
-      <section aria-label="Blog Insights">
-        <BlogPreview />
-      </section>
-
-      <section aria-label="Contact Us">
-        <ContactSection />
-      </section>
+      <Contact />
 
       <Footer />
     </main>

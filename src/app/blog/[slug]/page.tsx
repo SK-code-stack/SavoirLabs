@@ -1,9 +1,10 @@
-import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { blogs, getBlogBySlug, type BlogSection } from "@/lib/blogs";
 import Navbar from "@/components/Navbar";
-import { ArrowLeft, Clock, Tag, Calendar, User, ArrowRight } from "lucide-react";
+import Footer from "@/components/Footer";
+import { ArrowLeft, Clock, Calendar, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 
 interface Props {
@@ -17,9 +18,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const blog = getBlogBySlug(params.slug);
   if (!blog) return { title: "Not Found" };
-  
+
   const siteUrl = 'https://savoirlabs.com';
-  
+
   return {
     title: `${blog.title} | SavoirLabs Blog`,
     description: blog.excerpt,
@@ -46,40 +47,41 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const categoryColors: Record<string, string> = {
-  Automation: "text-[#ff0033] bg-[#ff0033]/10 border-[#ff0033]/30",
-  "Artificial Intelligence": "text-blue-400 bg-blue-400/10 border-blue-400/30",
-  "Cloud & Infrastructure": "text-emerald-400 bg-emerald-400/10 border-emerald-400/30",
-};
-
 function renderSection(section: BlogSection, idx: number) {
   switch (section.type) {
     case "heading":
       return (
-        <h2 key={idx} className="text-2xl sm:text-3xl font-extrabold text-white mt-12 mb-4 leading-tight">
+        <h2
+          key={idx}
+          className="text-2xl font-semibold text-dark-navy mt-10 mb-4"
+        >
           {section.text}
         </h2>
       );
     case "subheading":
       return (
-        <h3 key={idx} className="text-lg sm:text-xl font-bold text-zinc-200 mt-8 mb-3 leading-snug">
+        <h3
+          key={idx}
+          className="text-xl font-semibold text-dark-navy mt-8 mb-3"
+        >
           {section.text}
         </h3>
       );
     case "paragraph":
       return (
-        <p key={idx} className="text-zinc-400 text-base leading-relaxed font-light">
+        <p key={idx} className="text-[#4A5568] leading-relaxed">
           {section.text}
         </p>
       );
     case "list":
       return (
-        <ul key={idx} className="flex flex-col gap-3 my-2">
+        <ul key={idx} className="space-y-2 my-4">
           {section.items?.map((item, i) => (
-            <li key={i} className="flex items-start gap-3 text-zinc-400 text-sm leading-relaxed font-light">
-              <span className="mt-1.5 w-4 h-4 rounded-sm bg-[#ff0033]/20 border border-[#ff0033]/40 flex items-center justify-center shrink-0">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#ff0033]" />
-              </span>
+            <li
+              key={i}
+              className="flex items-start gap-3 text-[#4A5568]"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-teal-primary mt-2.5 flex-shrink-0" />
               {item}
             </li>
           ))}
@@ -89,10 +91,9 @@ function renderSection(section: BlogSection, idx: number) {
       return (
         <blockquote
           key={idx}
-          className="relative my-8 px-6 py-5 rounded-xl bg-[#0d0d16] border-l-4 border-[#ff0033] text-zinc-300 italic text-base leading-relaxed"
+          className="my-8 pl-6 border-l-4 border-teal-primary text-[#4A5568] italic"
         >
-          <span className="absolute top-3 left-4 text-4xl text-[#ff0033]/20 font-serif leading-none select-none">"</span>
-          <span className="relative z-10">{section.text}</span>
+          {section.text}
         </blockquote>
       );
     default:
@@ -104,9 +105,9 @@ export default function BlogPostPage({ params }: Props) {
   const blog = getBlogBySlug(params.slug);
   if (!blog) notFound();
 
-  const related = blogs.filter((b) => b.slug !== blog.slug);
+  const related = blogs.filter((b) => b.slug !== blog.slug).slice(0, 2);
 
-  // Generate BlogPosting Schema Markup for Google
+  // Generate BlogPosting Schema
   const blogPostingSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -134,7 +135,7 @@ export default function BlogPostPage({ params }: Props) {
   };
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white">
+    <main className="min-h-screen bg-white flex flex-col">
       {/* BlogPosting JSON-LD Schema */}
       <script
         type="application/ld+json"
@@ -142,118 +143,117 @@ export default function BlogPostPage({ params }: Props) {
       />
 
       <Navbar />
-      {/* ── Nav spacer ── */}
-      <div className="h-24" />
 
-      {/* ── Hero Banner ── */}
-      <section className="relative py-16 overflow-hidden">
-        <div className={`absolute inset-0 bg-gradient-to-b ${blog.coverGradient} opacity-70`} />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
-
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
-          {/* Back link */}
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-[#ff0033] transition-colors mb-10 group self-start sm:self-center"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
-            Back to Blog
-          </Link>
-
-          {/* Meta */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
-            <span
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${
-                categoryColors[blog.category] || "text-zinc-400 bg-zinc-800 border-zinc-700"
-              }`}
+      {/* Article */}
+      <article className="flex-1">
+        {/* Header */}
+        <header className="pt-32 pb-8 lg:pt-40 lg:pb-12 bg-light-gray">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Back link */}
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-sm text-[#718096] hover:text-teal-primary transition-colors mb-8 group"
             >
-              <Tag className="w-3 h-3" />
-              {blog.category}
-            </span>
-            <span className="text-xs font-mono text-zinc-400 flex items-center gap-1">
-              <Clock className="w-3 h-3" />
-              {blog.readTime}
-            </span>
-            <span className="text-xs font-mono text-zinc-400 flex items-center gap-1">
-              <Calendar className="w-3 h-3" />
-              {blog.date}
-            </span>
-          </div>
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              Back to Blog
+            </Link>
 
-          {/* Title */}
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight tracking-tight mb-6 text-center">
-            {blog.title}
-          </h1>
-
-          {/* Excerpt */}
-          <p className="text-zinc-300 text-base sm:text-lg font-light leading-relaxed max-w-3xl mb-8 text-center">
-            {blog.excerpt}
-          </p>
-
-          {/* Author */}
-          <div className="flex items-center gap-3 pt-6 border-t border-zinc-800/60 mb-10">
-            <div className="w-10 h-10 rounded-full bg-[#0d0d16] border border-[#ff0033]/40 flex items-center justify-center">
-              <User className="w-5 h-5 text-[#ff0033]" />
+            {/* Category & Meta */}
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <span className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-teal-primary/10 text-teal-primary">
+                {blog.category}
+              </span>
+              <span className="flex items-center gap-1 text-sm text-[#718096]">
+                <Clock className="w-4 h-4" />
+                {blog.readTime}
+              </span>
+              <span className="flex items-center gap-1 text-sm text-[#718096]">
+                <Calendar className="w-4 h-4" />
+                {blog.date}
+              </span>
             </div>
-            <div>
-              <div className="text-sm font-bold text-white">{blog.author}</div>
-              <div className="text-xs text-zinc-500 font-mono">{blog.authorRole}</div>
+
+            {/* Title */}
+            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-dark-navy leading-tight mb-6">
+              {blog.title}
+            </h1>
+
+            {/* Excerpt */}
+            <p className="text-lg text-[#4A5568] leading-relaxed mb-8">
+              {blog.excerpt}
+            </p>
+
+            {/* Author */}
+            <div className="flex items-center gap-3 pb-8 border-b border-[#E2E8F0]">
+              <div className="w-10 h-10 rounded-full bg-teal-primary/10 flex items-center justify-center text-teal-primary font-semibold">
+                {blog.author.charAt(0)}
+              </div>
+              <div>
+                <p className="font-medium text-dark-navy">{blog.author}</p>
+                <p className="text-sm text-[#718096]">{blog.authorRole}</p>
+              </div>
             </div>
           </div>
+        </header>
 
-          {/* Large Hero Image Container */}
-          <div className="w-full aspect-[21/9] sm:aspect-[16/7] rounded-3xl overflow-hidden border border-[#ff0033]/30 shadow-[0_0_60px_rgba(255,0,51,0.2)] relative bg-[#0b0b12]">
-            <img
+        {/* Cover Image */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4">
+          <div className="relative aspect-[2/1] rounded-xl overflow-hidden shadow-lg">
+            <Image
               src={blog.coverImage}
               alt={blog.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-60" />
           </div>
         </div>
-      </section>
 
-      {/* ── Article Content ── */}
-      <section className="pb-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose-custom flex flex-col gap-5">
-            {blog.content.map((section, idx) => renderSection(section, idx))}
+        {/* Content */}
+        <div className="py-12 lg:py-16">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="space-y-4">
+              {blog.content.map((section, idx) => renderSection(section, idx))}
+            </div>
           </div>
         </div>
-      </section>
 
-      {/* ── Related Articles ── */}
-      <section className="py-16 border-t border-zinc-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-xs font-mono text-[#ff0033] uppercase tracking-widest mb-8">
-            More From SavoirLabs
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {related.map((b) => (
-              <Link key={b.slug} href={`/blog/${b.slug}`} className="group block">
-                <div className="rounded-xl border border-zinc-800 bg-[#0b0b12] hover:border-[#ff0033]/40 transition-all duration-300 p-5 hover:shadow-[0_0_30px_rgba(255,0,51,0.08)]">
-                  <span
-                    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold border mb-3 ${
-                      categoryColors[b.category] || "text-zinc-400 bg-zinc-800 border-zinc-700"
-                    }`}
+        {/* Related Articles */}
+        {related.length > 0 && (
+          <section className="py-12 lg:py-16 bg-light-gray border-t border-[#E2E8F0]">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-xl font-semibold text-dark-navy mb-8">
+                More articles
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-6">
+                {related.map((b) => (
+                  <Link
+                    key={b.slug}
+                    href={`/blog/${b.slug}`}
+                    className="group block bg-white rounded-xl border border-[#E2E8F0] p-5 hover:border-teal-primary transition-colors"
                   >
-                    {b.category}
-                  </span>
-                  <h3 className="text-sm font-bold text-white leading-snug group-hover:text-[#ff0033] transition-colors line-clamp-2 mb-2">
-                    {b.title}
-                  </h3>
-                  <div className="flex items-center justify-between mt-3">
-                    <span className="text-xs text-zinc-500 font-mono">{b.readTime}</span>
-                    <span className="text-xs text-[#ff0033] flex items-center gap-1 group-hover:gap-2 transition-all">
-                      Read <ArrowRight className="w-3 h-3" />
+                    <span className="inline-block px-2.5 py-0.5 text-xs font-medium rounded-full bg-teal-primary/10 text-teal-primary mb-3">
+                      {b.category}
                     </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+                    <h3 className="font-medium text-dark-navy group-hover:text-teal-primary transition-colors line-clamp-2 mb-2">
+                      {b.title}
+                    </h3>
+                    <div className="flex items-center justify-between text-sm text-[#718096]">
+                      <span>{b.readTime}</span>
+                      <span className="inline-flex items-center gap-1 text-teal-primary">
+                        Read
+                        <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+      </article>
+
+      <Footer />
     </main>
   );
 }

@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight, PhoneCall, Sparkles } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -12,131 +12,227 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
     { name: "Services", href: "/#services" },
-    { name: "Tech Stack", href: "/#tech-stack" },
-    { name: "Case Studies", href: "/#projects" },
-    { name: "Our Process", href: "/#process" },
-    { name: "Estimator", href: "/#estimator" },
+    { name: "Work", href: "/#projects" },
+    { name: "Process", href: "/#process" },
+    { name: "About", href: "/#team" },
     { name: "Blog", href: "/blog" },
     { name: "FAQ", href: "/faq" },
   ];
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${scrolled
-          ? "py-0 bg-[#050505]/90 backdrop-blur-xl border-b border-[#ff0033]/20 shadow-2xl shadow-black/80"
-          : "py-0 bg-transparent"
-          }`}
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "py-2 bg-white/95 backdrop-blur-md shadow-sm border-b border-[#E2E8F0]"
+            : "py-4 bg-transparent"
+        }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo - logo.png only */}
-          <Link href="/" className="group interactive flex-shrink-0">
-            <Image
-              src="/logo.png"
-              alt="SavoirLabs Logo"
-              width={128}
-              height={128}
-              className="h-16 mt-2 w-auto object-contain group-hover:drop-shadow-[0_0_16px_rgba(255,0,51,0.75)] transition-all duration-300"
-              priority
-            />
-          </Link>
-
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8 bg-[#0a0a10]/60 border border-zinc-800/80 px-6 py-2 rounded-full backdrop-blur-md">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-zinc-300 hover:text-[#ff0033] transition-colors relative py-1 group interactive"
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex-shrink-0">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                {link.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ff0033] group-hover:w-full transition-all duration-300 shadow-[0_0_10px_#ff0033]" />
-              </a>
-            ))}
-          </nav>
+                <Image
+                  src="/logo.png"
+                  alt="SavoirLabs"
+                  width={120}
+                  height={40}
+                  className="h-10 w-auto object-contain"
+                  priority
+                />
+              </motion.div>
+            </Link>
 
-          {/* Action CTA Button */}
-          <div className="hidden md:flex items-center gap-4">
-            <a
-              href="/#contact"
-              className="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-transparent border border-[#ff0033]/60 overflow-hidden group hover:border-[#ff0033] transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,0,51,0.4)] interactive"
-            >
-              <span className="absolute inset-0 w-full h-full bg-[#ff0033] -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
-              <span className="relative z-10 flex items-center gap-2">
-                <PhoneCall className="w-4 h-4 text-[#ff0033] group-hover:text-white transition-colors" />
-                Schedule Call
-                <ArrowRight className="w-4 h-4 text-[#ff0033] group-hover:text-white group-hover:translate-x-1 transition-all" />
-              </span>
-            </a>
-          </div>
-
-          {/* Mobile Hamburger Menu Icon (NexTash Two-Bar Style) */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg border border-zinc-800 bg-[#0c0c12] text-white hover:border-[#ff0033] transition-colors interactive"
-            aria-label="Toggle Navigation Menu"
-          >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-[#ff0033]" />
-            ) : (
-              <div className="flex flex-col gap-1.5 w-5">
-                <span className="w-full h-0.5 bg-white rounded-full" />
-                <span className="w-3/4 h-0.5 bg-[#ff0033] rounded-full self-end" />
-              </div>
-            )}
-          </button>
-        </div>
-      </header>
-
-      {/* Full-Screen Mobile Navigation Overlay */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-30 bg-[#050505]/98 backdrop-blur-2xl flex flex-col justify-center px-8 pt-24 pb-12 border-b border-[#ff0033]/30 md:hidden"
-          >
-            <div className="flex flex-col gap-6 max-w-md mx-auto w-full">
-              <span className="text-xs tracking-widest text-[#ff0033] font-mono uppercase border-b border-zinc-800 pb-2">
-                Navigation
-              </span>
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-8">
               {navLinks.map((link, idx) => (
                 <motion.a
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.08 }}
                   key={link.name}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-2xl font-bold text-white hover:text-[#ff0033] transition-colors flex items-center justify-between group"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + idx * 0.05 }}
+                  className="text-sm font-medium text-dark-navy hover:text-teal-primary transition-colors duration-150 relative group"
                 >
                   {link.name}
-                  <ArrowRight className="w-5 h-5 text-zinc-600 group-hover:text-[#ff0033] group-hover:translate-x-2 transition-all" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-primary to-teal-light group-hover:w-full transition-all duration-200" />
                 </motion.a>
               ))}
+            </nav>
 
-              <div className="pt-6 border-t border-zinc-800 flex flex-col gap-4">
-                <a
-                  href="/#contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-4 text-center rounded-xl bg-[#ff0033] text-white font-bold text-lg shadow-[0_0_30px_rgba(255,0,51,0.5)] flex items-center justify-center gap-2"
+            {/* Desktop CTA */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="hidden lg:block"
+            >
+              <motion.a
+                href="/#contact"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-teal-primary to-teal-light hover:shadow-teal transition-shadow duration-200"
+              >
+                Start a Project
+                <ArrowRight className="w-4 h-4" />
+              </motion.a>
+            </motion.div>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg text-dark-navy hover:bg-light-gray transition-colors"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+            >
+              <AnimatePresence mode="wait">
+                {mobileMenuOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <X className="w-6 h-6" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <Menu className="w-6 h-6" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          </div>
+        </div>
+      </motion.header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-40 bg-dark-navy/20 backdrop-blur-sm lg:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            {/* Menu Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+              className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-sm bg-white shadow-xl lg:hidden"
+            >
+              <div className="flex flex-col h-full">
+                {/* Header */}
+                <div className="flex items-center justify-between px-6 py-4 border-b border-[#E2E8F0]">
+                  <Image
+                    src="/logo.png"
+                    alt="SavoirLabs"
+                    width={100}
+                    height={32}
+                    className="h-8 w-auto object-contain"
+                  />
+                  <motion.button
+                    onClick={() => setMobileMenuOpen(false)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center justify-center w-10 h-10 rounded-lg text-dark-navy hover:bg-light-gray transition-colors"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-6 h-6" />
+                  </motion.button>
+                </div>
+
+                {/* Navigation Links */}
+                <nav className="flex-1 px-6 py-8 overflow-y-auto">
+                  <div className="space-y-1">
+                    {navLinks.map((link, idx) => (
+                      <motion.a
+                        key={link.name}
+                        href={link.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 + idx * 0.05 }}
+                        whileHover={{ x: 4, color: "#18BCB7" }}
+                        className="flex items-center justify-between py-3 text-lg font-medium text-dark-navy transition-colors"
+                      >
+                        {link.name}
+                        <ArrowRight className="w-5 h-5 text-[#718096]" />
+                      </motion.a>
+                    ))}
+                  </div>
+                </nav>
+
+                {/* Footer CTA */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="px-6 py-6 border-t border-[#E2E8F0]"
                 >
-                  <Sparkles className="w-5 h-5" />
-                  Get in Touch
-                </a>
+                  <motion.a
+                    href="/#contact"
+                    onClick={() => setMobileMenuOpen(false)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center justify-center gap-2 w-full py-3 rounded-lg text-base font-medium text-white bg-gradient-to-r from-teal-primary to-teal-light"
+                  >
+                    Start a Project
+                    <ArrowRight className="w-5 h-5" />
+                  </motion.a>
+                  <p className="mt-4 text-sm text-center text-[#718096]">
+                    Have questions?{" "}
+                    <a href="mailto:info@savoirlabs.com" className="text-teal-primary hover:underline">
+                      Email us
+                    </a>
+                  </p>
+                </motion.div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

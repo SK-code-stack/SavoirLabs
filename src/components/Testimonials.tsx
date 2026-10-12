@@ -1,83 +1,123 @@
 "use client";
 
-import React from "react";
 import { motion } from "framer-motion";
-import { Quote, Star, Building2, CheckCircle } from "lucide-react";
+import { Quote } from "lucide-react";
+import { staggerContainer, fadeInUp, viewportOnce } from "@/lib/animations";
 
 const testimonials = [
   {
     quote:
-      "SavoirLabs completely revolutionized our ERP infrastructure. Their custom automation reduced our transaction processing time from 4 hours to under 30 seconds.",
-    author: "Marcus Vance",
-    role: "VP of Engineering, Apex Global",
-    avatar: "MV",
-    rating: 5,
+      "SavoirLabs helped us automate our inventory and invoicing processes. What used to take our team days now happens automatically. They understood our business from day one.",
+    author: "Operations Director",
+    company: "Logistics Company",
   },
   {
     quote:
-      "The engineering depth of the SavoirLabs team is world-class. They delivered our high-throughput AI fraud engine 3 weeks ahead of deadline with zero production bugs.",
-    author: "Elena Rostova",
-    role: "VP of Enterprise Engineering",
-    company: "FinTech Prime",
-    rating: 5,
-  },
-  {
-    quote:
-      "Their scroll-smooth UX design and microservice architecture set a new standard for our digital product portfolio. Highly recommended tech partner.",
-    author: "Tariq Zaman",
-    role: "Director of Digital Transformation",
-    company: "NexGen Dynamics",
-    rating: 5,
+      "Working with SavoirLabs felt like having an in-house team. They were responsive, explained everything clearly, and delivered exactly what we needed on time.",
+    author: "Founder",
+    company: "E-commerce Startup",
   },
 ];
 
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+    scale: 0.95,
+  },
+  visible: (idx: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      delay: idx * 0.15,
+      ease: [0.25, 0.1, 0.25, 1],
+    },
+  }),
+};
+
 export default function Testimonials() {
   return (
-    <section className="py-28 bg-[#07070b] text-white relative overflow-hidden" style={{ "--section-bg": "#07070b" } as React.CSSProperties}>
+    <section className="py-20 lg:py-28 bg-dark-navy overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs font-mono text-[#ff0033] uppercase tracking-widest block mb-2 font-bold">
-            Executive Endorsements
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight">
-            Client <span className="text-stroke-red">Impact & Trust</span>
-          </h2>
-        </div>
+        {/* Section Header */}
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          className="text-center max-w-2xl mx-auto mb-12"
+        >
+          <motion.span
+            variants={fadeInUp}
+            className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium rounded-full bg-white/10 text-teal-light"
+          >
+            Client Feedback
+          </motion.span>
+          <motion.h2
+            variants={fadeInUp}
+            className="font-display text-3xl md:text-4xl font-semibold text-white"
+          >
+            What our clients say
+          </motion.h2>
+        </motion.div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((t, idx) => (
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {testimonials.map((testimonial, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="rounded-2xl bg-[#0d0d16] border border-[#ff0033]/30 p-8 flex flex-col justify-between hover:border-[#ff0033] hover:shadow-[0_0_35px_rgba(255,0,51,0.3)] interactive smooth-card gpu-accelerated hover:-translate-y-1.5"
+              custom={idx}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              whileHover={{
+                y: -4,
+                boxShadow: "0 20px 40px -15px rgba(0, 0, 0, 0.3)",
+                borderColor: "rgba(46, 230, 214, 0.3)",
+              }}
+              transition={{ duration: 0.2 }}
+              className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10"
             >
-              <div>
-                <div className="flex items-center gap-1 mb-6 text-[#ff0033]">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#ff0033]" />
-                  ))}
-                </div>
+              {/* Quote Icon */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 20,
+                  delay: 0.2 + idx * 0.1,
+                }}
+              >
+                <Quote className="w-10 h-10 text-teal-primary/50 mb-6" />
+              </motion.div>
 
-                <Quote className="w-8 h-8 text-[#ff0033]/40 mb-4" />
+              {/* Quote Text */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + idx * 0.1 }}
+                className="text-white/90 text-lg leading-relaxed mb-6"
+              >
+                &ldquo;{testimonial.quote}&rdquo;
+              </motion.p>
 
-                <p className="text-zinc-300 text-sm font-light leading-relaxed mb-6 italic">
-                  "{t.quote}"
-                </p>
-              </div>
-
-              <div className="pt-4 border-t border-zinc-800/80 flex items-center justify-between">
-                <div>
-                  <h4 className="text-base font-bold text-white">{t.author}</h4>
-                  <span className="text-xs font-mono text-[#ff0033] block">{t.role}</span>
-                  <span className="text-xs text-zinc-500 font-mono block">{t.company}</span>
-                </div>
-                <CheckCircle className="w-5 h-5 text-[#ff0033]" />
-              </div>
+              {/* Attribution */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 + idx * 0.1 }}
+                className="pt-4 border-t border-white/10"
+              >
+                <p className="font-medium text-white">{testimonial.author}</p>
+                <p className="text-sm text-white/60">{testimonial.company}</p>
+              </motion.div>
             </motion.div>
           ))}
         </div>

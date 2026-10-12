@@ -1,42 +1,35 @@
-import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { blogs } from "@/lib/blogs";
 import Navbar from "@/components/Navbar";
-import { ArrowRight, Clock, Tag, BookOpen } from "lucide-react";
+import Footer from "@/components/Footer";
+import { ArrowRight, Clock } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog | SavoirLabs — Insights on AI, Automation & Cloud Engineering",
+  title: "Blog - Software & Automation Insights | SavoirLabs",
   description:
-    "Explore deep-dive articles on enterprise automation, AI systems engineering, cloud-native infrastructure, and the future of digital transformation from the SavoirLabs engineering team.",
+    "Insights on business automation, custom software development, AI solutions, and cloud infrastructure from the SavoirLabs team.",
   metadataBase: new URL('https://savoirlabs.com'),
   alternates: {
     canonical: '/blog',
   },
   openGraph: {
-    title: "Blog | SavoirLabs — Insights on AI, Automation & Cloud Engineering",
+    title: "Blog - Software & Automation Insights | SavoirLabs",
     description:
-      "Explore deep-dive articles on enterprise automation, AI systems engineering, cloud-native infrastructure, and the future of digital transformation from the SavoirLabs engineering team.",
+      "Insights on business automation, custom software development, AI solutions, and cloud infrastructure from the SavoirLabs team.",
     url: 'https://savoirlabs.com/blog',
     type: "website",
   },
 };
 
-const categoryColors: Record<string, string> = {
-  Automation: "text-[#ff0033] bg-[#ff0033]/10 border-[#ff0033]/30",
-  "Artificial Intelligence": "text-blue-400 bg-blue-400/10 border-blue-400/30",
-  "Cloud & Infrastructure": "text-emerald-400 bg-emerald-400/10 border-emerald-400/30",
-};
-
 export default function BlogPage() {
-  const [featured, ...rest] = blogs;
-
-  // Generate Blog/Collection Schema for Google SEO
+  // Generate Blog/Collection Schema for SEO
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "headline": "SavoirLabs Engineering Blog",
-    "description": "Deep-dive research and engineering perspectives on AI, automation, cloud systems, and the future of enterprise software.",
+    "headline": "SavoirLabs Blog",
+    "description": "Insights on business automation, software development, and AI from the SavoirLabs team.",
     "url": "https://savoirlabs.com/blog",
     "hasPart": blogs.map((blog) => ({
       "@type": "BlogPosting",
@@ -52,7 +45,7 @@ export default function BlogPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white">
+    <main className="min-h-screen bg-white flex flex-col">
       {/* Blog Collection JSON-LD Schema */}
       <script
         type="application/ld+json"
@@ -60,154 +53,84 @@ export default function BlogPage() {
       />
 
       <Navbar />
-      {/* ── Navbar spacer ── */}
-      <div className="h-24" />
 
-      {/* ── Page Header ── */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Background glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-[#ff0033]/8 rounded-full blur-[120px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto flex flex-col items-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#13131d] border border-[#ff0033]/30 text-xs font-mono text-[#ff0033] uppercase tracking-widest mb-6">
-              <BookOpen className="w-4 h-4" />
-              Engineering Insights
-            </div>
-            <h1 className="text-4xl sm:text-6xl font-extrabold uppercase tracking-tight leading-tight mb-6">
-              SavoirLabs <span className="text-stroke-red">Blog</span>
+      {/* Header */}
+      <section className="pt-32 pb-12 lg:pt-40 lg:pb-16 bg-light-gray">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium rounded-full bg-teal-primary/10 text-teal-primary">
+              Blog
+            </span>
+            <h1 className="font-display text-4xl md:text-5xl font-semibold text-dark-navy mb-4">
+              Insights & Articles
             </h1>
-            <p className="text-zinc-400 text-base sm:text-lg font-light leading-relaxed">
-              Deep-dive research and engineering perspectives on AI, automation, cloud systems, and the future of enterprise software.
+            <p className="text-lg text-[#4A5568]">
+              Thoughts on software development, automation, and building better business tools.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ── Featured Article ── */}
-      <section className="pb-16">
+      {/* Articles Grid */}
+      <section className="py-12 lg:py-16 flex-1">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link href={`/blog/${featured.slug}`} className="group block">
-            <div className="relative rounded-3xl overflow-hidden border border-[#ff0033]/25 bg-[#0b0b12] hover:border-[#ff0033]/60 transition-all duration-500 shadow-[0_0_60px_rgba(0,0,0,0.8)] hover:shadow-[0_0_80px_rgba(255,0,51,0.15)]">
-              {/* Gradient background */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${featured.coverGradient} opacity-60`} />
-
-              <div className="relative z-10 p-8 sm:p-12 lg:p-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-                <div className="flex flex-col gap-5">
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${categoryColors[featured.category] || "text-zinc-400 bg-zinc-800 border-zinc-700"}`}>
-                      <Tag className="w-3 h-3" />
-                      {featured.category}
-                    </span>
-                    <span className="text-xs font-mono text-zinc-500 flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      {featured.readTime}
-                    </span>
-                  </div>
-
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight group-hover:text-[#ff0033] transition-colors duration-300">
-                    {featured.title}
-                  </h2>
-
-                  <p className="text-zinc-400 text-sm sm:text-base font-light leading-relaxed">
-                    {featured.excerpt}
-                  </p>
-
-                  <div className="flex items-center gap-4 pt-2">
-                    <div className="flex flex-col">
-                      <span className="text-xs font-bold text-white">{featured.author}</span>
-                      <span className="text-xs text-zinc-500">{featured.date}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="hidden lg:flex items-center justify-center">
-                  <div className="w-full max-w-md aspect-video rounded-2xl border border-[#ff0033]/40 bg-[#0d0d16] relative overflow-hidden shadow-[0_0_30px_rgba(255,0,51,0.2)] group-hover:scale-102 transition-transform duration-500">
-                    <img
-                      src={featured.coverImage}
-                      alt={featured.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b12] via-transparent to-transparent opacity-80" />
-                    <div className="absolute bottom-3 left-4 text-xs font-mono text-[#ff0033] bg-[#050505]/80 backdrop-blur-md px-3 py-1 rounded-md border border-[#ff0033]/30">
-                      FEATURED RESEARCH
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="absolute bottom-8 right-8 sm:bottom-12 sm:right-12 z-10">
-                <div className="flex items-center gap-2 text-sm font-semibold text-[#ff0033] group-hover:gap-4 transition-all duration-300">
-                  Read Article
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              </div>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      {/* ── Rest of Articles ── */}
-      <section className="pb-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-8 border-b border-zinc-900 pb-4">
-            More Articles
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {rest.map((blog, idx) => (
-              <Link key={blog.slug} href={`/blog/${blog.slug}`} className="group block">
-                <div className="relative h-full rounded-2xl border border-zinc-800 bg-[#0b0b12] hover:border-[#ff0033]/50 transition-all duration-500 overflow-hidden hover:shadow-[0_0_40px_rgba(255,0,51,0.15)] flex flex-col">
-                  {/* Top Cover Image Container */}
-                  <div className="relative w-full aspect-[16/9] overflow-hidden bg-black/40 border-b border-zinc-800/80">
-                    <img
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {blogs.map((blog) => (
+              <article key={blog.slug}>
+                <Link
+                  href={`/blog/${blog.slug}`}
+                  className="group block bg-white rounded-xl border border-[#E2E8F0] overflow-hidden hover:border-teal-primary hover:shadow-lg transition-all duration-200 h-full"
+                >
+                  {/* Cover Image */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-light-gray">
+                    <Image
                       src={blog.coverImage}
                       alt={blog.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b12] via-black/20 to-transparent" />
-                    
-                    <div className="absolute top-3 left-3 z-10">
-                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border backdrop-blur-md ${categoryColors[blog.category] || "text-zinc-400 bg-zinc-800/80 border-zinc-700"}`}>
-                        <Tag className="w-3 h-3" />
-                        {blog.category}
-                      </span>
-                    </div>
-
-                    <div className="absolute top-2 right-3 text-3xl font-black text-white/30 font-mono select-none drop-shadow-md">
-                      0{idx + 2}
-                    </div>
                   </div>
 
-                  <div className="p-6 flex flex-col gap-4 flex-1">
-                    <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5 text-[#ff0033]" />
+                  {/* Content */}
+                  <div className="p-6">
+                    {/* Category & Meta */}
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-teal-primary/10 text-teal-primary">
+                        {blog.category}
+                      </span>
+                      <span className="flex items-center gap-1 text-xs text-[#718096]">
+                        <Clock className="w-3 h-3" />
                         {blog.readTime}
                       </span>
-                      <span className="text-zinc-500">{blog.date}</span>
                     </div>
 
-                    <h3 className="text-lg sm:text-xl font-bold text-white leading-snug group-hover:text-[#ff0033] transition-colors duration-300 flex-1">
+                    {/* Title */}
+                    <h2 className="font-semibold text-dark-navy text-lg leading-snug mb-2 group-hover:text-teal-primary transition-colors">
                       {blog.title}
-                    </h3>
+                    </h2>
 
-                    <p className="text-zinc-400 text-sm font-light leading-relaxed line-clamp-2">
+                    {/* Excerpt */}
+                    <p className="text-sm text-[#4A5568] line-clamp-2 mb-4">
                       {blog.excerpt}
                     </p>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-zinc-900 mt-auto">
-                      <span className="text-xs text-zinc-500 font-mono">Read Article</span>
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-[#ff0033] group-hover:translate-x-1 transition-all">
-                        Explore <ArrowRight className="w-3.5 h-3.5" />
-                      </div>
+                    {/* Footer */}
+                    <div className="flex items-center justify-between pt-4 border-t border-[#E2E8F0]">
+                      <span className="text-xs text-[#718096]">{blog.date}</span>
+                      <span className="inline-flex items-center gap-1 text-sm font-medium text-teal-primary">
+                        Read
+                        <ArrowRight className="w-4 h-4" />
+                      </span>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </article>
             ))}
           </div>
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }

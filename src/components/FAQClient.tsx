@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,14 +9,12 @@ import {
   HelpCircle,
   Search,
   ChevronDown,
-  Sparkles,
-  Cpu,
   Workflow,
+  Cpu,
   Cloud,
   ShieldCheck,
   ArrowRight,
-  MessageSquare,
-  PhoneCall,
+  Mail,
 } from "lucide-react";
 
 interface FAQItem {
@@ -45,21 +44,21 @@ const faqData: FAQItem[] = [
     category: "Automation",
     question: "How long does a typical ERP or process automation deployment take?",
     answer:
-      "Our average engagement lifecycle ranges from 4 weeks for targeted module automations (e.g., Accounts Payable OCR & approval routing) to 12-16 weeks for end-to-end multi-department ERP replacements. We work in 2-week agile sprints with continuous staging environment previews so your team sees working code early and often.",
+      "Our average engagement ranges from 4 weeks for targeted module automations (e.g., Accounts Payable OCR & approval routing) to 12-16 weeks for end-to-end multi-department ERP replacements. We work in 2-week agile sprints with continuous staging environment previews so your team sees working code early and often.",
   },
   {
     id: "ai-1",
     category: "AI",
-    question: "Can SavoirLabs deploy custom LLMs and AI models on private enterprise servers?",
+    question: "Can SavoirLabs deploy custom LLMs and AI models on private servers?",
     answer:
-      "Yes. Data privacy and compliance are paramount. We build and deploy fine-tuned Large Language Models (LLMs), RAG (Retrieval-Augmented Generation) knowledge engines, and predictive ML models on your private cloud infrastructure (AWS EKS, GCP, Azure, or on-premise hardware). Your proprietary enterprise data never touches public third-party model APIs unless explicitly requested.",
+      "Yes. Data privacy and compliance are paramount. We build and deploy fine-tuned Large Language Models (LLMs), RAG (Retrieval-Augmented Generation) knowledge engines, and predictive ML models on your private cloud infrastructure (AWS, GCP, Azure, or on-premise hardware). Your proprietary data never touches public third-party model APIs unless explicitly requested.",
   },
   {
     id: "ai-2",
     category: "AI",
     question: "What is Agentic AI and how can my company leverage it?",
     answer:
-      "Agentic AI systems go beyond generating responses — they autonomously plan, reason, and execute multi-step workflows. For example, an AI agent designed by SavoirLabs can ingest a vendor invoice, cross-reference inventory in ERPNext, verify line-item pricing against past purchase orders, generate payment vouchers, and alert financial approvers on Slack or Teams — executing 90% of the workflow without human intervention.",
+      "Agentic AI systems go beyond generating responses — they autonomously plan, reason, and execute multi-step workflows. For example, an AI agent can ingest a vendor invoice, cross-reference inventory in your ERP, verify line-item pricing against past purchase orders, generate payment vouchers, and alert financial approvers — executing most of the workflow without human intervention.",
   },
   {
     id: "ai-3",
@@ -73,21 +72,21 @@ const faqData: FAQItem[] = [
     category: "Cloud",
     question: "What uptime guarantees and SLA standards do you provide?",
     answer:
-      "Our cloud architecture designs target 99.99% uptime SLAs (less than 52 minutes of unplanned downtime per year). We engineer auto-scaling Kubernetes clusters with multi-AZ replication, automated failover, zero-downtime rolling upgrades, and continuous disaster recovery simulation testing.",
+      "Our cloud architecture designs target high availability with multi-zone replication, automated failover, zero-downtime rolling upgrades, and continuous disaster recovery simulation testing. Specific SLA terms are tailored to each client's requirements.",
   },
   {
     id: "cloud-2",
     category: "Cloud",
-    question: "How do you help companies reduce escalating cloud infrastructure costs?",
+    question: "How do you help companies reduce cloud infrastructure costs?",
     answer:
-      "Through deep cloud optimization audits: we implement spot instance orchestration (saving up to 70% on compute), fine-tune container resource limits using KEDA and Karpenter, eliminate idle database instances, and implement caching layers that cut cloud API overhead by 40–60%.",
+      "Through deep cloud optimization audits: we implement spot instance orchestration, fine-tune container resource limits, eliminate idle database instances, and implement caching layers that significantly cut cloud API overhead and reduce monthly spend.",
   },
   {
     id: "cloud-3",
     category: "Cloud",
-    question: "Do you offer post-launch managed cloud maintenance and monitoring?",
+    question: "Do you offer post-launch managed maintenance and monitoring?",
     answer:
-      "Yes. SavoirLabs provides 24/7/365 site reliability engineering (SRE) support, continuous security patching, infrastructure monitoring via Prometheus/Grafana, and active incident response retainers tailored to your system uptime requirements.",
+      "Yes. SavoirLabs provides ongoing site reliability engineering (SRE) support, continuous security patching, infrastructure monitoring, and active incident response retainers tailored to your system uptime requirements.",
   },
   {
     id: "sec-1",
@@ -101,26 +100,26 @@ const faqData: FAQItem[] = [
     category: "Process & Security",
     question: "What security compliance frameworks do your solutions adhere to?",
     answer:
-      "Our systems are built Zero Trust by default. We conform to SOC 2 Type II, ISO 27001, GDPR, and HIPAA compliance standards depending on your industry requirements — enforcing mTLS encryption in transit, AES-256 encryption at rest, and strict RBAC access policies.",
+      "Our systems are built Zero Trust by default. We conform to SOC 2 Type II, ISO 27001, GDPR, and HIPAA compliance standards depending on your industry requirements — enforcing encryption in transit, encryption at rest, and strict RBAC access policies.",
   },
   {
     id: "sec-3",
     category: "Process & Security",
-    question: "How do we get started with a project proposal?",
+    question: "How do we get started with a project?",
     answer:
-      "You can use our interactive Project Scope Estimator on the home page, schedule a technical discovery call directly with our engineering founders, or fill out the contact form below. We prepare detailed technical blueprints and fixed-scope proposals within 48 hours.",
+      "You can schedule a technical discovery call directly with our engineering team or fill out the contact form on our homepage. We prepare detailed technical proposals and scope documents typically within a few days of our initial conversation.",
   },
 ];
 
 const categories = [
-  { label: "All Questions", value: "All", icon: HelpCircle },
-  { label: "Intelligent Automation", value: "Automation", icon: Workflow },
-  { label: "Enterprise AI", value: "AI", icon: Cpu },
-  { label: "Cloud Native", value: "Cloud", icon: Cloud },
-  { label: "Process & Security", value: "Process & Security", icon: ShieldCheck },
+  { label: "All", value: "All", icon: HelpCircle },
+  { label: "Automation", value: "Automation", icon: Workflow },
+  { label: "AI", value: "AI", icon: Cpu },
+  { label: "Cloud", value: "Cloud", icon: Cloud },
+  { label: "Security", value: "Process & Security", icon: ShieldCheck },
 ];
 
-export default function FAQPage() {
+export default function FAQClient() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [openIds, setOpenIds] = useState<Record<string, boolean>>({ "auto-1": true });
@@ -139,48 +138,39 @@ export default function FAQPage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white">
+    <main className="min-h-screen bg-white flex flex-col">
       <Navbar />
-      {/* ── Nav spacer ── */}
-      <div className="h-24" />
 
-      {/* ── Header Section ── */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Background glow effects */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-[#ff0033]/8 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute top-1/3 right-10 w-[300px] h-[300px] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto flex flex-col items-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#13131d] border border-[#ff0033]/30 text-xs font-mono text-[#ff0033] uppercase tracking-widest mb-6 font-bold shadow-[0_0_15px_rgba(255,0,51,0.2)]">
-              <Sparkles className="w-4 h-4" />
-              Knowledge Base & Support
-            </div>
-
-            <h1 className="text-4xl sm:text-6xl font-extrabold uppercase tracking-tight leading-tight mb-6">
-              Frequently Asked <span className="text-stroke-red">Questions</span>
+      {/* Header Section */}
+      <section className="pt-32 pb-12 lg:pt-40 lg:pb-16 bg-light-gray">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <span className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium rounded-full bg-teal-primary/10 text-teal-primary">
+              Support
+            </span>
+            <h1 className="font-display text-4xl md:text-5xl font-semibold text-dark-navy mb-4">
+              Frequently Asked Questions
             </h1>
-
-            <p className="text-zinc-400 text-base sm:text-lg font-light leading-relaxed mb-10">
-              Clear answers to your technical, architectural, and operational questions about SavoirLabs engineering services.
+            <p className="text-lg text-[#4A5568] max-w-2xl mx-auto mb-8">
+              Find answers to common questions about our services, process, and technical capabilities.
             </p>
 
-            {/* Live Search Input */}
-            <div className="w-full max-w-xl relative">
-              <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-zinc-500">
+            {/* Search Input */}
+            <div className="max-w-xl mx-auto relative">
+              <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-[#718096]">
                 <Search className="w-5 h-5" />
               </div>
               <input
                 type="text"
-                placeholder="Search questions by keyword (e.g. ERPNext, LLM, Kubernetes, NDA)..."
+                placeholder="Search questions..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-[#0d0d16] border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-[#ff0033]/60 focus:ring-1 focus:ring-[#ff0033]/60 transition-all text-sm shadow-xl"
+                className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-[#E2E8F0] bg-white text-dark-navy placeholder:text-[#718096] focus:outline-none focus:border-teal-primary focus:ring-2 focus:ring-teal-primary/10 transition-colors"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute inset-y-0 right-4 flex items-center text-xs font-mono text-zinc-500 hover:text-white"
+                  className="absolute inset-y-0 right-4 flex items-center text-sm text-[#718096] hover:text-dark-navy transition-colors"
                 >
                   Clear
                 </button>
@@ -190,11 +180,11 @@ export default function FAQPage() {
         </div>
       </section>
 
-      {/* ── Main FAQ Body ── */}
-      <section className="pb-28">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Main FAQ Body */}
+      <section className="py-12 lg:py-16 flex-1">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Category Filter Pills */}
-          <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap mb-12">
+          <div className="flex items-center justify-center gap-2 flex-wrap mb-10">
             {categories.map((cat) => {
               const Icon = cat.icon;
               const active = selectedCategory === cat.value;
@@ -202,10 +192,10 @@ export default function FAQPage() {
                 <button
                   key={cat.value}
                   onClick={() => setSelectedCategory(cat.value)}
-                  className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 border ${
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
                     active
-                      ? "bg-[#ff0033] text-white border-[#ff0033] shadow-[0_0_25px_rgba(255,0,51,0.4)]"
-                      : "bg-[#0d0d16] text-zinc-400 border-zinc-800 hover:border-zinc-700 hover:text-white"
+                      ? "bg-teal-primary text-white"
+                      : "bg-white text-[#4A5568] border border-[#E2E8F0] hover:border-teal-primary hover:text-teal-primary"
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -217,52 +207,45 @@ export default function FAQPage() {
 
           {/* FAQ Accordion List */}
           {filteredFaqs.length === 0 ? (
-            <div className="text-center py-16 px-6 rounded-2xl border border-zinc-800 bg-[#0b0b12]">
-              <HelpCircle className="w-12 h-12 text-zinc-600 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-white mb-2">No matching questions found</h3>
-              <p className="text-zinc-500 text-sm max-w-md mx-auto mb-6 font-light">
-                We couldn't find any questions matching "{searchQuery}". Try a different keyword or contact our engineering team directly.
+            <div className="text-center py-16 px-6 rounded-xl border border-[#E2E8F0] bg-light-gray">
+              <HelpCircle className="w-12 h-12 text-[#718096] mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-dark-navy mb-2">No matching questions found</h3>
+              <p className="text-[#4A5568] text-sm max-w-md mx-auto mb-6">
+                We couldn&apos;t find any questions matching &ldquo;{searchQuery}&rdquo;. Try a different keyword or contact us directly.
               </p>
               <button
                 onClick={() => {
                   setSearchQuery("");
                   setSelectedCategory("All");
                 }}
-                className="px-4 py-2 rounded-lg bg-[#151520] border border-zinc-700 text-xs font-mono text-[#ff0033] hover:bg-[#ff0033] hover:text-white transition-all"
+                className="px-4 py-2 rounded-lg bg-white border border-[#E2E8F0] text-sm font-medium text-dark-navy hover:border-teal-primary hover:text-teal-primary transition-colors"
               >
                 Reset Filters
               </button>
             </div>
           ) : (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               {filteredFaqs.map((faq) => {
                 const isOpen = !!openIds[faq.id];
                 return (
                   <div
                     key={faq.id}
-                    className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+                    className={`rounded-xl border transition-all overflow-hidden ${
                       isOpen
-                        ? "bg-[#0c0c16] border-[#ff0033]/50 shadow-[0_0_30px_rgba(255,0,51,0.08)]"
-                        : "bg-[#0b0b12] border-zinc-800/80 hover:border-zinc-700"
+                        ? "bg-white border-teal-primary/30 shadow-md"
+                        : "bg-white border-[#E2E8F0] hover:border-[#CBD5E0]"
                     }`}
                   >
                     <button
                       onClick={() => toggleAccordion(faq.id)}
                       className="w-full px-6 py-5 flex items-center justify-between text-left gap-4 group"
                     >
-                      <div className="flex items-center gap-3.5">
-                        <span
-                          className={`w-2 h-2 rounded-full transition-colors shrink-0 ${
-                            isOpen ? "bg-[#ff0033] shadow-[0_0_10px_#ff0033]" : "bg-zinc-700"
-                          }`}
-                        />
-                        <span className="text-base sm:text-lg font-bold text-white group-hover:text-[#ff0033] transition-colors leading-snug">
-                          {faq.question}
-                        </span>
-                      </div>
+                      <span className="text-base font-medium text-dark-navy group-hover:text-teal-primary transition-colors leading-snug">
+                        {faq.question}
+                      </span>
                       <div
-                        className={`w-8 h-8 rounded-lg bg-[#12121c] border border-zinc-800 flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                          isOpen ? "rotate-180 border-[#ff0033]/40 text-[#ff0033]" : "text-zinc-400"
+                        className={`w-8 h-8 rounded-lg bg-light-gray flex items-center justify-center shrink-0 transition-all ${
+                          isOpen ? "rotate-180 bg-teal-primary/10 text-teal-primary" : "text-[#718096]"
                         }`}
                       >
                         <ChevronDown className="w-4 h-4" />
@@ -275,10 +258,10 @@ export default function FAQPage() {
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          transition={{ duration: 0.2, ease: "easeInOut" }}
                         >
-                          <div className="px-6 pb-6 pt-1 text-zinc-300 text-sm sm:text-base font-light leading-relaxed border-t border-zinc-900/80 pl-11">
-                            {faq.answer}
+                          <div className="px-6 pb-6 text-[#4A5568] leading-relaxed border-t border-[#E2E8F0]">
+                            <p className="pt-4">{faq.answer}</p>
                           </div>
                         </motion.div>
                       )}
@@ -289,39 +272,27 @@ export default function FAQPage() {
             </div>
           )}
 
-          {/* ── Still Have Questions CTA Banner ── */}
-          <div className="mt-20 rounded-3xl border border-[#ff0033]/30 bg-gradient-to-r from-[#0d0d18] via-[#090910] to-[#0d0d18] p-8 sm:p-12 relative overflow-hidden shadow-[0_0_50px_rgba(255,0,51,0.1)]">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-[#ff0033]/10 rounded-full blur-[100px] pointer-events-none" />
-
-            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
-              <div className="flex flex-col gap-2 max-w-xl">
-                <div className="inline-flex items-center gap-2 text-xs font-mono text-[#ff0033] uppercase tracking-widest font-bold">
-                  <MessageSquare className="w-4 h-4" />
-                  Have a specific enterprise requirement?
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-                  Speak Directly With Our Engineering Leadership
+          {/* Still Have Questions CTA */}
+          <div className="mt-16 rounded-xl bg-light-gray border border-[#E2E8F0] p-8 lg:p-10">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+              <div>
+                <h2 className="text-xl font-semibold text-dark-navy mb-2">
+                  Still have questions?
                 </h2>
-                <p className="text-zinc-400 text-sm font-light leading-relaxed">
-                  We don't put non-technical sales reps on discovery calls. You'll converse directly with senior software architects and AI systems engineers.
+                <p className="text-[#4A5568]">
+                  Can&apos;t find what you&apos;re looking for? Our team is happy to help.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 shrink-0 w-full md:w-auto">
-                <a
+              <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+                <Link
                   href="/#contact"
-                  className="px-6 py-3.5 rounded-xl bg-[#ff0033] text-white font-bold text-sm shadow-[0_0_25px_rgba(255,0,51,0.4)] hover:bg-[#e6002e] transition-all flex items-center justify-center gap-2 group"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-teal-primary to-teal-light hover:shadow-teal transition-all group"
                 >
-                  Send Message
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-                <a
-                  href="/#estimator"
-                  className="px-6 py-3.5 rounded-xl bg-[#12121d] border border-zinc-800 text-white font-bold text-sm hover:border-[#ff0033]/50 transition-all flex items-center justify-center gap-2"
-                >
-                  <PhoneCall className="w-4 h-4 text-[#ff0033]" />
-                  Project Estimator
-                </a>
+                  <Mail className="w-4 h-4" />
+                  Contact Us
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
               </div>
             </div>
           </div>
