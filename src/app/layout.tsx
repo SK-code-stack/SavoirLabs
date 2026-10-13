@@ -1,6 +1,7 @@
 import Script from 'next/script';
 import type { Metadata } from "next";
 import "./globals.css";
+import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "SavoirLabs - Custom Software & Automation for Growing Businesses",
@@ -114,7 +115,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-white text-dark-navy font-sans">
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

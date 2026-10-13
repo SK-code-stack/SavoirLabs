@@ -301,10 +301,10 @@ export default function CaseStudies() {
             href="#contact"
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base font-medium text-white bg-gradient-to-r from-teal-primary to-teal-light hover:shadow-teal transition-shadow"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base font-medium bg-gradient-to-r from-teal-primary to-teal-light hover:shadow-teal transition-shadow"
           >
-            Let&apos;s discuss your project
-            <ArrowRight className="w-5 h-5" />
+            <span className="text-white">Let&apos;s discuss your project</span>
+            <ArrowRight className="w-5 h-5 text-white" />
           </motion.a>
         </motion.div>
       </div>

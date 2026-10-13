@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Cog, Code2, Database, Cloud, ArrowRight } from "lucide-react";
 import { staggerContainer, fadeInUp, viewportOnce } from "@/lib/animations";
+import GradientMesh from "./ui/GradientMesh";
+import NoiseTexture from "./ui/NoiseTexture";
 
 const services = [
   {
@@ -71,10 +74,50 @@ const cardVariants = {
   }),
 };
 
+// Tilt card component
+function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    setRotateX(((y - centerY) / centerY) * -5);
+    setRotateY(((x - centerX) / centerX) * 5);
+  };
+
+  const handleMouseLeave = () => {
+    setRotateX(0);
+    setRotateY(0);
+  };
+
+  return (
+    <motion.div
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      animate={{ rotateX, rotateY }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      style={{ transformStyle: "preserve-3d" }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export default function Services() {
   return (
-    <section id="services" className="py-20 lg:py-28 bg-light-gray">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="relative py-20 lg:py-28 bg-light-gray overflow-hidden">
+      {/* Background effects */}
+      <GradientMesh variant="subtle" />
+      <NoiseTexture opacity={0.02} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           variants={staggerContainer}
@@ -117,59 +160,69 @@ export default function Services() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewportOnce}
-                whileHover={{
-                  y: -4,
-                  boxShadow: "0 20px 40px -15px rgba(24, 188, 183, 0.15)",
-                  borderColor: "#18BCB7",
-                }}
-                transition={{ duration: 0.2 }}
-                className="group bg-white rounded-xl border border-[#E2E8F0] p-6 lg:p-8"
               >
-                {/* Icon */}
-                <motion.div
-                  whileHover={{ scale: 1.05, rotate: 3 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                  className="w-12 h-12 rounded-lg bg-gradient-to-br from-teal-primary to-teal-light flex items-center justify-center mb-5"
-                >
-                  <Icon className="w-6 h-6 text-white" />
-                </motion.div>
+                <TiltCard>
+                  <motion.div
+                    whileHover={{
+                      boxShadow: "0 20px 40px -15px rgba(24, 188, 183, 0.2)",
+                      borderColor: "#18BCB7",
+                    }}
+                    transition={{ duration: 0.2 }}
+                    className="group relative bg-white/80 backdrop-blur-sm rounded-2xl border border-white/50 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-6 lg:p-8 overflow-hidden"
+                  >
+                    {/* Glassmorphism gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-teal-primary/5 pointer-events-none rounded-2xl" />
 
-                {/* Title */}
-                <h3 className="text-xl font-semibold text-dark-navy mb-3 group-hover:text-teal-primary transition-colors duration-200">
-                  {service.title}
-                </h3>
+                    {/* Content */}
+                    <div className="relative z-10">
+                      {/* Icon */}
+                      <motion.div
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                        className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-primary to-teal-light flex items-center justify-center mb-5 shadow-lg shadow-teal-primary/20"
+                      >
+                        <Icon className="w-7 h-7 text-white" />
+                      </motion.div>
 
-                {/* Description */}
-                <p className="text-[#4A5568] leading-relaxed mb-5">
-                  {service.description}
-                </p>
+                      {/* Title */}
+                      <h3 className="text-xl font-semibold text-dark-navy mb-3 group-hover:text-teal-primary transition-colors duration-200">
+                        {service.title}
+                      </h3>
 
-                {/* Features */}
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, fIdx) => (
-                    <motion.li
-                      key={fIdx}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.3 + fIdx * 0.05, duration: 0.3 }}
-                      className="flex items-start gap-2 text-sm text-[#4A5568]"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-teal-primary mt-2 flex-shrink-0" />
-                      {feature}
-                    </motion.li>
-                  ))}
-                </ul>
+                      {/* Description */}
+                      <p className="text-[#4A5568] leading-relaxed mb-5">
+                        {service.description}
+                      </p>
 
-                {/* Learn more link */}
-                <motion.a
-                  href="#contact"
-                  whileHover={{ x: 4 }}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-teal-primary"
-                >
-                  Learn more
-                  <ArrowRight className="w-4 h-4" />
-                </motion.a>
+                      {/* Features */}
+                      <ul className="space-y-2.5 mb-6">
+                        {service.features.map((feature, fIdx) => (
+                          <motion.li
+                            key={fIdx}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.3 + fIdx * 0.05, duration: 0.3 }}
+                            className="flex items-start gap-2.5 text-sm text-[#4A5568]"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-teal-primary mt-2 flex-shrink-0" />
+                            {feature}
+                          </motion.li>
+                        ))}
+                      </ul>
+
+                      {/* Learn more link */}
+                      <motion.a
+                        href="#contact"
+                        whileHover={{ x: 4 }}
+                        className="inline-flex items-center gap-1.5 text-sm font-medium text-teal-primary group/link"
+                      >
+                        Learn more
+                        <ArrowRight className="w-4 h-4 group-hover/link:translate-x-0.5 transition-transform" />
+                      </motion.a>
+                    </div>
+                  </motion.div>
+                </TiltCard>
               </motion.div>
             );
           })}

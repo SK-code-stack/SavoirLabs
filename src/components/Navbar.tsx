@@ -98,10 +98,11 @@ export default function Navbar() {
                 href="/#contact"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-teal-primary to-teal-light hover:shadow-teal transition-shadow duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-gradient-to-r from-teal-primary to-teal-light hover:shadow-teal transition-shadow duration-200"
+                style={{ color: "white" }}
               >
-                Start a Project
-                <ArrowRight className="w-4 h-4" />
+                <span className="text-white">Start a Project</span>
+                <ArrowRight className="w-4 h-4 text-white" />
               </motion.a>
             </motion.div>
 
@@ -218,10 +219,10 @@ export default function Navbar() {
                     onClick={() => setMobileMenuOpen(false)}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex items-center justify-center gap-2 w-full py-3 rounded-lg text-base font-medium text-white bg-gradient-to-r from-teal-primary to-teal-light"
+                    className="flex items-center justify-center gap-2 w-full py-3 rounded-lg text-base font-medium bg-gradient-to-r from-teal-primary to-teal-light"
                   >
-                    Start a Project
-                    <ArrowRight className="w-5 h-5" />
+                    <span className="text-white">Start a Project</span>
+                    <ArrowRight className="w-5 h-5 text-white" />
                   </motion.a>
                   <p className="mt-4 text-sm text-center text-[#718096]">
                     Have questions?{" "}

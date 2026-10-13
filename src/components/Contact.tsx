@@ -314,17 +314,17 @@ export default function Contact() {
                       disabled={formStatus === "sending"}
                       whileHover={{ scale: 1.01, y: -2 }}
                       whileTap={{ scale: 0.99 }}
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg text-base font-medium text-white bg-gradient-to-r from-teal-primary to-teal-light hover:shadow-teal disabled:opacity-70 disabled:cursor-not-allowed transition-all"
+                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg text-base font-medium bg-gradient-to-r from-teal-primary to-teal-light hover:shadow-teal disabled:opacity-70 disabled:cursor-not-allowed transition-all"
                     >
                       {formStatus === "sending" ? (
                         <>
-                          <Loader2 className="w-5 h-5 animate-spin" />
-                          Sending...
+                          <Loader2 className="w-5 h-5 text-white animate-spin" />
+                          <span className="text-white">Sending...</span>
                         </>
                       ) : (
                         <>
-                          Send Message
-                          <Send className="w-5 h-5" />
+                          <span className="text-white">Send Message</span>
+                          <Send className="w-5 h-5 text-white" />
                         </>
                       )}
                     </motion.button>

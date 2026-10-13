@@ -111,9 +111,9 @@ export default function Footer() {
                 href="/#contact"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-teal-primary to-teal-light hover:shadow-teal transition-shadow"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-medium bg-gradient-to-r from-teal-primary to-teal-light hover:shadow-teal transition-shadow"
               >
-                Get in Touch
+                <span className="text-white">Get in Touch</span>
               </motion.a>
             </div>
           </div>

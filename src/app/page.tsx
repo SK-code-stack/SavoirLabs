@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 
 // Dynamic imports for below-the-fold components
 const Services = dynamic(() => import("@/components/Services"));
+const Stats = dynamic(() => import("@/components/Stats"));
 const Process = dynamic(() => import("@/components/Process"));
 const CaseStudies = dynamic(() => import("@/components/CaseStudies"));
 const WhyUs = dynamic(() => import("@/components/WhyUs"));
@@ -21,6 +22,8 @@ export default function Home() {
       <Hero />
 
       <Services />
+
+      <Stats />
 
       <CaseStudies />
 

@@ -3,6 +3,9 @@
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { staggerContainer, fadeInUp, viewportOnce } from "@/lib/animations";
+import GradientMesh from "./ui/GradientMesh";
+import NoiseTexture from "./ui/NoiseTexture";
+import { DarkGlassCard } from "./ui/GlassCard";
 
 const testimonials = [
   {
@@ -39,8 +42,12 @@ const cardVariants = {
 
 export default function Testimonials() {
   return (
-    <section className="py-20 lg:py-28 bg-dark-navy overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-20 lg:py-28 bg-dark-navy overflow-hidden">
+      {/* Background effects */}
+      <GradientMesh variant="section" />
+      <NoiseTexture opacity={0.02} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           variants={staggerContainer}
@@ -64,7 +71,7 @@ export default function Testimonials() {
         </motion.div>
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {testimonials.map((testimonial, idx) => (
             <motion.div
               key={idx}
@@ -73,33 +80,34 @@ export default function Testimonials() {
               initial="hidden"
               whileInView="visible"
               viewport={viewportOnce}
-              whileHover={{
-                y: -3,
-                borderColor: "rgba(46, 230, 214, 0.3)",
-              }}
-              transition={{ duration: 0.2 }}
-              className="bg-white/5 backdrop-blur-sm rounded-lg p-5 border border-white/10"
             >
-              {/* Quote Icon & Text */}
-              <div className="flex gap-3 mb-4">
-                <Quote className="w-6 h-6 text-teal-primary/60 shrink-0 mt-0.5" />
-                <p className="text-white/85 text-sm leading-relaxed line-clamp-3">
+              <DarkGlassCard className="p-6 lg:p-8 h-full">
+                {/* Quote Icon */}
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  className="w-14 h-14 mb-5 rounded-2xl bg-gradient-to-br from-teal-primary/20 to-teal-light/10 flex items-center justify-center"
+                >
+                  <Quote className="w-7 h-7 text-teal-primary" />
+                </motion.div>
+
+                {/* Quote Text */}
+                <p className="text-white/90 text-base leading-relaxed mb-6">
                   &ldquo;{testimonial.quote}&rdquo;
                 </p>
-              </div>
 
-              {/* Attribution */}
-              <div className="flex items-center gap-3 pt-3 border-t border-white/10">
-                <div className="w-8 h-8 rounded-full bg-teal-primary/20 flex items-center justify-center">
-                  <span className="text-xs font-semibold text-teal-light">
-                    {testimonial.author.charAt(0)}
-                  </span>
+                {/* Attribution */}
+                <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-primary/20 to-teal-light/10 flex items-center justify-center">
+                    <span className="text-sm font-semibold text-teal-light">
+                      {testimonial.author.charAt(0)}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-white">{testimonial.author}</p>
+                    <p className="text-xs text-white/60">{testimonial.company}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-white">{testimonial.author}</p>
-                  <p className="text-xs text-white/50">{testimonial.company}</p>
-                </div>
-              </div>
+              </DarkGlassCard>
             </motion.div>
           ))}
         </div>

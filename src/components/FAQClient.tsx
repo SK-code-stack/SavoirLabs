@@ -157,23 +157,24 @@ export default function FAQClient() {
 
             {/* Search Input */}
             <div className="max-w-xl mx-auto relative">
-              <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-[#718096]">
-                <Search className="w-5 h-5" />
-              </div>
               <input
                 type="text"
                 placeholder="Search questions..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-[#E2E8F0] bg-white text-dark-navy placeholder:text-[#718096] focus:outline-none focus:border-teal-primary focus:ring-2 focus:ring-teal-primary/10 transition-colors"
+                className="w-full pl-4 pr-12 py-3.5 rounded-xl border border-[#E2E8F0] bg-white text-dark-navy placeholder:text-[#718096] focus:outline-none focus:border-teal-primary focus:ring-2 focus:ring-teal-primary/10 transition-colors"
               />
-              {searchQuery && (
+              {searchQuery ? (
                 <button
                   onClick={() => setSearchQuery("")}
                   className="absolute inset-y-0 right-4 flex items-center text-sm text-[#718096] hover:text-dark-navy transition-colors"
                 >
                   Clear
                 </button>
+              ) : (
+                <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-[#718096]">
+                  <Search className="w-5 h-5" />
+                </div>
               )}
             </div>
           </div>
@@ -287,11 +288,11 @@ export default function FAQClient() {
               <div className="flex flex-col sm:flex-row gap-3 shrink-0">
                 <Link
                   href="/#contact"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-teal-primary to-teal-light hover:shadow-teal transition-all group"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-medium bg-gradient-to-r from-teal-primary to-teal-light hover:shadow-teal transition-all group"
                 >
-                  <Mail className="w-4 h-4" />
-                  Contact Us
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  <Mail className="w-4 h-4 text-white" />
+                  <span className="text-white">Contact Us</span>
+                  <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-0.5 transition-transform" />
                 </Link>
               </div>
             </div>
