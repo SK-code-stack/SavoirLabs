@@ -62,9 +62,9 @@ export default function Navbar() {
                 <Image
                   src="/logo.png"
                   alt="SavoirLabs"
-                  width={120}
-                  height={40}
-                  className="h-10 w-auto object-contain"
+                  width={150}
+                  height={50}
+                  className="h-18 w-auto object-contain"
                   priority
                 />
               </motion.div>
@@ -170,9 +170,9 @@ export default function Navbar() {
                   <Image
                     src="/logo.png"
                     alt="SavoirLabs"
-                    width={100}
-                    height={32}
-                    className="h-8 w-auto object-contain"
+                    width={150}
+                    height={50}
+                    className="h-18 w-auto object-contain"
                   />
                   <motion.button
                     onClick={() => setMobileMenuOpen(false)}
