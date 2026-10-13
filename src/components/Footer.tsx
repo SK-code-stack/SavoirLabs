@@ -42,7 +42,7 @@ export default function Footer() {
                     alt="SavoirLabs"
                     width={140}
                     height={45}
-                    className="h-10 w-auto object-contain"
+                    className="h-18 w-auto object-contain"
                   />
                 </motion.div>
               </Link>

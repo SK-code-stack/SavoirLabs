@@ -22,7 +22,8 @@ const founders = [
     title: "Co-Founder & CEO",
     roles: ["Full Stack Engineer", "AI Engineer"],
     image: "/founder2.png",
-    bio: "Strategic leader and product innovator driving SavoirLabs's growth. Salman combines deep technical expertise in full-stack development and artificial intelligence to craft transformative digital products.",
+    imageScale: 1.15,
+    bio: "Strategic leader driving SavoirLabs's growth with expertise in full-stack development and AI solutions.",
     skills: [
       { label: "System Architecture", icon: Layers },
       { label: "Machine Learning", icon: BrainCircuit },
@@ -41,7 +42,8 @@ const founders = [
     title: "Co-Founder & CTO",
     roles: ["Full Stack Engineer", "AI Engineer"],
     image: "/founder1.png",
-    bio: "Visionary engineer and architect behind SavoirLabs's core technology. Areeb specializes in building scalable AI-driven platforms and cutting-edge web systems that push the frontier of enterprise software.",
+    imageScale: 1,
+    bio: "Visionary engineer behind SavoirLabs's core tech, building scalable AI platforms and modern web systems.",
     skills: [
       { label: "React / Next.js", icon: Layers },
       { label: "AI & Deep Learning", icon: BrainCircuit },
@@ -106,7 +108,7 @@ export default function Team() {
         </motion.div>
 
         {/* Founder Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
           {founders.map((founder, idx) => {
             const isHovered = hoveredId === founder.id;
 
@@ -119,15 +121,12 @@ export default function Team() {
                 transition={{ duration: 0.5, delay: idx * 0.15 }}
                 onMouseEnter={() => setHoveredId(founder.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                className="group relative rounded-3xl overflow-hidden border border-dark-navy/10 bg-dark-navy hover:border-teal-primary/50 hover:shadow-[0_0_60px_rgba(24,188,183,0.25)] flex flex-col transition-all duration-500"
+                className="group relative rounded-xl overflow-hidden border border-[#E2E8F0] bg-white hover:border-teal-primary hover:shadow-lg transition-all duration-300"
               >
-                {/* Card background gradient on hover */}
-                <div className="absolute inset-0 bg-gradient-to-b from-teal-primary/5 via-transparent to-teal-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-                {/* Top Image Section */}
-                <div className="relative w-full h-80 bg-gradient-to-b from-[#0a1f2e] to-[#051824] overflow-hidden">
-                  {/* Modern Animated Cyber Halo & Ambient Aura Background */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                {/* Top Image Section - Dark with animations */}
+                <div className="relative w-full h-60 bg-gradient-to-b from-[#0a1f2e] to-[#051824] overflow-hidden">
+                  {/* Modern Animated Cyber Halo & Ambient Aura Background - centered on image */}
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full flex items-center justify-center pointer-events-none" style={{ paddingBottom: '10%' }}>
                     {/* Outer Rotating Dashed Ring */}
                     <motion.div
                       animate={{ rotate: 360 }}
@@ -136,7 +135,7 @@ export default function Team() {
                         duration: 30,
                         ease: "linear",
                       }}
-                      className="w-72 h-72 rounded-full border border-dashed border-teal-primary/20 absolute"
+                      className="w-52 h-52 rounded-full border border-dashed border-teal-primary/20 absolute"
                     />
 
                     {/* Counter-Rotating Orbital Ring with Teal Nodes */}
@@ -147,10 +146,10 @@ export default function Team() {
                         duration: 20,
                         ease: "linear",
                       }}
-                      className="w-56 h-56 rounded-full border border-teal-primary/25 absolute flex items-center justify-between px-1.5"
+                      className="w-40 h-40 rounded-full border border-teal-primary/25 absolute flex items-center justify-between px-1"
                     >
-                      <span className="w-2 h-2 rounded-full bg-teal-primary shadow-[0_0_12px_#18BCB7]" />
-                      <span className="w-2 h-2 rounded-full bg-teal-light shadow-[0_0_12px_#2EE6D6]" />
+                      <span className="w-2 h-2 rounded-full bg-teal-primary shadow-[0_0_10px_#18BCB7]" />
+                      <span className="w-2 h-2 rounded-full bg-teal-light shadow-[0_0_10px_#2EE6D6]" />
                     </motion.div>
 
                     {/* Breathing Ambient Radial Pulse Ring */}
@@ -164,7 +163,7 @@ export default function Team() {
                         duration: 4.5,
                         ease: "easeInOut",
                       }}
-                      className="w-40 h-40 rounded-full border border-teal-primary/40 absolute shadow-[0_0_30px_rgba(24,188,183,0.25)]"
+                      className="w-32 h-32 rounded-full border border-teal-primary/40 absolute shadow-[0_0_25px_rgba(24,188,183,0.25)]"
                     />
 
                     {/* Inner glow ring */}
@@ -179,7 +178,7 @@ export default function Team() {
                         ease: "easeInOut",
                         delay: 0.5,
                       }}
-                      className="w-28 h-28 rounded-full bg-gradient-to-br from-teal-primary/20 to-teal-light/10 absolute blur-sm"
+                      className="w-24 h-24 rounded-full bg-gradient-to-br from-teal-primary/20 to-teal-light/10 absolute blur-sm"
                     />
                   </div>
 
@@ -190,129 +189,87 @@ export default function Team() {
                       opacity: isHovered ? 0.9 : 0.6,
                     }}
                     transition={{ duration: 0.5 }}
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-52 h-28 bg-teal-primary/30 rounded-full blur-3xl pointer-events-none"
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-40 h-20 bg-teal-primary/30 rounded-full blur-2xl pointer-events-none"
                   />
 
                   {/* Profile image */}
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-72">
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-52 h-56">
                     <Image
                       src={founder.image}
                       alt={founder.name}
                       fill
-                      className="object-contain object-bottom drop-shadow-2xl transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 768px) 256px, 256px"
+                      className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 208px, 208px"
+                      style={{ transform: `scale(${founder.imageScale})` }}
                     />
                   </div>
 
-                  {/* Role pills floating top */}
-                  <div className="absolute top-5 left-5 flex flex-col gap-2">
-                    {founder.roles.map((role, rIdx) => (
-                      <motion.span
-                        key={rIdx}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.3 + rIdx * 0.1 }}
-                        className="px-3 py-1 rounded-full text-[10px] font-bold font-display uppercase tracking-wider border bg-dark-navy/80 border-teal-primary/40 text-teal-light backdrop-blur-sm"
-                      >
-                        {role}
-                      </motion.span>
-                    ))}
+                  {/* Role pill */}
+                  <div className="absolute top-3 left-3">
+                    <motion.span
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.3 }}
+                      className="px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-dark-navy/80 border border-teal-primary/40 text-teal-light backdrop-blur-sm"
+                    >
+                      {founder.roles[0]}
+                    </motion.span>
                   </div>
-
-                  {/* Sparkles top-right */}
-                  <motion.div
-                    animate={{ rotate: isHovered ? 360 : 0 }}
-                    transition={{ duration: 2, ease: "linear" }}
-                    className="absolute top-5 right-5 w-10 h-10 rounded-full bg-teal-primary/20 border border-teal-primary/40 flex items-center justify-center"
-                  >
-                    <Sparkles className="w-5 h-5 text-teal-light" />
-                  </motion.div>
                 </div>
 
-                {/* Bottom Info Section */}
-                <div className="relative z-10 p-6 lg:p-7 flex flex-col flex-1">
-                  {/* Name & Title */}
-                  <div className="mb-4">
-                    <span className="text-[11px] font-display text-teal-primary uppercase tracking-widest font-bold block mb-1">
-                      {founder.title}
-                    </span>
-                    <h3 className="text-2xl font-display font-bold text-white tracking-tight group-hover:text-teal-light transition-colors duration-300">
-                      {founder.name}
-                    </h3>
-                  </div>
+                {/* Bottom Info Section - Light bg like blog cards */}
+                <div className="p-5">
+                  {/* Title badge */}
+                  <span className="inline-block px-2.5 py-0.5 text-xs font-medium rounded-full bg-teal-primary/10 text-teal-primary mb-2">
+                    {founder.title}
+                  </span>
 
-                  {/* Animated Divider */}
-                  <div className="w-10 h-0.5 bg-gradient-to-r from-teal-primary to-teal-light mb-4 group-hover:w-20 transition-all duration-500" />
+                  {/* Name */}
+                  <h3 className="font-semibold text-dark-navy text-lg leading-snug mb-2 group-hover:text-teal-primary transition-colors">
+                    {founder.name}
+                  </h3>
 
                   {/* Bio */}
-                  <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+                  <p className="text-sm text-[#4A5568] mb-4">
                     {founder.bio}
                   </p>
 
-                  {/* Skill Badges */}
-                  <div className="grid grid-cols-2 gap-2 mb-6">
-                    {founder.skills.map((skill, sIdx) => {
-                      const SkillIcon = skill.icon;
-                      return (
-                        <motion.div
-                          key={sIdx}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 0.4 + sIdx * 0.05 }}
-                          whileHover={{ scale: 1.02, borderColor: "#18BCB7" }}
-                          className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 group-hover:border-teal-primary/30 transition-colors duration-300"
-                        >
-                          <SkillIcon className="w-3.5 h-3.5 text-teal-primary shrink-0" />
-                          <span className="text-[11px] text-zinc-300 font-medium">
-                            {skill.label}
-                          </span>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-
                   {/* Social Links */}
-                  <div className="flex items-center gap-3 mt-auto pt-4 border-t border-white/10">
+                  <div className="flex items-center gap-2 pt-3 border-t border-[#E2E8F0]">
                     <motion.a
                       href={founder.socials.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 hover:border-teal-primary/50 hover:bg-teal-primary/10 flex items-center justify-center transition-all duration-300"
+                      className="w-8 h-8 rounded-lg bg-light-gray hover:bg-teal-primary/10 flex items-center justify-center transition-colors"
                       aria-label="GitHub"
                     >
-                      <Github className="w-4 h-4 text-zinc-400 hover:text-teal-light transition-colors" />
+                      <Github className="w-4 h-4 text-[#4A5568] hover:text-teal-primary transition-colors" />
                     </motion.a>
                     <motion.a
                       href={founder.socials.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 hover:border-teal-primary/50 hover:bg-teal-primary/10 flex items-center justify-center transition-all duration-300"
+                      className="w-8 h-8 rounded-lg bg-light-gray hover:bg-teal-primary/10 flex items-center justify-center transition-colors"
                       aria-label="LinkedIn"
                     >
-                      <Linkedin className="w-4 h-4 text-zinc-400 hover:text-teal-light transition-colors" />
+                      <Linkedin className="w-4 h-4 text-[#4A5568] hover:text-teal-primary transition-colors" />
                     </motion.a>
                     <motion.a
                       href={founder.socials.portfolio}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 hover:border-teal-primary/50 hover:bg-teal-primary/10 flex items-center justify-center transition-all duration-300"
+                      className="w-8 h-8 rounded-lg bg-light-gray hover:bg-teal-primary/10 flex items-center justify-center transition-colors"
                       aria-label="Portfolio"
                     >
-                      <Globe className="w-4 h-4 text-zinc-400 hover:text-teal-light transition-colors" />
+                      <Globe className="w-4 h-4 text-[#4A5568] hover:text-teal-primary transition-colors" />
                     </motion.a>
-                    <div className="ml-auto">
-                      <span className="font-display text-4xl font-black text-white/10 group-hover:text-teal-primary/20 transition-colors duration-500 select-none">
-                        {idx === 0 ? "01" : "02"}
-                      </span>
-                    </div>
                   </div>
                 </div>
               </motion.div>

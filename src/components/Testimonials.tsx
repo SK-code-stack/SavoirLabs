@@ -64,7 +64,7 @@ export default function Testimonials() {
         </motion.div>
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
           {testimonials.map((testimonial, idx) => (
             <motion.div
               key={idx}
@@ -74,50 +74,32 @@ export default function Testimonials() {
               whileInView="visible"
               viewport={viewportOnce}
               whileHover={{
-                y: -4,
-                boxShadow: "0 20px 40px -15px rgba(0, 0, 0, 0.3)",
+                y: -3,
                 borderColor: "rgba(46, 230, 214, 0.3)",
               }}
               transition={{ duration: 0.2 }}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10"
+              className="bg-white/5 backdrop-blur-sm rounded-lg p-5 border border-white/10"
             >
-              {/* Quote Icon */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 20,
-                  delay: 0.2 + idx * 0.1,
-                }}
-              >
-                <Quote className="w-10 h-10 text-teal-primary/50 mb-6" />
-              </motion.div>
-
-              {/* Quote Text */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 + idx * 0.1 }}
-                className="text-white/90 text-lg leading-relaxed mb-6"
-              >
-                &ldquo;{testimonial.quote}&rdquo;
-              </motion.p>
+              {/* Quote Icon & Text */}
+              <div className="flex gap-3 mb-4">
+                <Quote className="w-6 h-6 text-teal-primary/60 shrink-0 mt-0.5" />
+                <p className="text-white/85 text-sm leading-relaxed line-clamp-3">
+                  &ldquo;{testimonial.quote}&rdquo;
+                </p>
+              </div>
 
               {/* Attribution */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 + idx * 0.1 }}
-                className="pt-4 border-t border-white/10"
-              >
-                <p className="font-medium text-white">{testimonial.author}</p>
-                <p className="text-sm text-white/60">{testimonial.company}</p>
-              </motion.div>
+              <div className="flex items-center gap-3 pt-3 border-t border-white/10">
+                <div className="w-8 h-8 rounded-full bg-teal-primary/20 flex items-center justify-center">
+                  <span className="text-xs font-semibold text-teal-light">
+                    {testimonial.author.charAt(0)}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-white">{testimonial.author}</p>
+                  <p className="text-xs text-white/50">{testimonial.company}</p>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
