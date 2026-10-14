@@ -1,20 +1,34 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
+import { staggerContainer } from "@/lib/animations";
 import HeroBackground from "./HeroBackground";
 import MagneticButton from "./ui/MagneticButton";
 import { useEffect, useState } from "react";
 
-// Text reveal animation for individual words
-const WordReveal = ({ children, delay = 0 }: { children: string; delay?: number }) => {
-  const words = children.split(" ");
+// Animated word reveal with preserved spaces
+const WordReveal = ({
+  children,
+  delay = 0,
+}: {
+  children: string;
+  delay?: number;
+}) => {
+  const words = children.trim().split(/\s+/);
 
   return (
     <>
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden">
+        <span
+          key={`${word}-${i}`}
+          className="inline-block overflow-hidden align-bottom"
+        >
           <motion.span
             className="inline-block"
             initial={{ y: "100%", opacity: 0 }}
@@ -27,14 +41,15 @@ const WordReveal = ({ children, delay = 0 }: { children: string; delay?: number 
           >
             {word}
           </motion.span>
-          {i < words.length - 1 && " "}
+
+          {i < words.length - 1 && "\u00A0"}
         </span>
       ))}
     </>
   );
 };
 
-// Floating particles that follow cursor slightly
+// Floating particles that react slightly to the cursor
 const FloatingParticle = ({
   size,
   initialX,
@@ -54,8 +69,16 @@ const FloatingParticle = ({
 }) => {
   const x = useTransform(mouseX, (value) => value * strength);
   const y = useTransform(mouseY, (value) => value * strength);
-  const springX = useSpring(x, { stiffness: 50, damping: 20 });
-  const springY = useSpring(y, { stiffness: 50, damping: 20 });
+
+  const springX = useSpring(x, {
+    stiffness: 50,
+    damping: 20,
+  });
+
+  const springY = useSpring(y, {
+    stiffness: 50,
+    damping: 20,
+  });
 
   return (
     <motion.div
@@ -82,7 +105,7 @@ const FloatingParticle = ({
         scale: {
           duration: 0.5,
           delay,
-        }
+        },
       }}
     />
   );
@@ -90,6 +113,7 @@ const FloatingParticle = ({
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -101,42 +125,89 @@ export default function Hero() {
 
   useEffect(() => {
     setMounted(true);
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
+
+    const handleMouseMove = (event: MouseEvent) => {
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
-      mouseX.set(clientX - centerX);
-      mouseY.set(clientY - centerY);
+
+      mouseX.set(event.clientX - centerX);
+      mouseY.set(event.clientY - centerY);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, [mouseX, mouseY]);
 
   return (
     <section className="relative isolate flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-white px-4 pb-16 pt-24 sm:px-6 sm:pb-20 lg:px-8">
-
       {/* Three.js animated background */}
       <HeroBackground />
 
-      {/* Floating particles that react to cursor */}
+      {/* Floating particles */}
       {mounted && (
         <div className="pointer-events-none absolute inset-0 z-[1]">
-          <FloatingParticle size={80} initialX="10%" initialY="20%" mouseX={mouseX} mouseY={mouseY} strength={0.03} delay={0.1} />
-          <FloatingParticle size={60} initialX="85%" initialY="15%" mouseX={mouseX} mouseY={mouseY} strength={0.04} delay={0.2} />
-          <FloatingParticle size={100} initialX="75%" initialY="70%" mouseX={mouseX} mouseY={mouseY} strength={0.02} delay={0.3} />
-          <FloatingParticle size={50} initialX="15%" initialY="75%" mouseX={mouseX} mouseY={mouseY} strength={0.05} delay={0.4} />
-          <FloatingParticle size={70} initialX="50%" initialY="10%" mouseX={mouseX} mouseY={mouseY} strength={0.025} delay={0.5} />
+          <FloatingParticle
+            size={80}
+            initialX="10%"
+            initialY="20%"
+            mouseX={mouseX}
+            mouseY={mouseY}
+            strength={0.03}
+            delay={0.1}
+          />
+
+          <FloatingParticle
+            size={60}
+            initialX="85%"
+            initialY="15%"
+            mouseX={mouseX}
+            mouseY={mouseY}
+            strength={0.04}
+            delay={0.2}
+          />
+
+          <FloatingParticle
+            size={100}
+            initialX="75%"
+            initialY="70%"
+            mouseX={mouseX}
+            mouseY={mouseY}
+            strength={0.02}
+            delay={0.3}
+          />
+
+          <FloatingParticle
+            size={50}
+            initialX="15%"
+            initialY="75%"
+            mouseX={mouseX}
+            mouseY={mouseY}
+            strength={0.05}
+            delay={0.4}
+          />
+
+          <FloatingParticle
+            size={70}
+            initialX="50%"
+            initialY="10%"
+            mouseX={mouseX}
+            mouseY={mouseY}
+            strength={0.025}
+            delay={0.5}
+          />
         </div>
       )}
 
-      {/* Overlay keeps the text readable */}
+      {/* Overlay for readable text */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-white/20 via-white/40 to-white/70"
       />
 
-      {/* Centered content */}
+      {/* Centered hero content */}
       <div className="relative z-10 mx-auto flex w-full max-w-6xl justify-center">
         <motion.div
           variants={staggerContainer}
@@ -162,25 +233,31 @@ export default function Hero() {
             />
 
             <span className="text-xs font-medium text-teal-primary sm:text-sm">
-              Software Engineering & Automation
+              Software Engineering &amp; Automation
             </span>
           </motion.div>
 
-          {/* Headline with word reveal animation */}
+          {/* Headline */}
           <h1 className="mb-6 max-w-5xl font-display text-3xl font-semibold leading-tight tracking-tight text-dark-navy sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-            <WordReveal delay={0.2}>Software that runs your business,</WordReveal>{" "}
+            <WordReveal delay={0.2}>
+              Software that runs your business,
+            </WordReveal>{" "}
+
             <motion.span
-              className="text-gradient inline-block"
+              className="inline-block text-gradient"
               initial={{ opacity: 0, filter: "blur(10px)" }}
               animate={{ opacity: 1, filter: "blur(0px)" }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
               built by engineers
             </motion.span>{" "}
-            <WordReveal delay={1}>who understand it</WordReveal>
+
+            <WordReveal delay={1}>
+              who understand it
+            </WordReveal>
           </h1>
 
-          {/* Description with fade in */}
+          {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -192,20 +269,20 @@ export default function Hero() {
             engineers working directly with you.
           </motion.p>
 
-          {/* Features with staggered animation */}
+          {/* Features */}
           <motion.ul
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.4 }}
             className="mb-9 flex w-full flex-col items-center justify-center gap-x-6 gap-y-3 sm:mb-10 sm:flex-row sm:flex-wrap"
           >
-            {features.map((feature, idx) => (
+            {features.map((feature, index) => (
               <motion.li
                 key={feature}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{
-                  delay: 1.5 + idx * 0.15,
+                  delay: 1.5 + index * 0.15,
                   duration: 0.4,
                   ease: "easeOut",
                 }}
@@ -215,7 +292,7 @@ export default function Hero() {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{
-                    delay: 1.6 + idx * 0.15,
+                    delay: 1.6 + index * 0.15,
                     type: "spring",
                     stiffness: 300,
                   }}
@@ -230,7 +307,7 @@ export default function Hero() {
             ))}
           </motion.ul>
 
-          {/* CTA buttons with magnetic effect */}
+          {/* CTA buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
