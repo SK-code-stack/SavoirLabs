@@ -106,7 +106,7 @@ export default function CaseStudies() {
   };
 
   return (
-    <section id="projects" className="py-20 lg:py-28 bg-white">
+    <section id="projects" className="py-20 lg:py-28 bg-light-gray">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div

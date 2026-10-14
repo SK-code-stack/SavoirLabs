@@ -64,7 +64,7 @@ export default function Team() {
   return (
     <section
       id="team"
-      className="py-24 lg:py-32 bg-white relative overflow-hidden"
+      className="py-24 lg:py-32 bg-light-gray relative overflow-hidden"
     >
       {/* Background Glows */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-teal-primary/5 rounded-full blur-[180px] pointer-events-none" />
