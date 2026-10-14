@@ -3,9 +3,7 @@
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { staggerContainer, fadeInUp, viewportOnce } from "@/lib/animations";
-import GradientMesh from "./ui/GradientMesh";
-import NoiseTexture from "./ui/NoiseTexture";
-import { DarkGlassCard } from "./ui/GlassCard";
+import GlassCard from "./ui/GlassCard";
 
 const testimonials = [
   {
@@ -42,11 +40,7 @@ const cardVariants = {
 
 export default function Testimonials() {
   return (
-    <section className="relative py-20 lg:py-28 bg-dark-navy overflow-hidden">
-      {/* Background effects */}
-      <GradientMesh variant="section" />
-      <NoiseTexture opacity={0.02} />
-
+    <section className="relative py-20 lg:py-28 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -58,13 +52,13 @@ export default function Testimonials() {
         >
           <motion.span
             variants={fadeInUp}
-            className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium rounded-full bg-white/10 text-teal-light"
+            className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium rounded-full bg-teal-primary/10 text-teal-primary"
           >
             Client Feedback
           </motion.span>
           <motion.h2
             variants={fadeInUp}
-            className="font-display text-3xl md:text-4xl font-semibold text-white"
+            className="font-display text-3xl md:text-4xl font-semibold text-dark-navy"
           >
             What our clients say
           </motion.h2>
@@ -81,7 +75,7 @@ export default function Testimonials() {
               whileInView="visible"
               viewport={viewportOnce}
             >
-              <DarkGlassCard className="p-6 lg:p-8 h-full">
+              <GlassCard className="p-6 lg:p-8 h-full">
                 {/* Quote Icon */}
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
@@ -91,23 +85,23 @@ export default function Testimonials() {
                 </motion.div>
 
                 {/* Quote Text */}
-                <p className="text-white/90 text-base leading-relaxed mb-6">
+                <p className="text-dark-navy/90 text-base leading-relaxed mb-6">
                   &ldquo;{testimonial.quote}&rdquo;
                 </p>
 
                 {/* Attribution */}
-                <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                <div className="flex items-center gap-3 pt-4 border-t border-dark-navy/10">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-primary/20 to-teal-light/10 flex items-center justify-center">
-                    <span className="text-sm font-semibold text-teal-light">
+                    <span className="text-sm font-semibold text-teal-primary">
                       {testimonial.author.charAt(0)}
                     </span>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-white">{testimonial.author}</p>
-                    <p className="text-xs text-white/60">{testimonial.company}</p>
+                    <p className="text-sm font-medium text-dark-navy">{testimonial.author}</p>
+                    <p className="text-xs text-dark-navy/60">{testimonial.company}</p>
                   </div>
                 </div>
-              </DarkGlassCard>
+              </GlassCard>
             </motion.div>
           ))}
         </div>

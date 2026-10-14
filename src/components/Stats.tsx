@@ -3,9 +3,7 @@
 import { motion } from "framer-motion";
 import { Users, Briefcase, Clock, Award } from "lucide-react";
 import AnimatedCounter from "./ui/AnimatedCounter";
-import NoiseTexture from "./ui/NoiseTexture";
-import GradientMesh from "./ui/GradientMesh";
-import { DarkGlassCard } from "./ui/GlassCard";
+import GlassCard from "./ui/GlassCard";
 
 const stats = [
   {
@@ -36,11 +34,7 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="relative py-20 lg:py-28 bg-dark-navy overflow-hidden">
-      {/* Background effects */}
-      <GradientMesh variant="section" />
-      <NoiseTexture opacity={0.02} />
-
+    <section className="relative py-20 lg:py-28 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section header */}
         <motion.div
@@ -49,10 +43,10 @@ export default function Stats() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium rounded-full bg-white/10 text-teal-light">
+          <span className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium rounded-full bg-teal-primary/10 text-teal-primary">
             Our Impact
           </span>
-          <h2 className="font-display text-3xl md:text-4xl font-semibold text-white">
+          <h2 className="font-display text-3xl md:text-4xl font-semibold text-dark-navy">
             Numbers that speak for themselves
           </h2>
         </motion.div>
@@ -69,7 +63,7 @@ export default function Stats() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
               >
-                <DarkGlassCard className="p-6 lg:p-8 text-center h-full">
+                <GlassCard className="p-6 lg:p-8 text-center h-full">
                   {/* Icon */}
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
@@ -79,7 +73,7 @@ export default function Stats() {
                   </motion.div>
 
                   {/* Counter */}
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">
+                  <div className="text-4xl md:text-5xl font-bold text-dark-navy mb-2">
                     <AnimatedCounter
                       value={stat.value}
                       suffix={stat.suffix}
@@ -88,10 +82,10 @@ export default function Stats() {
                   </div>
 
                   {/* Label */}
-                  <p className="text-white/60 text-sm font-medium">
+                  <p className="text-dark-navy/60 text-sm font-medium">
                     {stat.label}
                   </p>
-                </DarkGlassCard>
+                </GlassCard>
               </motion.div>
             );
           })}
